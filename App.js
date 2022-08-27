@@ -1,20 +1,98 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
+import Route from "./src/route";
+import {
+  MD3LightTheme as DefaultTheme,
+  Provider as PaperProvider,
+} from "react-native-paper";
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <PaperProvider theme={theme}>
+      <Route />
+    </PaperProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    primary: "#09A391",
+    // ...DefaultTheme.colors,
+    // primary: {
+    //   main: "#09A391",
+    //   contrastText: "#fff",
+    // },
+    grey: {
+      100: "#F9FAFB",
+      200: "#F4F6F8",
+      300: "#DFE3E8",
+      400: "#C4CDD5",
+      500: "#919EAB",
+      600: "#637381",
+      700: "#454F5B",
+      800: "#212B36",
+      900: "#161C24",
+      1000: "#919eab52",
+    },
+    success: {
+      main: "#54D62C",
+      contrastText: "#212B36",
+    },
+    error: {
+      main: "#FF4842",
+      contrastText: "#fff",
+    },
+    info: {
+      main: "#1890FF",
+      light: "#D0F2FF",
+      contrastText: "#fff",
+    },
+    warning: {
+      main: "#FFC107",
+      contrastText: "#212B36",
+    },
+    background: {
+      default: "rgb(255 255 255)",
+      paper: "#fff",
+    },
   },
-});
+};
+// /* eslint-disable import/no-anonymous-default-export */
+// const mode = "light"
+// export default {
+//         primary: {
+//           main: "#f05a28",
+//           contrastText: "#fff",
+//         },
+// grey: {
+//   100: "#F9FAFB",
+//   200: "#F4F6F8",
+//   300: "#DFE3E8",
+//   400: "#C4CDD5",
+//   500: "#919EAB",
+//   600: "#637381",
+//   700: "#454F5B",
+//   800: "#212B36",
+//   900: "#161C24",
+//   1000: "#919eab52",
+// },
+// success: {
+//   // main: "#54D62C",
+//   contrastText: "#212B36",
+// },
+// error: {
+//   main: "#FF4842",
+//   contrastText: "#fff",
+// },
+// info: {
+//   main: "#1890FF",
+//   light: "#D0F2FF",
+//   contrastText: "#fff",
+// },
+// warning: {
+//   main: "#FFC107",
+//   contrastText: "#212B36",
+// },
+// background: {
+//   default: "rgb(255 255 255)",
+//   paper: "#fff",
+// },
+// }
