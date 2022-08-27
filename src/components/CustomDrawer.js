@@ -9,61 +9,75 @@ import {
   Entypo,
 } from "@expo/vector-icons";
 import user from "../../assets/user.jpg";
+import { Rating, AirbnbRating } from "react-native-ratings";
 import { useNavigation } from "@react-navigation/native";
+import { useTheme } from "react-native-paper";
 const DrawerContent = ({ ...props }) => {
-  //   const { theme } = useTheme();
+  const { colors } = useTheme();
   const navigation = useNavigation();
+  const ratingCompleted = (rating) => {
+    console.log("Rating is: " + rating);
+  };
   return (
-    <View style={{ flex: 1, backgroundColor: "green" }}>
+    <View style={{ flex: 1, backgroundColor: colors.primary }}>
       <DrawerContentScrollView {...props}>
         <View style={styles.drawerContent}>
           <View style={styles.userInfoSection}>
             <View
               style={{
                 flexDirection: "row",
-                justifyContent: "center",
+                alignItems: "center",
                 marginBottom: 10,
               }}
             >
               <Image style={styles.img} source={user} />
-            </View>
-            <View style={styles.row}>
-              <View style={styles.section}>
-                <Fontisto name="ship" color="orange" size={20} />
-                <Text style={styles.caption}>Only $150 Shipping Fee</Text>
-                {/* <Text style={styles.caption}>Following</Text> */}
-              </View>
-              <View style={styles.section}>
-                <FontAwesome5 name="user-tie" color="orange" size={20} />
-                <Text style={styles.caption}>Contact +61 450 244 828</Text>
+              <View
+                style={{
+                  flexDirection: "column",
+                  marginTop: 20,
+                }}
+              >
+                <Text style={styles.userName}>Nouman baig</Text>
+                <Text style={styles.caption}>Daimond Star</Text>
+                <Rating
+                  type="star"
+                  ratingCount={5}
+                  ratingColor="green"
+                  imageSize={18}
+                  tintColor={colors.primary}
+                  onFinishRating={ratingCompleted}
+                />
               </View>
             </View>
           </View>
 
           <View style={styles.drawerSection}>
             <DrawerItem
+              style={{ borderColor: "white", borderWidth: 1 }}
               labelStyle={{
                 color: "white",
               }}
               icon={({ color, size }) => (
-                <FontAwesome5 name="home" color="purple" size={size} />
+                <FontAwesome5 name="home" color="white" size={size} />
               )}
               label="Home"
               onPress={() => {
-                navigation.navigate("Root");
+                navigation.navigate("Dashboard");
               }}
             />
             <DrawerItem
+              style={{ borderColor: "white", borderWidth: 1 }}
               labelStyle={{
                 color: "white",
               }}
               icon={({ color, size }) => (
-                <AntDesign name="contacts" color="purple" size={size} />
+                <AntDesign name="contacts" color="white" size={size} />
               )}
-              label="Contact"
+              label="My Account"
               onPress={() => {}}
             />
             <DrawerItem
+              style={{ borderColor: "white", borderWidth: 1 }}
               labelStyle={{
                 color: "white",
               }}
@@ -71,7 +85,7 @@ const DrawerContent = ({ ...props }) => {
               icon={({ color, size }) => (
                 <MaterialCommunityIcons
                   name="bookmark-outline"
-                  color="purple"
+                  color="white"
                   size={size}
                 />
               )}
@@ -81,22 +95,48 @@ const DrawerContent = ({ ...props }) => {
               }}
             />
             <DrawerItem
+              style={{ borderColor: "white", borderWidth: 1 }}
               labelStyle={{
                 color: "white",
               }}
               activeTintColor={"blue"}
               icon={({ color, size }) => (
-                <Entypo name="book" color="purple" size={size} />
+                <Entypo name="book" color="white" size={size} />
               )}
-              label="Blogs"
+              label="FAQ"
               onPress={() => {
                 navigation.navigate("Blogs");
               }}
             />
+            <DrawerItem
+              style={{ borderColor: "white", borderWidth: 1 }}
+              labelStyle={{
+                color: "white",
+              }}
+              activeTintColor={"blue"}
+              icon={({ color, size }) => (
+                <Entypo name="book" color="white" size={size} />
+              )}
+              label="Support"
+              onPress={() => {
+                navigation.navigate("Blogs");
+              }}
+            />
+            <DrawerItem
+              style={{ borderColor: "white", borderWidth: 1 }}
+              labelStyle={{
+                color: "white",
+              }}
+              activeTintColor={"blue"}
+              icon={({ color, size }) => (
+                <Entypo name="book" color="white" size={size} />
+              )}
+              label="Logout"
+              onPress={() => {
+                navigation.navigate("SignIn");
+              }}
+            />
           </View>
-          {/* <View>
-          <Text>@numanbaig_</Text>
-        </View> */}
         </View>
       </DrawerContentScrollView>
     </View>
@@ -115,17 +155,23 @@ const styles = StyleSheet.create({
     height: 80,
     width: 80,
     borderRadius: 50,
+    marginRight: 20,
   },
   title: {
     marginTop: 20,
     fontWeight: "bold",
     color: "white",
   },
+  userName: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 5,
+    color: "white",
+  },
   caption: {
     fontSize: 14,
     fontWeight: "bold",
-    marginLeft: 20,
-    marginTop: 10,
+    marginBottom: 5,
     color: "white",
   },
   row: {
@@ -150,18 +196,3 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
 });
-// import React from "react";
-// import {
-//   DrawerItemList,
-//   DrawerItem,
-//   DrawerContentScrollView,
-// } from "@react-navigation/drawer";
-// const CustomDrawerContent = (props) => {
-//   return (
-//     <DrawerContentScrollView {...props}>
-//       <DrawerItemList {...props} />
-//       <DrawerItem label="Home" />
-//     </DrawerContentScrollView>
-//   );
-// };
-// export default CustomDrawerContent;

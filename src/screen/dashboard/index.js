@@ -61,7 +61,9 @@ const Dashboard = (props) => {
                     <Image style={styles.img} source={e.userImageUrl} />
                   </Card.Content>
                   <Card.Content>
-                    <Title>{e.userName}</Title>
+                    <Paragraph style={{ fontSize: 16, fontWeight: "bold" }}>
+                      {e.userName}
+                    </Paragraph>
                     <Paragraph>{e.pickupTiming}</Paragraph>
                   </Card.Content>
                 </View>
@@ -132,9 +134,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    elevation: 5,
-    padding: 10,
-    borderRadius: 15,
+    elevation: 2,
+
+    padding: 8,
+    borderRadius: 10,
     margin: 5,
   },
   btn2: {
@@ -142,12 +145,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 10,
-    borderRadius: 15,
-    elevation: 5,
+    padding: 8,
+    borderRadius: 10,
+
+    elevation: 2,
     margin: 5,
-    borderColor: "red",
-    borderWidth: 1,
+    borderColor: "#09A391",
+    borderWidth: 0.5,
   },
 });
 const TravelRequest = [

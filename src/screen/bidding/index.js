@@ -12,7 +12,7 @@ const Bidding = ({ route }, props) => {
         style={{
           flex: 1,
           alignItems: "center",
-          paddingTop: 70,
+          padding: 40,
           backgroundColor: "#09A391",
         }}
       >
