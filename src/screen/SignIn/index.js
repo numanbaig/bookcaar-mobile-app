@@ -38,12 +38,11 @@ const SignIn = () => {
           <KeyboardAvoidingView enabled>
             <View style={{ alignItems: "center" }}>
               <Image
-                source={require("../../../assets/user.jpg")}
+                source={require("../../../assets/logo.png")}
                 style={{
-                  width: "50%",
-                  height: 100,
                   resizeMode: "contain",
-                  margin: 30,
+                  height: 150,
+                  width: 200,
                 }}
               />
             </View>
@@ -125,7 +124,8 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 30,
+    borderRadius: 10,
+
     marginLeft: 15,
     marginRight: 15,
     marginTop: 15,
@@ -142,8 +142,9 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
     borderWidth: 1,
-    borderRadius: 30,
-    borderColor: "#dadae8",
+    borderRadius: 10,
+
+    borderColor: "#09A391",
   },
   registerTextStyle: {
     color: "#09A391",

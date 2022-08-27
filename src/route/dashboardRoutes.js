@@ -5,17 +5,18 @@ import Income from "../screen/dashboard";
 import Rating from "../screen/rating";
 import Insurance from "../screen/insurance";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import Icome from "../screen/income";
-
+import { withTheme } from "react-native-paper";
 const Tab = createBottomTabNavigator();
 
-const DashboardRoutes = () => {
+const DashboardRoutes = (props) => {
+  const { colors } = props.theme;
+
   return (
     <Tab.Navigator
       tabBarPosition="bottom"
       screenOptions={{
         tabBarHideOnKeyboard: true,
-        tabBarActiveTintColor: "orange",
+        tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: "#ADADB7",
         tabBarLabelStyle: {
           margin: 3,
@@ -45,7 +46,7 @@ const DashboardRoutes = () => {
           ),
         }}
         name="income"
-        component={Icome}
+        component={Income}
       />
       <Tab.Screen
         options={{
@@ -77,4 +78,4 @@ const DashboardRoutes = () => {
   );
 };
 
-export default DashboardRoutes;
+export default withTheme(DashboardRoutes);

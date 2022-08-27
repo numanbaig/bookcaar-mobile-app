@@ -34,11 +34,13 @@ const Dashboard = (props) => {
         >
           <Entypo name="menu" color={colors.primary} size={25} />
         </TouchableOpacity>
-        <Ionicons
-          name="notifications-outline"
-          color={colors.primary}
-          size={25}
-        />
+        <TouchableOpacity>
+          <Ionicons
+            name="notifications-outline"
+            color={colors.primary}
+            size={25}
+          />
+        </TouchableOpacity>
       </View>
       <ScrollView>
         {TravelRequest.map((e, index) => {
@@ -54,7 +56,7 @@ const Dashboard = (props) => {
                 <View
                   style={{
                     width: 80,
-                    flex: 1,
+                    flex: 3,
                   }}
                 >
                   <Card.Content>
@@ -69,25 +71,20 @@ const Dashboard = (props) => {
                 </View>
                 <View
                   style={{
-                    flex: 2,
+                    flex: 5.5,
                     justifyContent: "center",
                   }}
                 >
-                  <Paragraph>Pickup Location:{e.pickupLocation}</Paragraph>
-                  <Paragraph>Drop Location: {e.dropLocation}</Paragraph>
-                  <Paragraph>Booking Type: {e.tripType}</Paragraph>
+                  <Text>Pickup Location:{e.pickupLocation}</Text>
+                  <Text>Drop Location: {e.dropLocation}</Text>
+                  <Text>Booking Type: {e.tripType}</Text>
                   {e.tripType === "Per Day" ? (
-                    <Paragraph>Booking Days: {e.bookingDay}</Paragraph>
+                    <Text>Booking Days: {e.bookingDay}</Text>
                   ) : (
                     <Text></Text>
                   )}
                   <View style={{ display: "flex", flexDirection: "row" }}>
-                    <TouchableOpacity
-                      onPress={() => {
-                        navigation.openDrawer();
-                      }}
-                      style={styles.btn2}
-                    >
+                    <TouchableOpacity onPress={() => {}} style={styles.btn2}>
                       <Text style={styles.btnText2}>Cancel</Text>
                     </TouchableOpacity>
                     <TouchableOpacity

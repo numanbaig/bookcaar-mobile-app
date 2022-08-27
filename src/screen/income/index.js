@@ -1,15 +1,15 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const Icome = () => {
+const Income = () => {
   return (
     <View style={styles.container}>
-      <Text>Icome</Text>
+      <Text>Income</Text>
     </View>
   );
 };
 
-export default Icome;
+export default Income;
 
 const styles = StyleSheet.create({
   container: {

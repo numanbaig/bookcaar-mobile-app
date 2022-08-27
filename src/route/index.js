@@ -4,12 +4,13 @@ import Bidding from "../screen/bidding";
 import EditImage from "../screen/editImage";
 import SignIn from "../screen/SignIn";
 import SignUp from "../screen/SignUp";
+import Splash from "../screen/Splash";
 import DrawerRoutes from "./drawer";
 const Stack = createNativeStackNavigator();
 const Route = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="SignUp">
+      <Stack.Navigator initialRouteName="Splash">
         <Stack.Screen
           name="Bidding"
           component={Bidding}
@@ -28,6 +29,11 @@ const Route = () => {
         <Stack.Screen
           name="EditImage"
           component={EditImage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Splash"
+          component={Splash}
           options={{ headerShown: false }}
         />
         <Stack.Screen

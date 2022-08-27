@@ -72,7 +72,7 @@ const SignUp = () => {
               style={styles.input}
               underlineColorAndroid="transparent"
               placeholder="Name"
-              placeholderTextColor="#09A391"
+              placeholderTextColor="#8b9cb5"
               autoCapitalize="none"
             />
           </View>
@@ -82,7 +82,7 @@ const SignUp = () => {
               style={styles.input}
               underlineColorAndroid="transparent"
               placeholder="Email"
-              placeholderTextColor="#09A391"
+              placeholderTextColor="#8b9cb5"
               autoCapitalize="none"
             />
           </View>
@@ -92,7 +92,7 @@ const SignUp = () => {
               style={styles.input}
               underlineColorAndroid="transparent"
               placeholder="Password"
-              placeholderTextColor="#09A391"
+              placeholderTextColor="#8b9cb5"
               autoCapitalize="none"
             />
           </View>
@@ -102,7 +102,7 @@ const SignUp = () => {
               style={styles.input}
               underlineColorAndroid="transparent"
               placeholder="Phone Number"
-              placeholderTextColor="#09A391"
+              placeholderTextColor="#8b9cb5"
               autoCapitalize="none"
             />
           </View>
@@ -190,7 +190,7 @@ const SignUp = () => {
         activeOpacity={0.5}
         onPress={() => navigation.navigate("Home")}
       >
-        <Text style={styles.buttonTextStyle}>LOGIN</Text>
+        <Text style={styles.buttonTextStyle}>Sign Up</Text>
       </TouchableOpacity>
     </View>
   );
@@ -219,15 +219,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 10,
     height: 50,
-    color: "black",
+    color: "#09A391",
+
     borderColor: "black",
     paddingLeft: 14,
     borderWidth: 1,
   },
   checkbox: {
-    marginVertical: 5,
     marginRight: 8,
-    marginBottom: 1,
+    alignItems: "center",
   },
   imageComponent: {
     justifyContent: "center",
@@ -245,6 +245,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   section: {
+    paddingBottom: 5,
     flexDirection: "row",
     alignItems: "center",
   },
