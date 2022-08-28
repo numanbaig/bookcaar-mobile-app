@@ -1,5 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import AddCarDetails from "../screen/addcardetails";
 import Bidding from "../screen/bidding";
 import EditImage from "../screen/editImage";
 import SignIn from "../screen/SignIn";
@@ -14,6 +15,11 @@ const Route = () => {
         <Stack.Screen
           name="Bidding"
           component={Bidding}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AddCarDetails"
+          component={AddCarDetails}
           options={{ headerShown: false }}
         />
         <Stack.Screen

@@ -8,26 +8,11 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useState, useCallback } from "react";
-import Checkbox from "expo-checkbox";
-import DropDownPicker from "react-native-dropdown-picker";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-
 const SignUp = () => {
   const navigation = useNavigation();
-
-  const [isChecked, setChecked] = useState(false);
-  const [companyOpen, setCompanyOpen] = useState(false);
-  const [companyValue, setCompanyValue] = useState(null);
-  const [company, setComapny] = useState([
-    { label: "PUCIT", value: "pucit" },
-    { label: "UCP", value: "ucp" },
-    { label: "UET", value: "uet" },
-  ]);
-  const onCompanyOpen = useCallback(() => {
-    setCompanyOpen(false);
-  }, []);
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -41,10 +26,7 @@ const SignUp = () => {
     }
   };
   return (
-    <View
-      nestedScrollEnabled={true}
-      style={{ backgroundColor: "white", flex: 1 }}
-    >
+    <View style={{ backgroundColor: "white", flex: 1 }}>
       <ScrollView
         nestedScrollEnabled={true}
         style={{ backgroundColor: "white", flex: 1 }}
@@ -106,89 +88,12 @@ const SignUp = () => {
               autoCapitalize="none"
             />
           </View>
-          <View style={styles.section}>
-            <Checkbox
-              style={styles.checkbox}
-              value={isChecked}
-              onValueChange={setChecked}
-              color={isChecked ? "#09A391" : undefined}
-            />
-            <Text style={styles.paragraph}>AC Available</Text>
-          </View>
-          <View style={styles.dropdownCompany}>
-            <DropDownPicker
-              style={styles.dropdown}
-              open={companyOpen}
-              value={companyValue}
-              items={[
-                { label: "Premium", value: "premium" },
-                { label: "Normal", value: "normal" },
-              ]}
-              setOpen={setCompanyOpen}
-              setValue={setCompanyValue}
-              setItems={setComapny}
-              placeholder="Car Type"
-              placeholderStyle={styles.placeholderStyles}
-              activityIndicatorColor="#5188E3"
-              searchable={false}
-              onOpen={() => {}}
-              zIndex={1000}
-              zIndexInverse={3000}
-            />
-          </View>
-          <View style={styles.dropdownCompany}>
-            <DropDownPicker
-              style={styles.dropdown}
-              open={companyOpen}
-              value={companyValue}
-              items={[
-                { label: "2", value: "2" },
-                { label: "3", value: "3" },
-                { label: "4", value: "4" },
-                { label: "5", value: "5" },
-              ]}
-              setOpen={setCompanyOpen}
-              setValue={setCompanyValue}
-              setItems={setComapny}
-              placeholder="Seats"
-              placeholderStyle={styles.placeholderStyles}
-              activityIndicatorColor="#5188E3"
-              searchable={false}
-              onOpen={() => {}}
-              zIndex={1000}
-              zIndexInverse={3000}
-            />
-          </View>
-          <View style={styles.dropdownCompany}>
-            <DropDownPicker
-              style={styles.dropdown}
-              open={companyOpen}
-              value={companyValue}
-              items={[
-                { label: "1", value: "1" },
-                { label: "2", value: "2" },
-                { label: "3", value: "3" },
-                { label: "4", value: "4" },
-                { label: "5", value: "5" },
-              ]}
-              setOpen={setCompanyOpen}
-              setValue={setCompanyValue}
-              setItems={setComapny}
-              placeholder="Baggage"
-              placeholderStyle={styles.placeholderStyles}
-              activityIndicatorColor="#5188E3"
-              searchable={false}
-              onOpen={() => {}}
-              zIndex={1000}
-              zIndexInverse={3000}
-            />
-          </View>
         </View>
       </ScrollView>
       <TouchableOpacity
         style={styles.buttonStyle}
         activeOpacity={0.5}
-        onPress={() => navigation.navigate("Home")}
+        onPress={() => navigation.navigate("AddCarDetails")}
       >
         <Text style={styles.buttonTextStyle}>Sign Up</Text>
       </TouchableOpacity>
@@ -199,6 +104,19 @@ const SignUp = () => {
 export default SignUp;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    // paddingTop: Constants.statusBarHeight,
+    backgroundColor: "#ecf0f1",
+    padding: 8,
+  },
+  paragraph: {
+    margin: 24,
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
   innerContainer: {
     flex: 1,
     margin: 20,
