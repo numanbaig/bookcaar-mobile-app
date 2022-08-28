@@ -6,102 +6,244 @@ import {
   TextInput,
   Image,
   ScrollView,
-} from "react-native";
-import React, { useState, useCallback } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { FontAwesome5 } from "@expo/vector-icons";
-import * as ImagePicker from "expo-image-picker";
-const SignUp = () => {
-  const navigation = useNavigation();
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    if (!result.cancelled) {
-      setBool(true);
-      setImage(result.uri);
-    }
-  };
-  return (
-    <View style={{ backgroundColor: "white", flex: 1 }}>
-      <ScrollView
-        nestedScrollEnabled={true}
-        style={{ backgroundColor: "white", flex: 1 }}
-      >
-        <View style={styles.innerContainer}>
-          <TouchableOpacity style={styles.imageComponent} onPress={pickImage}>
-            <Image
-              style={{ height: 100, width: 100, borderRadius: 200 }}
-              source={require("../../../assets/user.jpg")}
-            />
-            <View style={styles.add}>
-              <TouchableOpacity>
-                <FontAwesome5
-                  name="user-edit"
-                  width={20}
-                  height={20}
-                  fill="#111"
-                />
-              </TouchableOpacity>
-            </View>
-          </TouchableOpacity>
-          <View style={styles.inputContainer}>
-            <Text>Name</Text>
-            <TextInput
-              style={styles.input}
-              underlineColorAndroid="transparent"
-              placeholder="Name"
-              placeholderTextColor="#8b9cb5"
-              autoCapitalize="none"
-            />
-          </View>
-          <View style={styles.inputContainer}>
-            <Text>Email</Text>
-            <TextInput
-              style={styles.input}
-              underlineColorAndroid="transparent"
-              placeholder="Email"
-              placeholderTextColor="#8b9cb5"
-              autoCapitalize="none"
-            />
-          </View>
-          <View style={styles.inputContainer}>
-            <Text>Password</Text>
-            <TextInput
-              style={styles.input}
-              underlineColorAndroid="transparent"
-              placeholder="Password"
-              placeholderTextColor="#8b9cb5"
-              autoCapitalize="none"
-            />
-          </View>
-          <View style={styles.inputContainer}>
-            <Text>Phone Number</Text>
-            <TextInput
-              style={styles.input}
-              underlineColorAndroid="transparent"
-              placeholder="Phone Number"
-              placeholderTextColor="#8b9cb5"
-              autoCapitalize="none"
-            />
-          </View>
-        </View>
-      </ScrollView>
-      <TouchableOpacity
-        style={styles.buttonStyle}
-        activeOpacity={0.5}
-        onPress={() => navigation.navigate("AddCarDetails")}
-      >
-        <Text style={styles.buttonTextStyle}>Sign Up</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
+} from "react-native"
+import { Permissions } from "expo"
+import React, { useState, useEffect } from "react"
+import { useNavigation } from "@react-navigation/native"
+import { FontAwesome5 } from "@expo/vector-icons"
+import { createUserWithEmail } from "../../store/services/Auth"
+import { useDispatch } from "react-redux"
+import { Formik, Form } from "formik"
+import * as Yup from "yup"
+import * as ImagePicker from "expo-image-picker"
+import { pickImage } from "../../store/helpers/pickImage"
+import { useSelector } from "react-redux"
 
-export default SignUp;
+import { signUpState } from "../../store/slices/userSlice"
+export const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
+const validationSchema = Yup.object({
+  name: Yup.string()
+    .max(15, "Must be 15 characters or less")
+    .required("Required"),
+  passowrd: Yup.string()
+    .max(20, "Must be 20 characters or less")
+    .required("Required"),
+  cnic: Yup.string()
+    .max(13, "Must be 13 Numbers")
+    .min(13, "Must be 13 Numbers")
+    .required("Required"),
+  email: Yup.string().email("Invalid email address").required("Required"),
+  phoneNumber: Yup.string()
+    .required("required")
+    .matches(phoneRegExp, "Phone number is not valid")
+    .min(10, "to short")
+    .max(13, "to long"),
+  cnicImage: Yup.string().required("required"),
+})
+const SignUp = () => {
+  const navigation = useNavigation()
+  const dispatch = useDispatch()
+  const isSignUpLoading = useSelector(signUpState)
+  const [galleryPermission, setGalleryPermission] = useState(false)
+
+  const permisionFunction = async () => {
+    const imagePermission = await ImagePicker.getMediaLibraryPermissionsAsync()
+
+    setGalleryPermission(imagePermission.status === "granted")
+
+    if (
+      imagePermission.status !== "granted" &&
+      cameraPermission.status !== "granted"
+    ) {
+      alert("Permission for media access needed.")
+    }
+  }
+  useEffect(() => {
+    permisionFunction()
+  }, [])
+
+  return (
+    <>
+      <Formik
+        initialValues={{
+          profileImage: "",
+          name: "",
+          email: "",
+          password: "",
+          phoneNumber: "",
+          cnic: "",
+          cnicImage: "",
+        }}
+        validationSchema={validationSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          // dispatch(createUserWithEmail(values))
+          setTimeout(() => {}, 3000)
+        }}
+      >
+        {({
+          errors,
+          touched,
+          handleSubmit,
+          handleChange,
+          values,
+          setFieldValue,
+          isSubmitting,
+        }) => (
+          <View style={{ backgroundColor: "white", flex: 1 }}>
+            <ScrollView
+              nestedScrollEnabled={true}
+              style={{ backgroundColor: "white", flex: 1 }}
+            >
+              <View style={styles.innerContainer}>
+                <TouchableOpacity
+                  style={styles.imageComponent}
+                  onPress={async () =>
+                    setFieldValue("profileImage", (await pickImage()) || "")
+                  }
+                >
+                  {!values.profileImage ? (
+                    <Image
+                      style={{ height: 100, width: 100, borderRadius: 200 }}
+                      source={require("../../../assets/user.jpg")}
+                    />
+                  ) : (
+                    <Image
+                      style={{ height: 100, width: 100, borderRadius: 200 }}
+                      source={{
+                        uri: values.profileImage,
+                      }}
+                    />
+                  )}
+
+                  <View style={styles.add}>
+                    <TouchableOpacity>
+                      <FontAwesome5
+                        name="user-edit"
+                        width={20}
+                        height={20}
+                        fill="#111"
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </TouchableOpacity>
+                <View style={styles.inputContainer}>
+                  <Text>Name</Text>
+                  <TextInput
+                    style={styles.input}
+                    underlineColorAndroid="transparent"
+                    placeholder="Name"
+                    placeholderTextColor="#8b9cb5"
+                    autoCapitalize="none"
+                    onChangeText={handleChange("name")}
+                    value={values.name}
+                  />
+                  {touched.name && errors.name ? (
+                    <Text style={{ color: "red" }}>{errors.name}</Text>
+                  ) : null}
+                </View>
+                <View style={styles.inputContainer}>
+                  <Text>Email</Text>
+                  <TextInput
+                    style={styles.input}
+                    underlineColorAndroid="transparent"
+                    placeholder="Email"
+                    placeholderTextColor="#8b9cb5"
+                    autoCapitalize="none"
+                    onChangeText={handleChange("email")}
+                    value={values.email}
+                  />
+                  {touched.email && errors.email ? (
+                    <Text style={{ color: "red" }}>{errors.email}</Text>
+                  ) : null}
+                </View>
+                <View style={styles.inputContainer}>
+                  <Text>Password</Text>
+                  <TextInput
+                    style={styles.input}
+                    underlineColorAndroid="transparent"
+                    placeholder="Password"
+                    placeholderTextColor="#8b9cb5"
+                    autoCapitalize="none"
+                    onChangeText={handleChange("password")}
+                    value={values.password}
+                  />
+                  {touched.password && errors.password ? (
+                    <Text style={{ color: "red" }}>{errors.password}</Text>
+                  ) : null}
+                </View>
+                <View style={styles.inputContainer}>
+                  <Text>Phone Number</Text>
+                  <TextInput
+                    style={styles.input}
+                    underlineColorAndroid="transparent"
+                    placeholder="Phone Number"
+                    placeholderTextColor="#8b9cb5"
+                    autoCapitalize="none"
+                    onChangeText={handleChange("phoneNumber")}
+                    value={values.phoneNumber}
+                  />
+                  {touched.phoneNumber && errors.phoneNumber ? (
+                    <Text style={{ color: "red" }}>{errors.phoneNumber}</Text>
+                  ) : null}
+                </View>
+                <View style={styles.inputContainer}>
+                  <Text>CNIC</Text>
+                  <TextInput
+                    style={styles.inputStyle}
+                    placeholder="CNIC"
+                    placeholderTextColor="#8b9cb5"
+                    underlineColorAndroid="#f000"
+                    blurOnSubmit={false}
+                    onChangeText={handleChange("cnic")}
+                    value={values.cnic}
+                  />
+                  {touched.cnic && errors.cnic ? (
+                    <Text style={{ color: "red" }}>{errors.cnic}</Text>
+                  ) : null}
+                </View>
+                <View style={{ ...styles.inputContainer, marginTop: 20 }}>
+                  <TouchableOpacity
+                    style={styles.uploadButtonStyle}
+                    activeOpacity={0.5}
+                    onPress={async () => {
+                      galleryPermission
+                        ? setFieldValue("cnicImage", (await pickImage()) || "")
+                        : permisionFunction()
+                    }}
+                  >
+                    <Text style={styles.uploadButtonTextStyle}>
+                      Upload CNIC
+                    </Text>
+                  </TouchableOpacity>
+                  {values.cnicImage ? (
+                    <Text sx={{ textAlign: "center" }}>{"Uploaded"}</Text>
+                  ) : null}
+                  {touched.cnicImage && errors.cnicImage ? (
+                    <Text style={{ color: "red" }}>{errors.cnicImage}</Text>
+                  ) : null}
+                </View>
+              </View>
+            </ScrollView>
+            <TouchableOpacity
+              style={styles.buttonStyle}
+              activeOpacity={0.5}
+              disabled={isSignUpLoading}
+              onPress={async () => {
+                handleSubmit()
+              }}
+            >
+              <Text style={styles.buttonTextStyle}>Sign Up</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </Formik>
+    </>
+  )
+}
+
+export default SignUp
 
 const styles = StyleSheet.create({
   container: {
@@ -121,6 +263,7 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 20,
     marginTop: 50,
+    marginBottom: 80,
   },
   inputContainer: {
     marginBottom: 10,
@@ -185,4 +328,39 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
-});
+  uploadButtonStyle: {
+    backgroundColor: "white",
+    borderWidth: 0,
+    borderColor: "#09A391",
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 15,
+    marginLeft: 10,
+    marginRight: 15,
+  },
+  uploadButtonTextStyle: {
+    color: "black",
+    paddingVertical: 10,
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  inputStyle: {
+    flex: 1,
+    color: "#09A391",
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#09A391",
+    height: 50,
+  },
+  SectionStyle: {
+    flexDirection: "row",
+    height: 50,
+    marginTop: 15,
+    marginLeft: 15,
+    marginRight: 15,
+    margin: 5,
+  },
+})

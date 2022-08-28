@@ -1,6 +1,14 @@
 {
   "expo": {
     "name": "bookcaar",
+     "plugins": [
+    [
+      "expo-image-picker",
+      {
+        "locationWhenInUsePermission": "Allow Bookcaar to access your location"
+      }
+    ]
+    ],
     "slug": "bookcaar",
     "version": "1.0.0",
     "orientation": "portrait",

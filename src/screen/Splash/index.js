@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { ActivityIndicator, View, StyleSheet, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-
+import React, { useState, useEffect } from "react"
+import { ActivityIndicator, View, StyleSheet, Image } from "react-native"
+import { useNavigation } from "@react-navigation/native"
+import { getCurrentUser } from "../../store/services/Auth"
+import { useDispatch, useSelector } from "react-redux"
+import { currentUser } from "../../store/slices/userSlice"
 const Splash = () => {
-  const navigation = useNavigation();
-
-  const [animating, setAnimating] = useState(true);
+  const navigation = useNavigation()
+  const dispatch = useDispatch()
+  const user = useSelector(currentUser)
 
   useEffect(() => {
-    setTimeout(() => {
-      setAnimating(false);
-      navigation.replace("SignIn");
-      //   AsyncStorage.getItem("user_id").then((value) =>
-      //     navigation.replace(value === null ? "Auth" : "DrawerNavigationRoutes")
-      //   );
-    }, 3000);
-  }, []);
+    dispatch(getCurrentUser())
+  }, [])
 
+  if (user) {
+    navigation.replace("Home")
+  }
   return (
     <View style={styles.container}>
       <Image
@@ -24,16 +23,16 @@ const Splash = () => {
         style={{ resizeMode: "contain", height: 150, width: 200 }}
       />
       <ActivityIndicator
-        animating={animating}
+        animating={true}
         color="#FFFFFF"
         size="large"
         style={styles.activityIndicator}
       />
     </View>
-  );
-};
+  )
+}
 
-export default Splash;
+export default Splash
 
 const styles = StyleSheet.create({
   container: {
@@ -45,4 +44,4 @@ const styles = StyleSheet.create({
   activityIndicator: {
     alignItems: "center",
   },
-});
+})
