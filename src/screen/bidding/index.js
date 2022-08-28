@@ -107,7 +107,12 @@ const Bidding = ({ route }, props) => {
             100 Pkr
           </Text>
         </View>
-        <TextInput mode="outlined" label="" placeholder="Bidding Amount" />
+        <TextInput
+          keyboardType="numeric"
+          mode="outlined"
+          label=""
+          placeholder="Bidding Amount"
+        />
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Home");
@@ -120,9 +125,9 @@ const Bidding = ({ route }, props) => {
           onPress={() => {
             navigation.goBack();
           }}
-          style={styles.btn}
+          style={styles.btn2}
         >
-          <Text style={styles.btnText}>Cancel</Text>
+          <Text style={styles.btnText2}>Cancel</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -145,8 +150,22 @@ const styles = StyleSheet.create({
     elevation: 5,
     paddingVertical: 18,
   },
+  btn2: {
+    borderColor: "#09A391",
+    borderWidth: 1,
+    alignItems: "center",
+    backgroundColor: "transparent",
+    borderRadius: 15,
+    marginTop: 15,
+    paddingVertical: 18,
+  },
   btnText: {
     color: "white",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  btnText2: {
+    color: "#09A391",
     fontWeight: "bold",
     fontSize: 16,
   },

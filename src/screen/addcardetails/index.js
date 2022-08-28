@@ -11,20 +11,34 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import Checkbox from "expo-checkbox";
 import DropDownPicker from "react-native-dropdown-picker";
+import * as ImagePicker from "expo-image-picker";
+
 const AddCarDetails = () => {
   const navigation = useNavigation();
 
   const [isChecked, setChecked] = useState(false);
   const [seatOpen, setSeatOpen] = useState("");
+  const [seatValue, setSeatValue] = useState("");
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    if (!result.cancelled) {
+      setBool(true);
+      setImage(result.uri);
+    }
+  };
   return (
     <View style={styles.mainBody}>
       <Text style={styles.paragraph}>Add Car Details</Text>
-
       <View style={styles.SectionStyle}>
         <TextInput
           style={styles.inputStyle}
           onChangeText={(UserEmail) => setUserEmail(UserEmail)}
-          placeholder="Enter Email"
+          placeholder="CNIC"
           placeholderTextColor="#8b9cb5"
           autoCapitalize="none"
           keyboardType="email-address"
@@ -41,7 +55,7 @@ const AddCarDetails = () => {
         <TextInput
           style={styles.inputStyle}
           onChangeText={(UserEmail) => setUserEmail(UserEmail)}
-          placeholder="Enter Email"
+          placeholder="Vehical Registration Number(Number Plate)"
           placeholderTextColor="#8b9cb5"
           autoCapitalize="none"
           keyboardType="email-address"
@@ -53,12 +67,78 @@ const AddCarDetails = () => {
           blurOnSubmit={false}
         />
       </View>
-
+      <View style={styles.section}>
+        <Checkbox
+          style={{ color: "#09A391", margin: 15 }}
+          status={isChecked ? "checked" : "unchecked"}
+          onPress={() => {
+            setChecked(!isChecked);
+          }}
+        />
+        <Text>AC available</Text>
+      </View>
+      <View style={styles.section}>
+        <Checkbox
+          style={{ color: "#09A391", margin: 15 }}
+          status={isChecked ? "checked" : "unchecked"}
+          onPress={() => {
+            setChecked(!isChecked);
+          }}
+        />
+        <Text>Add Car Details</Text>
+      </View>
       <View style={styles.SectionStyle}>
         <DropDownPicker
           placeholder="Select Seats"
           open={seatOpen}
           setOpen={setSeatOpen}
+          value={seatValue}
+          items={[
+            { label: "1", value: "1" },
+            { label: "2", value: "2" },
+            { label: "3", value: "3" },
+            { label: "4", value: "4" },
+          ]}
+          defaultIndex={0}
+          containerStyle={{ height: 40 }}
+          onChange={(item) => {
+            setSeatValue(item.value);
+            console.log(item, "item");
+          }}
+          zIndex={1000}
+          zIndexInverse={3000}
+        />
+      </View>
+
+      <View style={styles.SectionStyle}>
+        <DropDownPicker
+          placeholder="Select Baggage"
+          open={seatOpen}
+          setOpen={setSeatOpen}
+          value={seatValue}
+          items={[
+            { label: "1", value: "1" },
+            { label: "2", value: "2" },
+            { label: "3", value: "3" },
+            { label: "4", value: "4" },
+            { label: "5", value: "5" },
+          ]}
+          defaultIndex={0}
+          containerStyle={{ height: 40 }}
+          onChange={(item) => {
+            setSeatValue(item.value);
+            console.log(item, "item");
+          }}
+          zIndex={1000}
+          zIndexInverse={3000}
+        />
+      </View>
+      <View style={styles.SectionStyle}>
+        <DropDownPicker
+          placeholder="Select Seats"
+          open={seatOpen}
+          setOpen={setSeatOpen}
+          value={seatValue}
           items={[
             { label: "English", value: "en" },
             { label: "Deutsch", value: "de" },
@@ -66,18 +146,27 @@ const AddCarDetails = () => {
           ]}
           defaultIndex={0}
           containerStyle={{ height: 40 }}
-          onChangeItem={(item) => console.log(item.label, item.value)}
+          onChange={(item) => {
+            setSeatValue(item.value);
+            console.log(item, "item");
+          }}
           zIndex={1000}
           zIndexInverse={3000}
         />
       </View>
-
+      <TouchableOpacity
+        style={styles.uploadButtonStyle}
+        activeOpacity={0.5}
+        onPress={pickImage}
+      >
+        <Text style={styles.uploadButtonTextStyle}>Upload Car Pictures</Text>
+      </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonStyle}
         activeOpacity={0.5}
         onPress={() => navigation.navigate("Home")}
       >
-        <Text style={styles.buttonTextStyle}>LOGIN</Text>
+        <Text style={styles.buttonTextStyle}>SUBMIT</Text>
       </TouchableOpacity>
     </View>
   );
@@ -92,9 +181,8 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   section: {
-    paddingBottom: 5,
     flexDirection: "row",
-    flex: 1,
+    alignItems: "center",
   },
   checkbox: {
     marginright: 10,
@@ -191,8 +279,26 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 15,
     marginTop: 15,
-    margin: 20,
-    marginHorizontal: 20,
+    marginHorizontal: 15,
+  },
+  uploadButtonStyle: {
+    backgroundColor: "white",
+    borderWidth: 0,
+    borderColor: "#09A391",
+    borderWidth: 1,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 15,
+    marginLeft: 10,
+    marginRight: 15,
+    marginTop: 15,
+  },
+  uploadButtonTextStyle: {
+    color: "black",
+    paddingVertical: 10,
+    fontWeight: "bold",
+    fontSize: 16,
   },
   buttonTextStyle: {
     color: "#FFFFFF",
