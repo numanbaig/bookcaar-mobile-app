@@ -6,25 +6,36 @@ import {
   TextInput,
   Image,
   ScrollView,
-} from "react-native";
-import React, { useState, useCallback } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { FontAwesome5 } from "@expo/vector-icons";
-import * as ImagePicker from "expo-image-picker";
+} from "react-native"
+import React, { useState, useCallback } from "react"
+import { useNavigation } from "@react-navigation/native"
+import { FontAwesome5 } from "@expo/vector-icons"
+import * as ImagePicker from "expo-image-picker"
+import { createUserWithEmail } from "../../store/services/Auth"
+import { useDispatch } from "react-redux"
+import { auth } from "../../store"
 const SignUp = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation()
+  const dispatch = useDispatch()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  const handleSubmitRegistration = () => {
+    console.log("asdasd")
+    dispatch(createUserWithEmail({ email, password }))
+  }
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
-    });
+    })
     if (!result.cancelled) {
-      setBool(true);
-      setImage(result.uri);
+      setBool(true)
+      setImage(result.uri)
     }
-  };
+  }
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
       <ScrollView
@@ -66,6 +77,7 @@ const SignUp = () => {
               placeholder="Email"
               placeholderTextColor="#8b9cb5"
               autoCapitalize="none"
+              onChangeText={(e) => setEmail(e)}
             />
           </View>
           <View style={styles.inputContainer}>
@@ -76,6 +88,7 @@ const SignUp = () => {
               placeholder="Password"
               placeholderTextColor="#8b9cb5"
               autoCapitalize="none"
+              onChangeText={(e) => setPassword(e)}
             />
           </View>
           <View style={styles.inputContainer}>
@@ -93,15 +106,15 @@ const SignUp = () => {
       <TouchableOpacity
         style={styles.buttonStyle}
         activeOpacity={0.5}
-        onPress={() => navigation.navigate("AddCarDetails")}
+        onPress={() => handleSubmitRegistration()}
       >
         <Text style={styles.buttonTextStyle}>Sign Up</Text>
       </TouchableOpacity>
     </View>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default SignUp
 
 const styles = StyleSheet.create({
   container: {
@@ -185,4 +198,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
-});
+})
