@@ -1,22 +1,19 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Dashboard from "../screen/dashboard";
-import Income from "../screen/dashboard";
 import Rating from "../screen/rating";
 import Insurance from "../screen/insurance";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import { withTheme } from "react-native-paper";
+import Income from "../screen/income";
 const Tab = createBottomTabNavigator();
 
 const DashboardRoutes = (props) => {
-  const { colors } = props.theme;
-
   return (
     <Tab.Navigator
       tabBarPosition="bottom"
       screenOptions={{
         tabBarHideOnKeyboard: true,
-        tabBarActiveTintColor: colors.primary,
+        tabBarActiveTintColor: "#09A391",
         tabBarInactiveTintColor: "#ADADB7",
         tabBarLabelStyle: {
           margin: 3,
@@ -78,4 +75,4 @@ const DashboardRoutes = (props) => {
   );
 };
 
-export default withTheme(DashboardRoutes);
+export default DashboardRoutes;

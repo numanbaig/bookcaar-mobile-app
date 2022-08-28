@@ -7,13 +7,11 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
-import { withTheme } from "react-native-paper";
 import React from "react";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import { Card, Title, Paragraph } from "react-native-paper";
 const Dashboard = (props) => {
   const { navigation } = props;
-  const { colors } = props.theme;
   return (
     <View>
       <View
@@ -32,14 +30,10 @@ const Dashboard = (props) => {
             navigation.openDrawer();
           }}
         >
-          <Entypo name="menu" color={colors.primary} size={25} />
+          <Entypo name="menu" color="#09A391" size={25} />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Ionicons
-            name="notifications-outline"
-            color={colors.primary}
-            size={25}
-          />
+          <Ionicons name="notifications-outline" color="#09A391" size={25} />
         </TouchableOpacity>
       </View>
       <ScrollView>
@@ -108,7 +102,7 @@ const Dashboard = (props) => {
   );
 };
 
-export default withTheme(Dashboard);
+export default Dashboard;
 
 const styles = StyleSheet.create({
   img: {

@@ -91,7 +91,7 @@ const SignIn = () => {
               style={styles.registerTextStyle}
               onPress={() => navigation.navigate("SignUp")}
             >
-              New Here ? Register
+              New here ? Register
             </Text>
           </KeyboardAvoidingView>
         </View>

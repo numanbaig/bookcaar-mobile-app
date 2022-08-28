@@ -11,15 +11,11 @@ import {
 import user from "../../assets/user.jpg";
 import { Rating, AirbnbRating } from "react-native-ratings";
 import { useNavigation } from "@react-navigation/native";
-import { useTheme } from "react-native-paper";
 const DrawerContent = ({ ...props }) => {
-  const { colors } = useTheme();
   const navigation = useNavigation();
-  const ratingCompleted = (rating) => {
-    console.log("Rating is: " + rating);
-  };
+  const ratingCompleted = (rating) => {};
   return (
-    <View style={{ flex: 1, backgroundColor: colors.primary }}>
+    <View style={{ flex: 1, backgroundColor: "#09A391" }}>
       <DrawerContentScrollView {...props}>
         <View style={styles.drawerContent}>
           <View style={styles.userInfoSection}>
@@ -44,7 +40,7 @@ const DrawerContent = ({ ...props }) => {
                   ratingCount={5}
                   ratingColor="green"
                   imageSize={18}
-                  tintColor={colors.primary}
+                  tintColor="#09A391"
                   onFinishRating={ratingCompleted}
                 />
               </View>
