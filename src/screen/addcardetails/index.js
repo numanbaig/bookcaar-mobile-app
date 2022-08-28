@@ -5,19 +5,22 @@ import {
   Text,
   View,
   TextInput,
-  Image,
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Checkbox from "expo-checkbox";
 import DropDownPicker from "react-native-dropdown-picker";
 import * as ImagePicker from "expo-image-picker";
+import * as yup from "yup";
+import { Picker } from "@react-native-picker/picker";
+import { Formik, Form } from "formik";
 
 const AddCarDetails = () => {
   const navigation = useNavigation();
-
+  const [selectedLanguage, setSelectedLanguage] = useState();
   const [isChecked, setChecked] = useState(false);
   const [seatOpen, setSeatOpen] = useState("");
+  const [carType, setCarType] = useState("");
   const [seatValue, setSeatValue] = useState("");
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -31,143 +34,150 @@ const AddCarDetails = () => {
       setImage(result.uri);
     }
   };
+  const validationSchema = yup.object().shape({
+    email: yup
+      .string()
+      .email("Please enter valid email")
+      .required("Email Address is Required"),
+    password: yup
+      .string()
+      .min(8, ({ min }) => `Password must be at least ${min} characters`)
+      .required("Password is required"),
+  });
   return (
     <View style={styles.mainBody}>
-      <Text style={styles.paragraph}>Add Car Details</Text>
-      <View style={styles.SectionStyle}>
-        <TextInput
-          style={styles.inputStyle}
-          onChangeText={(UserEmail) => setUserEmail(UserEmail)}
-          placeholder="CNIC"
-          placeholderTextColor="#8b9cb5"
-          autoCapitalize="none"
-          keyboardType="email-address"
-          returnKeyType="next"
-          onSubmitEditing={() =>
-            passwordInputRef.current && passwordInputRef.current.focus()
-          }
-          underlineColorAndroid="#f000"
-          blurOnSubmit={false}
-        />
-      </View>
-
-      <View style={styles.SectionStyle}>
-        <TextInput
-          style={styles.inputStyle}
-          onChangeText={(UserEmail) => setUserEmail(UserEmail)}
-          placeholder="Vehical Registration Number(Number Plate)"
-          placeholderTextColor="#8b9cb5"
-          autoCapitalize="none"
-          keyboardType="email-address"
-          returnKeyType="next"
-          onSubmitEditing={() =>
-            passwordInputRef.current && passwordInputRef.current.focus()
-          }
-          underlineColorAndroid="#f000"
-          blurOnSubmit={false}
-        />
-      </View>
-      <View style={styles.section}>
-        <Checkbox
-          style={{ color: "#09A391", margin: 15 }}
-          status={isChecked ? "checked" : "unchecked"}
-          onPress={() => {
-            setChecked(!isChecked);
-          }}
-        />
-        <Text>AC available</Text>
-      </View>
-      <View style={styles.section}>
-        <Checkbox
-          style={{ color: "#09A391", margin: 15 }}
-          status={isChecked ? "checked" : "unchecked"}
-          onPress={() => {
-            setChecked(!isChecked);
-          }}
-        />
-        <Text>Add Car Details</Text>
-      </View>
-      <View style={styles.SectionStyle}>
-        <DropDownPicker
-          placeholder="Select Seats"
-          open={seatOpen}
-          setOpen={setSeatOpen}
-          value={seatValue}
-          items={[
-            { label: "1", value: "1" },
-            { label: "2", value: "2" },
-            { label: "3", value: "3" },
-            { label: "4", value: "4" },
-          ]}
-          defaultIndex={0}
-          containerStyle={{ height: 40 }}
-          onChange={(item) => {
-            setSeatValue(item.value);
-            console.log(item, "item");
-          }}
-          zIndex={1000}
-          zIndexInverse={3000}
-        />
-      </View>
-
-      <View style={styles.SectionStyle}>
-        <DropDownPicker
-          placeholder="Select Baggage"
-          open={seatOpen}
-          setOpen={setSeatOpen}
-          value={seatValue}
-          items={[
-            { label: "1", value: "1" },
-            { label: "2", value: "2" },
-            { label: "3", value: "3" },
-            { label: "4", value: "4" },
-            { label: "5", value: "5" },
-          ]}
-          defaultIndex={0}
-          containerStyle={{ height: 40 }}
-          onChange={(item) => {
-            setSeatValue(item.value);
-            console.log(item, "item");
-          }}
-          zIndex={1000}
-          zIndexInverse={3000}
-        />
-      </View>
-      <View style={styles.SectionStyle}>
-        <DropDownPicker
-          placeholder="Select Seats"
-          open={seatOpen}
-          setOpen={setSeatOpen}
-          value={seatValue}
-          items={[
-            { label: "English", value: "en" },
-            { label: "Deutsch", value: "de" },
-            { label: "French", value: "fr" },
-          ]}
-          defaultIndex={0}
-          containerStyle={{ height: 40 }}
-          onChange={(item) => {
-            setSeatValue(item.value);
-            console.log(item, "item");
-          }}
-          zIndex={1000}
-          zIndexInverse={3000}
-        />
-      </View>
-      <TouchableOpacity
-        style={styles.uploadButtonStyle}
-        activeOpacity={0.5}
-        onPress={pickImage}
+      <Formik
+        initialValues={{
+          numberPlate: "",
+          ac: false,
+          seats: "",
+          baggage: "",
+          carType: "",
+          carImages: "",
+        }}
+        onSubmit={(values) => console.log(values)}
       >
-        <Text style={styles.uploadButtonTextStyle}>Upload Car Pictures</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.buttonStyle}
-        activeOpacity={0.5}
-        onPress={() => navigation.navigate("Home")}
-      >
-        <Text style={styles.buttonTextStyle}>SUBMIT</Text>
-      </TouchableOpacity>
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          touched,
+          setFieldValue,
+          errors,
+        }) => (
+          <>
+            <Text style={styles.paragraph}>Add Car Details</Text>
+            <View style={styles.SectionStyle}>
+              <TextInput
+                style={styles.inputStyle}
+                placeholder="Vehical Registration Number(Number Plate)"
+                placeholderTextColor="#8b9cb5"
+                autoCapitalize="none"
+                keyboardType="email-address"
+                returnKeyType="next"
+                error={touched.email && Boolean(errors.email)}
+                helperText={touched.email && errors.email}
+                onChangeText={handleChange("numberPlate")}
+                value={values.email}
+                onSubmitEditing={() =>
+                  passwordInputRef.current && passwordInputRef.current.focus()
+                }
+                underlineColorAndroid="#f000"
+                blurOnSubmit={false}
+              />
+            </View>
+
+            <View style={styles.SectionStyle}>
+              <DropDownPicker
+                placeholder="Select Seats"
+                value={values.seats}
+                items={[
+                  { label: "1", value: "1" },
+                  { label: "2", value: "2" },
+                  { label: "3", value: "3" },
+                  { label: "4", value: "4" },
+                ]}
+                defaultIndex={0}
+                containerStyle={{ height: 40 }}
+                onChange={(item) => {
+                  setFieldValue("seats", !values.seats);
+
+                  console.log(item, "item");
+                }}
+              />
+            </View>
+
+            <View style={styles.SectionStyle}>
+              <DropDownPicker
+                placeholder="Select Baggage"
+                open={seatOpen}
+                setOpen={setSeatOpen}
+                value={values.baggage}
+                items={[
+                  { label: "1", value: "1" },
+                  { label: "2", value: "2" },
+                  { label: "3", value: "3" },
+                  { label: "4", value: "4" },
+                  { label: "5", value: "5" },
+                ]}
+                defaultIndex={0}
+                containerStyle={{ height: 40 }}
+                onChange={(item) => {
+                  setFieldValue(item.value);
+                  console.log(item, "item");
+                }}
+                zIndex={1000}
+                zIndexInverse={3000}
+              />
+            </View>
+            <View style={styles.SectionStyle}>
+              <Picker
+                style={styles.defaultPicker}
+                selectedValue={values.carType}
+                onValueChange={(nextValue) =>
+                  setFieldValue("carType", nextValue)
+                }
+                placeholder="Select Car Type"
+              >
+                <Picker.Item label="Select a Car Type" value="1" />
+                <Picker.Item label="1" value="1" />
+                <Picker.Item label="2" value="3" />
+                <Picker.Item label="3" value="3" />
+                <Picker.Item label="4" value="4" />
+                <Picker.Item label="5" value="5" />
+              </Picker>
+            </View>
+            <View style={styles.section}>
+              <Checkbox
+                type={"checkbox"}
+                value={values.ac}
+                style={{ color: "#09A391", margin: 15 }}
+              />
+
+              <Text>AC available</Text>
+            </View>
+            <TouchableOpacity
+              style={styles.uploadButtonStyle}
+              activeOpacity={0.5}
+              onPress={pickImage}
+            >
+              <Text style={styles.uploadButtonTextStyle}>
+                Upload Car Pictures
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.buttonStyle}
+              activeOpacity={0.5}
+              onPress={handleSubmit}
+
+              // navigation.navigate("Home")
+            >
+              <Text style={styles.buttonTextStyle}>Submit</Text>
+            </TouchableOpacity>
+          </>
+        )}
+      </Formik>
     </View>
   );
 };
@@ -179,6 +189,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "whites",
     alignContent: "center",
+  },
+  defaultPicker: {
+    width: "100%",
+    borderWidth: 2,
+    borderRadius: 5,
+    borderColor: "red",
+    paddingLeft: 15,
+    backgroundColor: "white",
   },
   section: {
     flexDirection: "row",

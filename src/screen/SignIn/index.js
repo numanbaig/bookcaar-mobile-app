@@ -10,8 +10,9 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from "react-native";
+import * as yup from "yup";
 import { useNavigation } from "@react-navigation/native";
-
+import { Formik, Form } from "formik";
 const SignIn = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
@@ -22,7 +23,16 @@ const SignIn = () => {
   const passwordInputRef = createRef();
 
   const handleSubmitPress = () => {};
-
+  const loginValidationSchema = yup.object().shape({
+    email: yup
+      .string()
+      .email("Please enter valid email")
+      .required("Email Address is Required"),
+    password: yup
+      .string()
+      .min(8, ({ min }) => `Password must be at least ${min} characters`)
+      .required("Password is required"),
+  });
   return (
     <View style={styles.mainBody}>
       {/* <Loader loading={loading} /> */}
@@ -35,65 +45,95 @@ const SignIn = () => {
         }}
       >
         <View>
-          <KeyboardAvoidingView enabled>
-            <View style={{ alignItems: "center" }}>
-              <Image
-                source={require("../../../assets/logo.png")}
-                style={{
-                  resizeMode: "contain",
-                  height: 150,
-                  width: 200,
-                }}
-              />
-            </View>
-            <View style={styles.SectionStyle}>
-              <TextInput
-                style={styles.inputStyle}
-                onChangeText={(UserEmail) => setUserEmail(UserEmail)}
-                placeholder="Enter Email" //dummy@abc.com
-                placeholderTextColor="#8b9cb5"
-                autoCapitalize="none"
-                keyboardType="email-address"
-                returnKeyType="next"
-                onSubmitEditing={() =>
-                  passwordInputRef.current && passwordInputRef.current.focus()
-                }
-                underlineColorAndroid="#f000"
-                blurOnSubmit={false}
-              />
-            </View>
-            <View style={styles.SectionStyle}>
-              <TextInput
-                style={styles.inputStyle}
-                onChangeText={(UserPassword) => setUserPassword(UserPassword)}
-                placeholder="Enter Password" //12345
-                placeholderTextColor="#8b9cb5"
-                keyboardType="default"
-                ref={passwordInputRef}
-                onSubmitEditing={Keyboard.dismiss}
-                blurOnSubmit={false}
-                secureTextEntry={true}
-                underlineColorAndroid="#f000"
-                returnKeyType="next"
-              />
-            </View>
-            {errortext != "" ? (
-              <Text style={styles.errorTextStyle}>{errortext}</Text>
-            ) : null}
-            <TouchableOpacity
-              style={styles.buttonStyle}
-              activeOpacity={0.5}
-              onPress={() => navigation.navigate("Home")}
-            >
-              <Text style={styles.buttonTextStyle}>LOGIN</Text>
-            </TouchableOpacity>
-            <Text
-              style={styles.registerTextStyle}
-              onPress={() => navigation.navigate("SignUp")}
-            >
-              New here ? Register
-            </Text>
-          </KeyboardAvoidingView>
+          <Formik
+            initialValues={{ email: "", password: "" }}
+            onSubmit={(values) => console.log(values)}
+            validationSchema={loginValidationSchema}
+          >
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              touched,
+              errors,
+            }) => (
+              <KeyboardAvoidingView enabled>
+                <View style={{ alignItems: "center" }}>
+                  <Image
+                    source={require("../../../assets/appLogo.png")}
+                    style={{
+                      resizeMode: "contain",
+                      height: 200,
+                    }}
+                  />
+                </View>
+                <View style={styles.SectionStyle}>
+                  <TextInput
+                    error={touched.email && Boolean(errors.email)}
+                    helperText={touched.email && errors.email}
+                    onChangeText={handleChange("email")}
+                    value={values.email}
+                    style={styles.inputStyle}
+                    placeholder="Enter Email"
+                    placeholderTextColor="#8b9cb5"
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                    returnKeyType="next"
+                    // onSubmitEditing={() =>
+                    //   passwordInputRef.current &&
+                    //   passwordInputRef.current.focus()
+                    // }
+                    underlineColorAndroid="#f000"
+                  />
+                  {errors.email && (
+                    <Text style={{ fontSize: 12, color: "red" }}>
+                      {errors.email}
+                    </Text>
+                  )}
+                </View>
+
+                <View style={styles.SectionStyle}>
+                  <TextInput
+                    error={touched.password && Boolean(errors.password)}
+                    helperText={touched.password && errors.password}
+                    onChangeText={handleChange("password")}
+                    value={values.password}
+                    style={styles.inputStyle}
+                    placeholder="Enter Password" //12345
+                    placeholderTextColor="#8b9cb5"
+                    keyboardType="default"
+                    ref={passwordInputRef}
+                    onSubmitEditing={Keyboard.dismiss}
+                    secureTextEntry={true}
+                    underlineColorAndroid="#f000"
+                    returnKeyType="next"
+                  />
+                  {errors.password && (
+                    <Text style={{ fontSize: 12, color: "red" }}>
+                      {errors.password}
+                    </Text>
+                  )}
+                </View>
+
+                <TouchableOpacity
+                  style={styles.buttonStyle}
+                  activeOpacity={0.5}
+                  onPress={handleSubmit}
+
+                  // navigation.navigate("Home")
+                >
+                  <Text style={styles.buttonTextStyle}>LOGIN</Text>
+                </TouchableOpacity>
+                <Text
+                  style={styles.registerTextStyle}
+                  onPress={() => navigation.navigate("SignUp")}
+                >
+                  New here ? Register
+                </Text>
+              </KeyboardAvoidingView>
+            )}
+          </Formik>
         </View>
       </ScrollView>
     </View>
@@ -109,8 +149,8 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   SectionStyle: {
-    flexDirection: "row",
-    height: 50,
+    flexDirection: "column",
+    height: 60,
     marginTop: 15,
     marginLeft: 15,
     marginRight: 15,
