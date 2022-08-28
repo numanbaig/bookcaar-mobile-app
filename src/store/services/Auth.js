@@ -5,23 +5,28 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth"
 import { query, getDocs, collection, where, addDoc } from "firebase/firestore"
-import { firebase } from "../../firebase"
+import { auth, db } from "../../firebase"
 
 export const createUserWithEmail = createAsyncThunk(
   "users/createUserWithEmail",
   async ({ email, password }) => {
-    const db = firebase.firestore()
+    console.log("hmmm", email)
+    console.log("pas", auth)
+    let user
     const userCredential = await createUserWithEmailAndPassword(
-      firebase.auth,
+      auth,
       email,
       password
     )
     console.log("userCredential", userCredential)
-    const user = await addDoc(collection(db, "users"), {
-      uid: userCredential.uid,
-      name: user.displayName,
-      email: user.email,
-    })
+    if (userCredential) {
+      user = await addDoc(collection(db, "drivers"), {
+        uid: userCredential.uid,
+        name: user.displayName,
+        email: user.email,
+      })
+    }
+
     console.log("user", user)
     return user
   }
