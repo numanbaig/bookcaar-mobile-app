@@ -1,20 +1,20 @@
-import { StyleSheet, View, Image, TouchableOpacity } from "react-native"
-import React, { useEffect, useState } from "react"
-import { Card, TextInput, Paragraph, Text } from "react-native-paper"
-import { useNavigation } from "@react-navigation/native"
-import { getCarDetails, createBid } from "../../store/services/Bidding"
-import { useDispatch, useSelector } from "react-redux"
+import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Card, TextInput, Paragraph, Text } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
+import { getCarDetails, createBid } from "../../store/services/Bidding";
+import { useDispatch, useSelector } from "react-redux";
 
 const Bidding = ({ route }, props) => {
-  const { userData, id } = route?.params
-  const navigation = useNavigation()
-  const dispatch = useDispatch()
-  const [amount, setAmount] = useState(0)
-  const cars = useSelector((state) => state.bidding.cars)
+  const { userData, id } = route?.params;
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const [amount, setAmount] = useState(0);
+  const cars = useSelector((state) => state.bidding.cars);
 
   useEffect(() => {
-    dispatch(getCarDetails(userData.id))
-  }, [])
+    dispatch(getCarDetails(userData.id));
+  }, []);
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -68,7 +68,7 @@ const Bidding = ({ route }, props) => {
             }}
             variant="titleMedium"
           >
-            {userData?.dropOfLocation.label}
+            {userData?.dropOfLocation?.label}
           </Text>
         </View>
         <View style={{ flexDirection: "row" }}>
@@ -84,7 +84,7 @@ const Bidding = ({ route }, props) => {
             }}
             variant="titleMedium"
           >
-            {userData?.startDate}
+            {userData?.startDate?.toLocaleTimeString?.() || "Not Addded"}
           </Text>
         </View>
         <View style={{ flexDirection: "row" }}>
@@ -114,7 +114,7 @@ const Bidding = ({ route }, props) => {
               }}
               variant="titleMedium"
             >
-              {userData?.numberOfDays}
+              {userData?.numberofdays}
             </Text>
           </View>
         ) : (
@@ -142,8 +142,8 @@ const Bidding = ({ route }, props) => {
           onPress={() => {
             dispatch(
               createBid(cars[0], amount, userData.id, userData.bidedDrivers)
-            )
-            navigation.replace("Home")
+            );
+            navigation.replace("Home");
           }}
           style={styles.btn}
         >
@@ -151,7 +151,7 @@ const Bidding = ({ route }, props) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            navigation.goBack()
+            navigation.goBack();
           }}
           style={styles.btn2}
         >
@@ -159,10 +159,10 @@ const Bidding = ({ route }, props) => {
         </TouchableOpacity>
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default Bidding
+export default Bidding;
 
 const styles = StyleSheet.create({
   img: {
@@ -197,4 +197,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
-})
+});
