@@ -87,7 +87,7 @@ const DrawerContent = ({ ...props }) => {
               )}
               label="About"
               onPress={() => {
-                navigation.navigate("About");
+                // navigation.navigate("About");
               }}
             />
             <DrawerItem
@@ -101,7 +101,7 @@ const DrawerContent = ({ ...props }) => {
               )}
               label="FAQ"
               onPress={() => {
-                navigation.navigate("Blogs");
+                // navigation.navigate("Blogs");
               }}
             />
             <DrawerItem
@@ -115,7 +115,7 @@ const DrawerContent = ({ ...props }) => {
               )}
               label="Support"
               onPress={() => {
-                navigation.navigate("Blogs");
+                // navigation.navigate("Blogs");
               }}
             />
             <DrawerItem

@@ -3,8 +3,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Dashboard from "../screen/dashboard";
 import Rating from "../screen/rating";
 import Insurance from "../screen/insurance";
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
 import Income from "../screen/income";
+import Ride from "../screen/ride";
 const Tab = createBottomTabNavigator();
 
 const DashboardRoutes = (props) => {
@@ -32,6 +33,18 @@ const DashboardRoutes = (props) => {
         }}
         name="dashboard"
         component={Dashboard}
+      />
+      <Tab.Screen
+        options={{
+          title: "Ride",
+
+          headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <FontAwesome5 name="car" color={color} size={20} />
+          ),
+        }}
+        name="ride"
+        component={Ride}
       />
       <Tab.Screen
         options={{
