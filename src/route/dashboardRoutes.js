@@ -5,6 +5,7 @@ import Rating from "../screen/rating"
 import Insurance from "../screen/insurance"
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons"
 import Income from "../screen/income"
+import RideRequests from "../screen/rideRequests"
 const Tab = createBottomTabNavigator()
 
 const DashboardRoutes = (props) => {
@@ -43,7 +44,7 @@ const DashboardRoutes = (props) => {
           ),
         }}
         name="income"
-        component={Income}
+        component={RideRequests}
       />
       <Tab.Screen
         options={{

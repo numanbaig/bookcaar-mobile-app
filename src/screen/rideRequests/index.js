@@ -4,7 +4,6 @@ import {
   View,
   Image,
   Text,
-  Button,
   TouchableOpacity,
 } from "react-native"
 import React, { useEffect } from "react"
@@ -13,7 +12,7 @@ import { Card, Title, Paragraph } from "react-native-paper"
 import { getBidding } from "../../store/services/Bidding"
 import { useDispatch, useSelector } from "react-redux"
 import { bidding } from "../../store/slices/biddingSlice"
-const Dashboard = (props) => {
+const RideRequest = (props) => {
   const { navigation } = props
   const dispatch = useDispatch()
   const biddingList = useSelector(bidding)
@@ -88,6 +87,7 @@ const Dashboard = (props) => {
                   <Text>Pickup Location:{e.pickupLocation}</Text>
                   <Text>Drop Location: {e.dropLocation}</Text>
                   <Text>Booking Type: {e.tripType}</Text>
+                  <Text>Status: {e.status ? "Active" : "Pending"}</Text>
                   {e.tripType === "Per Day" ? (
                     <Text>Booking Days: {e.bookingDay}</Text>
                   ) : (
@@ -95,7 +95,7 @@ const Dashboard = (props) => {
                   )}
                   <View style={{ display: "flex", flexDirection: "row" }}>
                     <TouchableOpacity onPress={() => {}} style={styles.btn2}>
-                      <Text style={styles.btnText2}>Cancel</Text>
+                      <Text style={styles.btnText2}>Remove</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       onPress={() => {
@@ -105,7 +105,7 @@ const Dashboard = (props) => {
                       }}
                       style={styles.btn}
                     >
-                      <Text style={styles.btnText}>Bid</Text>
+                      <Text style={styles.btnText}>Re-Bid</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -118,7 +118,7 @@ const Dashboard = (props) => {
   )
 }
 
-export default Dashboard
+export default RideRequest
 
 const styles = StyleSheet.create({
   img: {
@@ -161,77 +161,3 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
   },
 })
-const TravelRequest = [
-  {
-    userName: "DT",
-    pickupLocation: "Jutyal Gilgit",
-    dropLocation: "Danyore",
-    pickupTiming: "10 july 2:00pm",
-    userImageUrl: require("../../../assets/userImage.jpg"),
-    bookingDay: "10",
-    tripType: "Per Day",
-  },
-  {
-    userName: "Saleem Merchant",
-    pickupLocation: "Jutyal Gilgit",
-    dropLocation: "Ghizer",
-    pickupTiming: "11 july 2:00pm",
-    userImageUrl: require("../../../assets/user.jpg"),
-    bookingDay: "10",
-    tripType: "Short Rental",
-  },
-  {
-    userName: "Sharuk Khan",
-    pickupLocation: "Jutyal Gilgit",
-    dropLocation: "Danyore",
-    pickupTiming: "10 july 2:00pm",
-    userImageUrl: require("../../../assets/userImage.jpg"),
-    bookingDay: "10",
-    tripType: "Per Day",
-  },
-  {
-    userName: "Saleem Merchant",
-    pickupLocation: "Jutyal Gilgit",
-    dropLocation: "Ghizer",
-    pickupTiming: "11 july 2:00pm",
-    userImageUrl: require("../../../assets/user.jpg"),
-    bookingDay: "10",
-    tripType: "Short Rental",
-  },
-  {
-    userName: "DT",
-    pickupLocation: "Jutyal Gilgit",
-    dropLocation: "Danyore",
-    pickupTiming: "10 july 2:00pm",
-    userImageUrl: require("../../../assets/userImage.jpg"),
-    bookingDay: "10",
-    tripType: "Per Day",
-  },
-  {
-    userName: "Saleem Merchant",
-    pickupLocation: "Jutyal Gilgit",
-    dropLocation: "Ghizer",
-    pickupTiming: "11 july 2:00pm",
-    userImageUrl: require("../../../assets/user.jpg"),
-    bookingDay: "10",
-    tripType: "Short Rental",
-  },
-  {
-    userName: "DT",
-    pickupLocation: "Jutyal Gilgit",
-    dropLocation: "Danyore",
-    pickupTiming: "10 july 2:00pm",
-    userImageUrl: require("../../../assets/user.jpg"),
-    bookingDay: "10",
-    tripType: "Per Day",
-  },
-  {
-    userName: "Saleem Merchant",
-    pickupLocation: "Jutyal Gilgit",
-    dropLocation: "Ghizer",
-    pickupTiming: "11 july 2:00pm",
-    userImageUrl: require("../../../assets/user.jpg"),
-    bookingDay: "10",
-    tripType: "Short Rental",
-  },
-]
