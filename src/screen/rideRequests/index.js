@@ -5,21 +5,21 @@ import {
   Image,
   Text,
   TouchableOpacity,
-} from "react-native"
-import React, { useEffect } from "react"
-import { Entypo, Ionicons } from "@expo/vector-icons"
-import { Card, Title, Paragraph } from "react-native-paper"
-import { getDriverRideRequests } from "../../store/services/Bidding"
-import { useDispatch, useSelector } from "react-redux"
-import { driverBids } from "../../store/slices/biddingSlice"
+} from "react-native";
+import React, { useEffect } from "react";
+import { Entypo, Ionicons } from "@expo/vector-icons";
+import { Card, Title, Paragraph } from "react-native-paper";
+import { getDriverRideRequests } from "../../store/services/Bidding";
+import { useDispatch, useSelector } from "react-redux";
+import { driverBids } from "../../store/slices/biddingSlice";
 const RideRequest = (props) => {
-  const { navigation } = props
-  const dispatch = useDispatch()
-  const biddingList = useSelector(driverBids)
+  const { navigation } = props;
+  const dispatch = useDispatch();
+  const biddingList = useSelector(driverBids);
 
   useEffect(() => {
-    dispatch(getDriverRideRequests())
-  }, [])
+    dispatch(getDriverRideRequests());
+  }, []);
 
   return (
     <View>
@@ -36,11 +36,16 @@ const RideRequest = (props) => {
       >
         <TouchableOpacity
           onPress={() => {
-            navigation.openDrawer()
+            navigation.openDrawer();
           }}
         >
           <Entypo name="menu" color="#09A391" size={25} />
         </TouchableOpacity>
+        <Paragraph
+          style={{ fontSize: 20, fontWeight: "bold", color: "#09A391" }}
+        >
+          Ride Requests
+        </Paragraph>
         <TouchableOpacity>
           <Ionicons name="notifications-outline" color="#09A391" size={25} />
         </TouchableOpacity>
@@ -102,7 +107,7 @@ const RideRequest = (props) => {
                       onPress={() => {
                         navigation.navigate("Bidding", {
                           userData: e,
-                        })
+                        });
                       }}
                       style={styles.btn}
                     >
@@ -112,14 +117,14 @@ const RideRequest = (props) => {
                 </View>
               </View>
             </Card>
-          )
+          );
         })}
       </ScrollView>
     </View>
-  )
-}
+  );
+};
 
-export default RideRequest
+export default RideRequest;
 
 const styles = StyleSheet.create({
   img: {
@@ -161,4 +166,4 @@ const styles = StyleSheet.create({
     borderColor: "blue",
     borderWidth: 0.5,
   },
-})
+});

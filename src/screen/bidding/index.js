@@ -1,22 +1,22 @@
-import { StyleSheet, View, Image, TouchableOpacity } from "react-native"
-import React, { useEffect, useState } from "react"
-import { Card, TextInput, Paragraph, Text } from "react-native-paper"
-import { useNavigation } from "@react-navigation/native"
-import { getCarDetails, createBid } from "../../store/services/Bidding"
-import { useDispatch, useSelector } from "react-redux"
+import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Card, TextInput, Paragraph, Text } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
+import { getCarDetails, createBid } from "../../store/services/Bidding";
+import { useDispatch, useSelector } from "react-redux";
 
 const Bidding = ({ route }, props) => {
-  const { userData, id } = route?.params
-  const navigation = useNavigation()
-  const dispatch = useDispatch()
-  const [amount, setAmount] = useState(0)
-  const cars = useSelector((state) => state.bidding.cars)
+  const { userData, id } = route?.params;
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const [amount, setAmount] = useState(0);
+  const cars = useSelector((state) => state.bidding.cars);
 
   useEffect(() => {
-    dispatch(getCarDetails(userData.id))
-  }, [])
+    dispatch(getCarDetails(userData.id));
+  }, []);
 
-  console.log("ss", cars)
+  console.log("ss", cars);
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -27,17 +27,17 @@ const Bidding = ({ route }, props) => {
           backgroundColor: "#09A391",
         }}
       >
-        <Image style={styles.img} source={userData.userImageUrl} />
+        <Image style={styles.img} source={userData?.userImageUrl} />
         <Text
-          style={{ paddingTop: 10, fontWeight: "bold", height: 200, flex: 1 }}
+          style={{ paddingTop: 10, fontWeight: "bold", height: 100, flex: 1 }}
           variant="headlineMedium"
         >
-          {userData.userName}
+          {userData?.userName}
         </Text>
       </View>
       <View
         style={{
-          flex: 5,
+          flex: 9,
           padding: 20,
         }}
       >
@@ -46,10 +46,15 @@ const Bidding = ({ route }, props) => {
             Pickup Location:
           </Text>
           <Text
-            style={{ paddingBottom: 15, fontWeight: "bold", color: "#09A391" }}
+            style={{
+              paddingBottom: 15,
+              fontWeight: "bold",
+              color: "#09A391",
+              width: 260,
+            }}
             variant="titleMedium"
           >
-            {userData.pickupLocation}
+            {userData?.pickUpLocation?.label}
           </Text>
         </View>
         <View style={{ flexDirection: "row" }}>
@@ -57,10 +62,15 @@ const Bidding = ({ route }, props) => {
             Drop Location:
           </Text>
           <Text
-            style={{ paddingBottom: 15, fontWeight: "bold", color: "#09A391" }}
+            style={{
+              paddingBottom: 15,
+              fontWeight: "bold",
+              color: "#09A391",
+              width: 260,
+            }}
             variant="titleMedium"
           >
-            {userData.dropLocation}
+            {userData?.dropOfLocation.label}
           </Text>
         </View>
         <View style={{ flexDirection: "row" }}>
@@ -68,10 +78,15 @@ const Bidding = ({ route }, props) => {
             Date and Time:
           </Text>
           <Text
-            style={{ paddingBottom: 15, fontWeight: "bold", color: "#09A391" }}
+            style={{
+              paddingBottom: 15,
+              fontWeight: "bold",
+              color: "#09A391",
+              width: 260,
+            }}
             variant="titleMedium"
           >
-            {userData.pickupTiming}
+            {userData?.startDate}
           </Text>
         </View>
         <View style={{ flexDirection: "row" }}>
@@ -82,10 +97,10 @@ const Bidding = ({ route }, props) => {
             style={{ paddingBottom: 15, fontWeight: "bold", color: "#09A391" }}
             variant="titleMedium"
           >
-            {userData.tripType}
+            {userData?.bookingType}
           </Text>
         </View>
-        {userData.tripType === "Per Day" ? (
+        {userData?.bookingType === "Per Day" ? (
           <View style={{ flexDirection: "row" }}>
             <Text
               style={{ paddingBottom: 15, width: 120 }}
@@ -101,13 +116,13 @@ const Bidding = ({ route }, props) => {
               }}
               variant="titleMedium"
             >
-              {userData.bookingDay}
+              {userData?.numberOfDays}
             </Text>
           </View>
         ) : (
           ""
         )}
-        <View style={{ flexDirection: "row" }}>
+        {/* <View style={{ flexDirection: "row" }}>
           <Text style={{ paddingBottom: 15, width: 120 }} variant="titleMedium">
             Asking Amount:
           </Text>
@@ -117,7 +132,7 @@ const Bidding = ({ route }, props) => {
           >
             100 Pkr
           </Text>
-        </View>
+        </View> */}
         <TextInput
           keyboardType="numeric"
           mode="outlined"
@@ -127,7 +142,7 @@ const Bidding = ({ route }, props) => {
         />
         <TouchableOpacity
           onPress={() => {
-            dispatch(createBid(cars[0], amount, userData.id))
+            dispatch(createBid(cars[0], amount, userData?.id));
           }}
           style={styles.btn}
         >
@@ -135,7 +150,7 @@ const Bidding = ({ route }, props) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            navigation.goBack()
+            navigation.goBack();
           }}
           style={styles.btn2}
         >
@@ -143,10 +158,10 @@ const Bidding = ({ route }, props) => {
         </TouchableOpacity>
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default Bidding
+export default Bidding;
 
 const styles = StyleSheet.create({
   img: {
@@ -181,4 +196,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
-})
+});

@@ -53,7 +53,7 @@ const DashboardRoutes = (props) => {
       />
       <Tab.Screen
         options={{
-          title: "Ride Rquest",
+          title: "Ride Request",
 
           headerShown: false,
           tabBarIcon: ({ color }) => (

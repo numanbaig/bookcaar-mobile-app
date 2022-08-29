@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 import {
   TouchableOpacity,
   StyleSheet,
@@ -6,30 +6,30 @@ import {
   View,
   TextInput,
   ScrollView,
-} from "react-native"
-import { useNavigation } from "@react-navigation/native"
-import Checkbox from "expo-checkbox"
-import DropDownPicker from "react-native-dropdown-picker"
-import * as ImagePicker from "expo-image-picker"
-import * as yup from "yup"
-import { Picker } from "@react-native-picker/picker"
-import { Formik, Form } from "formik"
-import { addCarDetials } from "../../store/services/Bidding"
-import { useDispatch, useSelector } from "react-redux"
-import { driverCarAdded } from "../../store/slices/biddingSlice"
-import { pickImage } from "../../store/helpers/pickImage"
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import Checkbox from "expo-checkbox";
+import DropDownPicker from "react-native-dropdown-picker";
+import * as ImagePicker from "expo-image-picker";
+import * as yup from "yup";
+import { Picker } from "@react-native-picker/picker";
+import { Formik, Form } from "formik";
+import { addCarDetials } from "../../store/services/Bidding";
+import { useDispatch, useSelector } from "react-redux";
+import { driverCarAdded } from "../../store/slices/biddingSlice";
+import { pickImage } from "../../store/helpers/pickImage";
 const AddCarDetails = () => {
-  const navigation = useNavigation()
-  const dispatch = useDispatch()
-  const carAdded = useSelector(driverCarAdded)
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const carAdded = useSelector(driverCarAdded);
 
   const validationSchema = yup.object().shape({
     numberPlate: yup.string().required(" Required"),
     carImages: yup.string().required(" Required"),
-  })
+  });
 
   if (carAdded) {
-    navigation.navigate("Home")
+    navigation.navigate("Home");
   }
   return (
     <View style={styles.mainBody}>
@@ -154,7 +154,7 @@ const AddCarDetails = () => {
               style={styles.buttonStyle}
               activeOpacity={0.5}
               onPress={() => {
-                handleSubmit()
+                handleSubmit();
               }}
 
               // navigation.navigate("Home")
@@ -165,10 +165,10 @@ const AddCarDetails = () => {
         )}
       </Formik>
     </View>
-  )
-}
+  );
+};
 
-export default AddCarDetails
+export default AddCarDetails;
 
 const styles = StyleSheet.create({
   mainBody: {
@@ -310,4 +310,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
-})
+});

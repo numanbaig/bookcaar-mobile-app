@@ -1,11 +1,11 @@
-import { StyleSheet, View, Text, Modal, ScrollView } from "react-native";
+import { StyleSheet, View, Text, Modal } from "react-native";
 import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
 
 const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
 import React from "react";
 const Income = () => {
   return (
-    <ScrollView style={styles.surface}>
+    <View style={styles.surface}>
       {data.map((e, index) => {
         return (
           <Card key={index} style={{ marginTop: 10 }}>
@@ -38,7 +38,7 @@ const Income = () => {
           </Card>
         );
       })}
-    </ScrollView>
+    </View>
   );
 };
 

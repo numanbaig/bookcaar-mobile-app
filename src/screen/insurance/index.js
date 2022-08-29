@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { Entypo, Ionicons } from "@expo/vector-icons";
+import { Paragraph } from "react-native-paper";
 
 const Insurance = (props) => {
   const { navigation } = props;
@@ -25,6 +26,11 @@ const Insurance = (props) => {
         >
           <Entypo name="menu" color="#09A391" size={25} />
         </TouchableOpacity>
+        <Paragraph
+          style={{ fontSize: 20, fontWeight: "bold", color: "#09A391" }}
+        >
+          Insurance
+        </Paragraph>
         <TouchableOpacity>
           <Ionicons name="notifications-outline" color="#09A391" size={25} />
         </TouchableOpacity>
@@ -36,7 +42,9 @@ const Insurance = (props) => {
           flex: 1,
         }}
       >
-        <Text>Coming Soon</Text>
+        <Text style={{ fontSize: 20, fontWeight: "bold", color: "#09A391" }}>
+          Coming Soon
+        </Text>
       </View>
     </View>
   );
