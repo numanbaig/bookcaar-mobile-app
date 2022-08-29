@@ -11,6 +11,8 @@ import {
 import Income from "../screen/income";
 import Ride from "../screen/ride";
 import RideRequests from "../screen/RideRequests";
+import RideDetail from "../screen/ridedetails/rideDetail";
+import RideHistory from "../screen/ridehistory";
 const Tab = createBottomTabNavigator();
 
 const DashboardRoutes = (props) => {
@@ -49,7 +51,7 @@ const DashboardRoutes = (props) => {
           ),
         }}
         name="ride"
-        component={Ride}
+        component={RideDetail}
       />
       <Tab.Screen
         options={{
@@ -69,15 +71,15 @@ const DashboardRoutes = (props) => {
       />
       <Tab.Screen
         options={{
-          title: "Rating",
+          title: "Ride History",
 
           headerShown: false,
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="star" color={color} size={20} />
+            <MaterialCommunityIcons name="history" color={color} size={20} />
           ),
         }}
         name="rating"
-        component={Rating}
+        component={RideHistory}
       />
       <Tab.Screen
         options={{
