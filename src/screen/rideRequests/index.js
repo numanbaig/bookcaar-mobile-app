@@ -20,6 +20,7 @@ const RideRequest = (props) => {
   useEffect(() => {
     dispatch(getDriverRideRequests())
   }, [])
+
   return (
     <View>
       <View

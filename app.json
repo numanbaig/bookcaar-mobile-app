@@ -1,13 +1,13 @@
 {
   "expo": {
     "name": "bookcaar",
-     "plugins": [
-    [
-      "expo-image-picker",
-      {
-        "locationWhenInUsePermission": "Allow Bookcaar to access your location"
-      }
-    ]
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "locationWhenInUsePermission": "Allow Bookcaar to access your location"
+        }
+      ]
     ],
     "slug": "bookcaar",
     "version": "1.0.0",
@@ -22,9 +22,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -36,6 +34,13 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    }
+  },
+  "android": {
+    "config": {
+      "googleMaps": {
+        "apiKey": "AIzaSyCLA-9u2HEIBjxpFeS2QxeMTM46_ENNOZI"
+      }
     }
   }
 }

@@ -1,10 +1,43 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
+import { Entypo, Ionicons } from "@expo/vector-icons";
 
-const Rating = () => {
+const Rating = (props) => {
+  const { navigation } = props;
+
   return (
-    <View>
-      <Text>Rating</Text>
+    <View style={{ flex: 1 }}>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          paddingVertical: 20,
+          marginTop: 10,
+          paddingHorizontal: 20,
+          alignItems: "center",
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => {
+            navigation.openDrawer();
+          }}
+        >
+          <Entypo name="menu" color="#09A391" size={25} />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Ionicons name="notifications-outline" color="#09A391" size={25} />
+        </TouchableOpacity>
+      </View>
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          flex: 1,
+        }}
+      >
+        <Text>Coming Soon</Text>
+      </View>
     </View>
   );
 };

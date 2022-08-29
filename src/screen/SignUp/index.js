@@ -215,9 +215,7 @@ const SignUp = () => {
                     style={styles.uploadButtonStyle}
                     activeOpacity={0.5}
                     onPress={async () => {
-                      galleryPermission
-                        ? setFieldValue("cnicImage", (await pickImage()) || "")
-                        : permisionFunction()
+                      setFieldValue("cnicImage", (await pickImage()) || "")
                     }}
                   >
                     <Text style={styles.uploadButtonTextStyle}>

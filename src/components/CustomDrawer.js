@@ -70,6 +70,32 @@ const DrawerContent = ({ ...props }) => {
                 color: "white",
               }}
               icon={({ color, size }) => (
+                <FontAwesome5 name="home" color="white" size={size} />
+              )}
+              label="Add Car"
+              onPress={() => {
+                navigation.navigate("addcar")
+              }}
+            />
+            <DrawerItem
+              style={{ borderColor: "white", borderWidth: 1 }}
+              labelStyle={{
+                color: "white",
+              }}
+              icon={({ color, size }) => (
+                <FontAwesome5 name="home" color="white" size={size} />
+              )}
+              label="My Income"
+              onPress={() => {
+                navigation.navigate("income")
+              }}
+            />
+            <DrawerItem
+              style={{ borderColor: "white", borderWidth: 1 }}
+              labelStyle={{
+                color: "white",
+              }}
+              icon={({ color, size }) => (
                 <AntDesign name="contacts" color="white" size={size} />
               )}
               label="My Account"

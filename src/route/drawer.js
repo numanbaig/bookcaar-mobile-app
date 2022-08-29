@@ -20,7 +20,7 @@ const DrawerNavigator = () => {
         options={{ headerShown: false }}
         component={dashboardRoutes}
       />
-      <Drawer.Screen name="dashboard" children={() => <drawer />} />
+      {/* <Drawer.Screen name="dashboard" children={() => <drawer />} /> */}
     </Drawer.Navigator>
   )
 }
