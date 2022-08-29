@@ -1,11 +1,11 @@
-import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Dashboard from "../screen/dashboard";
-import Rating from "../screen/rating";
-import Insurance from "../screen/insurance";
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import Income from "../screen/income";
-const Tab = createBottomTabNavigator();
+import React from "react"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import Dashboard from "../screen/dashboard"
+import Rating from "../screen/rating"
+import Insurance from "../screen/insurance"
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons"
+import Income from "../screen/income"
+const Tab = createBottomTabNavigator()
 
 const DashboardRoutes = (props) => {
   return (
@@ -72,7 +72,7 @@ const DashboardRoutes = (props) => {
         component={Insurance}
       />
     </Tab.Navigator>
-  );
-};
+  )
+}
 
-export default DashboardRoutes;
+export default DashboardRoutes

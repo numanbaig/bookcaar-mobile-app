@@ -1,14 +1,22 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AddCarDetails from "../screen/addcardetails";
-import Bidding from "../screen/bidding";
-import EditImage from "../screen/editImage";
-import SignIn from "../screen/SignIn";
-import SignUp from "../screen/SignUp";
-import Splash from "../screen/Splash";
-import DrawerRoutes from "./drawer";
-const Stack = createNativeStackNavigator();
+import { useEffect } from "react"
+import { NavigationContainer } from "@react-navigation/native"
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import AddCarDetails from "../screen/addcardetails"
+import Bidding from "../screen/bidding"
+import EditImage from "../screen/editImage"
+import SignIn from "../screen/SignIn"
+import SignUp from "../screen/SignUp"
+import Splash from "../screen/Splash"
+import DrawerRoutes from "./drawer"
+import { getCurrentUser } from "../store/services/Auth"
+import { useDispatch } from "react-redux"
+const Stack = createNativeStackNavigator()
 const Route = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getCurrentUser())
+  }, [])
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Splash">
@@ -49,7 +57,7 @@ const Route = () => {
         />
       </Stack.Navigator>
     </NavigationContainer>
-  );
-};
+  )
+}
 
-export default Route;
+export default Route

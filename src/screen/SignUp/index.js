@@ -7,7 +7,6 @@ import {
   Image,
   ScrollView,
 } from "react-native"
-import { Permissions } from "expo"
 import React, { useState, useEffect } from "react"
 import { useNavigation } from "@react-navigation/native"
 import { FontAwesome5 } from "@expo/vector-icons"
@@ -17,9 +16,9 @@ import { Formik, Form } from "formik"
 import * as Yup from "yup"
 import * as ImagePicker from "expo-image-picker"
 import { pickImage } from "../../store/helpers/pickImage"
+import { currentUser, signUpState } from "../../store/slices/userSlice"
 import { useSelector } from "react-redux"
 
-import { signUpState } from "../../store/slices/userSlice"
 export const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
@@ -27,9 +26,9 @@ const validationSchema = Yup.object({
   name: Yup.string()
     .max(15, "Must be 15 characters or less")
     .required("Required"),
-  passowrd: Yup.string()
-    .max(20, "Must be 20 characters or less")
-    .required("Required"),
+  password: Yup.string()
+    .min(8, () => `Password must be at least 8 characters`)
+    .required("Password is required"),
   cnic: Yup.string()
     .max(13, "Must be 13 Numbers")
     .min(13, "Must be 13 Numbers")
@@ -42,9 +41,11 @@ const validationSchema = Yup.object({
     .max(13, "to long"),
   cnicImage: Yup.string().required("required"),
 })
+
 const SignUp = () => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
+  const user = useSelector(currentUser)
   const isSignUpLoading = useSelector(signUpState)
   const [galleryPermission, setGalleryPermission] = useState(false)
 
@@ -64,6 +65,10 @@ const SignUp = () => {
     permisionFunction()
   }, [])
 
+  if (user) {
+    navigation.navigate("Home")
+  }
+
   return (
     <>
       <Formik
@@ -78,8 +83,7 @@ const SignUp = () => {
         }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
-          // dispatch(createUserWithEmail(values))
-          setTimeout(() => {}, 3000)
+          dispatch(createUserWithEmail(values))
         }}
       >
         {({
@@ -92,6 +96,8 @@ const SignUp = () => {
           isSubmitting,
         }) => (
           <View style={{ backgroundColor: "white", flex: 1 }}>
+            {console.log("ee", errors)}
+            {console.log("v", values)}
             <ScrollView
               nestedScrollEnabled={true}
               style={{ backgroundColor: "white", flex: 1 }}
@@ -166,6 +172,7 @@ const SignUp = () => {
                     placeholder="Password"
                     placeholderTextColor="#8b9cb5"
                     autoCapitalize="none"
+                    secureTextEntry={true}
                     onChangeText={handleChange("password")}
                     value={values.password}
                   />
@@ -230,9 +237,7 @@ const SignUp = () => {
               style={styles.buttonStyle}
               activeOpacity={0.5}
               disabled={isSignUpLoading}
-              onPress={async () => {
-                handleSubmit()
-              }}
+              onPress={handleSubmit}
             >
               <Text style={styles.buttonTextStyle}>Sign Up</Text>
             </TouchableOpacity>

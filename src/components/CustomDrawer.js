@@ -1,19 +1,22 @@
-import React from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
-import { DrawerItem, DrawerContentScrollView } from "@react-navigation/drawer";
+import React from "react"
+import { View, StyleSheet, Text, Image } from "react-native"
+import { DrawerItem, DrawerContentScrollView } from "@react-navigation/drawer"
 import {
   MaterialCommunityIcons,
   Fontisto,
   FontAwesome5,
   AntDesign,
   Entypo,
-} from "@expo/vector-icons";
-import user from "../../assets/user.jpg";
-import { Rating, AirbnbRating } from "react-native-ratings";
-import { useNavigation } from "@react-navigation/native";
+} from "@expo/vector-icons"
+import user from "../../assets/user.jpg"
+import { Rating, AirbnbRating } from "react-native-ratings"
+import { useNavigation } from "@react-navigation/native"
+import { signOutUser } from "../store/services/Auth"
+import { useDispatch } from "react-redux"
 const DrawerContent = ({ ...props }) => {
-  const navigation = useNavigation();
-  const ratingCompleted = (rating) => {};
+  const navigation = useNavigation()
+  const dispatch = useDispatch()
+  const ratingCompleted = (rating) => {}
   return (
     <View style={{ flex: 1, backgroundColor: "#09A391" }}>
       <DrawerContentScrollView {...props}>
@@ -58,7 +61,7 @@ const DrawerContent = ({ ...props }) => {
               )}
               label="Home"
               onPress={() => {
-                navigation.navigate("Dashboard");
+                navigation.navigate("Dashboard")
               }}
             />
             <DrawerItem
@@ -87,7 +90,7 @@ const DrawerContent = ({ ...props }) => {
               )}
               label="About"
               onPress={() => {
-                navigation.navigate("About");
+                navigation.navigate("About")
               }}
             />
             <DrawerItem
@@ -101,7 +104,7 @@ const DrawerContent = ({ ...props }) => {
               )}
               label="FAQ"
               onPress={() => {
-                navigation.navigate("Blogs");
+                navigation.navigate("Blogs")
               }}
             />
             <DrawerItem
@@ -115,7 +118,7 @@ const DrawerContent = ({ ...props }) => {
               )}
               label="Support"
               onPress={() => {
-                navigation.navigate("Blogs");
+                navigation.navigate("Blogs")
               }}
             />
             <DrawerItem
@@ -129,16 +132,16 @@ const DrawerContent = ({ ...props }) => {
               )}
               label="Logout"
               onPress={() => {
-                navigation.navigate("SignIn");
+                dispatch(signOutUser())
               }}
             />
           </View>
         </View>
       </DrawerContentScrollView>
     </View>
-  );
-};
-export default DrawerContent;
+  )
+}
+export default DrawerContent
 const styles = StyleSheet.create({
   drawerContent: {
     flex: 1,
@@ -191,4 +194,4 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 16,
   },
-});
+})

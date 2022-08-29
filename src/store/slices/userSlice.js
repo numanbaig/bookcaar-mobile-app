@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-import { createUserWithEmail } from "../services/Auth"
+import { createUserWithEmail, signOutUser } from "../services/Auth"
 
 const initialState = {
   user: null,
@@ -16,18 +16,25 @@ const userSlice = createSlice({
     userRemoved(state, action) {
       state.user = null
     },
+    toogleAuthLoading(state, action) {
+      state.isLoading = !state.isLoading
+    },
   },
   extraReducers: (builder) => {
-    builder.addCase(createUserWithEmail.pending, (state, action) => {
-      state.isLoading = true
-    })
-    builder.addCase(createUserWithEmail.fulfilled, (state, action) => {
-      state.isLoading = false
+    // builder.addCase(createUserWithEmail.pending, (state, action) => {
+    //   state.isLoading = true
+    // })
+    // builder.addCase(createUserWithEmail.fulfilled, (state, action) => {
+    //   console.log("action", action.payload)
+    //   state.isLoading = false
+    // })
+    builder.addCase(signOutUser.fulfilled, (state, action) => {
+      state.user = null
     })
   },
 })
 
-export const { userAdded, userRemoved } = userSlice.actions
+export const { userAdded, userRemoved, toogleAuthLoading } = userSlice.actions
 export const currentUser = (state) => state.user.user
 export const signUpState = (state) => state.user.isLoading
 

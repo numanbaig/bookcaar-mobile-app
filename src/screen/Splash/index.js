@@ -1,21 +1,27 @@
 import React, { useState, useEffect } from "react"
 import { ActivityIndicator, View, StyleSheet, Image } from "react-native"
 import { useNavigation } from "@react-navigation/native"
-import { getCurrentUser } from "../../store/services/Auth"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { currentUser } from "../../store/slices/userSlice"
+
 const Splash = () => {
   const navigation = useNavigation()
-  const dispatch = useDispatch()
   const user = useSelector(currentUser)
+  const [animation, setAnimating] = useState(true)
 
   useEffect(() => {
-    dispatch(getCurrentUser())
+    setTimeout(() => {
+      setAnimating(false)
+    }, 3000)
   }, [])
-  console.log("user", user)
-  if (user) {
-    navigation.replace("Home")
+
+  if (user && !animation) {
+    navigation.navigate("Home")
   }
+  if (!user && !animation) {
+    navigation.navigate("SignIn")
+  }
+
   return (
     <View style={styles.container}>
       <Image
