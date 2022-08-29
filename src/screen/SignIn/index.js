@@ -1,4 +1,4 @@
-import React, { useState, createRef } from "react"
+import React, { useState, createRef } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -9,20 +9,20 @@ import {
   Keyboard,
   TouchableOpacity,
   KeyboardAvoidingView,
-} from "react-native"
-import * as yup from "yup"
-import { useNavigation } from "@react-navigation/native"
-import { Formik, Form } from "formik"
-import { loginWithEmail } from "../../store/services/Auth"
-import { useDispatch } from "react-redux"
-import { useSelector } from "react-redux"
-import { currentUser } from "../../store/slices/userSlice"
+} from "react-native";
+import * as yup from "yup";
+import { useNavigation } from "@react-navigation/native";
+import { Formik, Form } from "formik";
+import { loginWithEmail } from "../../store/services/Auth";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { currentUser } from "../../store/slices/userSlice";
 const SignIn = () => {
-  const navigation = useNavigation()
-  const dispatch = useDispatch()
-  const user = useSelector(currentUser)
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const user = useSelector(currentUser);
 
-  const passwordInputRef = createRef()
+  const passwordInputRef = createRef();
 
   const loginValidationSchema = yup.object().shape({
     email: yup
@@ -33,9 +33,9 @@ const SignIn = () => {
       .string()
       .min(8, ({ min }) => `Password must be at least ${min} characters`)
       .required("Password is required"),
-  })
+  });
   if (user) {
-    navigation.navigate("Home")
+    navigation.navigate("Home");
   }
   return (
     <View style={styles.mainBody}>
@@ -140,9 +140,9 @@ const SignIn = () => {
         </View>
       </ScrollView>
     </View>
-  )
-}
-export default SignIn
+  );
+};
+export default SignIn;
 
 const styles = StyleSheet.create({
   mainBody: {
@@ -202,4 +202,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 14,
   },
-})
+});

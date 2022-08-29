@@ -91,10 +91,9 @@ const Dashboard = (props) => {
                           fontSize: 18,
                           fontWeight: "bold",
                           marginTop: 10,
-                          color: "orange",
                         }}
                       >
-                        {e?.requestedUser?.display}
+                        {e?.requestedUser?.displayName}
                       </Paragraph>
                       <Paragraph
                         style={{
@@ -103,7 +102,7 @@ const Dashboard = (props) => {
                           marginTop: 10,
                         }}
                       >
-                        {e?.startDate?.toLocaleTimeString?.() || "Not Addded"}
+                        {e?.startDate}
                       </Paragraph>
                       <Paragraph>
                         {e?.pickupTiming?.toLocaleTimeString?.() ||
