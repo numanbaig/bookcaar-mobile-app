@@ -12,6 +12,7 @@ import { getCurrentUser } from "../store/services/Auth";
 import { useDispatch } from "react-redux";
 import Income from "../screen/income";
 import AddCar from "../screen/addCar";
+import RideDetail from "../screen/ridedetails/rideDetail";
 const Stack = createNativeStackNavigator();
 const Route = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,11 @@ const Route = () => {
         <Stack.Screen
           name="AddCarDetails"
           component={AddCarDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="RideDetail"
+          component={RideDetail}
           options={{ headerShown: false }}
         />
         <Stack.Screen
