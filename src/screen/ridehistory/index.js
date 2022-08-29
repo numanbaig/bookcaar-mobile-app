@@ -76,13 +76,10 @@ const RideHistory = (props) => {
               }}
             >
               <Text style={{}}>
-                Pickup Location:
+                Completed Date:
                 <Text style={{ color: "#09A391" }}>Jutyal Gilgit</Text>
               </Text>
-              <Text>
-                Pickup Timing:
-                <Text style={{ color: "#09A391" }}>10:00 Am</Text>
-              </Text>
+
               <Text>
                 Drop Location:
                 <Text style={{ color: "#09A391" }}>Hunza</Text>
@@ -90,10 +87,6 @@ const RideHistory = (props) => {
               <Text>
                 Booking Type:
                 <Text style={{ color: "#09A391" }}>Rental</Text>
-              </Text>
-              <Text>
-                Booking Status:
-                <Text style={{ color: "#09A391" }}>Status: </Text>
               </Text>
               <Text>
                 Booking Days:

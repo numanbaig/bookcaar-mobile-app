@@ -1,22 +1,22 @@
-import React from "react"
-import { View, StyleSheet, Text, Image } from "react-native"
-import { DrawerItem, DrawerContentScrollView } from "@react-navigation/drawer"
+import React from "react";
+import { View, StyleSheet, Text, Image } from "react-native";
+import { DrawerItem, DrawerContentScrollView } from "@react-navigation/drawer";
 import {
   MaterialCommunityIcons,
   Fontisto,
   FontAwesome5,
   AntDesign,
   Entypo,
-} from "@expo/vector-icons"
-import user from "../../assets/user.jpg"
-import { Rating, AirbnbRating } from "react-native-ratings"
-import { useNavigation } from "@react-navigation/native"
-import { signOutUser } from "../store/services/Auth"
-import { useDispatch } from "react-redux"
+} from "@expo/vector-icons";
+import user from "../../assets/user.jpg";
+import { Rating, AirbnbRating } from "react-native-ratings";
+import { useNavigation } from "@react-navigation/native";
+import { signOutUser } from "../store/services/Auth";
+import { useDispatch } from "react-redux";
 const DrawerContent = ({ ...props }) => {
-  const navigation = useNavigation()
-  const dispatch = useDispatch()
-  const ratingCompleted = (rating) => {}
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const ratingCompleted = (rating) => {};
   return (
     <View style={{ flex: 1, backgroundColor: "#09A391" }}>
       <DrawerContentScrollView {...props}>
@@ -29,7 +29,21 @@ const DrawerContent = ({ ...props }) => {
                 marginBottom: 10,
               }}
             >
-              <Image style={styles.img} source={user} />
+              <View style={{ flexDirection: "column" }}>
+                <Image style={styles.img} source={user} />
+                <Rating
+                  type="star"
+                  ratingCount={5}
+                  ratingColor="green"
+                  imageSize={18}
+                  style={{
+                    paddingTop: 10,
+                  }}
+                  tintColor="#09A391"
+                  onFinishRating={ratingCompleted}
+                />
+              </View>
+
               <View
                 style={{
                   flexDirection: "column",
@@ -38,14 +52,6 @@ const DrawerContent = ({ ...props }) => {
               >
                 <Text style={styles.userName}>Nouman baig</Text>
                 <Text style={styles.caption}>Daimond Star</Text>
-                <Rating
-                  type="star"
-                  ratingCount={5}
-                  ratingColor="green"
-                  imageSize={18}
-                  tintColor="#09A391"
-                  onFinishRating={ratingCompleted}
-                />
               </View>
             </View>
           </View>
@@ -54,6 +60,7 @@ const DrawerContent = ({ ...props }) => {
             <DrawerItem
               style={{ borderColor: "white", borderWidth: 1 }}
               labelStyle={{
+                fontSize: 18,
                 color: "white",
               }}
               icon={({ color, size }) => (
@@ -61,38 +68,53 @@ const DrawerContent = ({ ...props }) => {
               )}
               label="Home"
               onPress={() => {
-                navigation.navigate("Dashboard")
+                navigation.navigate("Dashboard");
               }}
             />
             <DrawerItem
               style={{ borderColor: "white", borderWidth: 1 }}
               labelStyle={{
+                fontSize: 18,
                 color: "white",
               }}
               icon={({ color, size }) => (
-                <FontAwesome5 name="home" color="white" size={size} />
+                <FontAwesome5 name="car" color="white" size={size} />
               )}
               label="Add Car"
               onPress={() => {
-                navigation.navigate("addcar")
+                navigation.navigate("AddCarDetails");
               }}
             />
             <DrawerItem
               style={{ borderColor: "white", borderWidth: 1 }}
               labelStyle={{
+                fontSize: 18,
                 color: "white",
               }}
               icon={({ color, size }) => (
-                <FontAwesome5 name="home" color="white" size={size} />
+                <FontAwesome5 name="dollar-sign" color="white" size={size} />
               )}
               label="My Income"
               onPress={() => {
-                navigation.navigate("income")
+                navigation.navigate("income");
               }}
             />
             <DrawerItem
               style={{ borderColor: "white", borderWidth: 1 }}
               labelStyle={{
+                fontSize: 18,
+                color: "white",
+              }}
+              icon={({ color, size }) => (
+                <Entypo name="bar-graph" color="white" size={size} />
+              )}
+              label="Rating"
+              onPress={() => {}}
+            />
+            <DrawerItem
+              style={{ borderColor: "white", borderWidth: 1 }}
+              labelStyle={{
+                fontSize: 18,
                 color: "white",
               }}
               icon={({ color, size }) => (
@@ -104,6 +126,7 @@ const DrawerContent = ({ ...props }) => {
             <DrawerItem
               style={{ borderColor: "white", borderWidth: 1 }}
               labelStyle={{
+                fontSize: 18,
                 color: "white",
               }}
               activeTintColor={"blue"}
@@ -115,59 +138,48 @@ const DrawerContent = ({ ...props }) => {
                 />
               )}
               label="About"
-              onPress={() => {
-                navigation.navigate("About")
-              }}
+              onPress={() => {}}
             />
             <DrawerItem
               style={{ borderColor: "white", borderWidth: 1 }}
               labelStyle={{
+                fontSize: 18,
                 color: "white",
               }}
               activeTintColor={"blue"}
               icon={({ color, size }) => (
-                <Entypo name="book" color="white" size={size} />
+                <MaterialCommunityIcons
+                  name="head-question-outline"
+                  color="white"
+                  size={size}
+                />
               )}
               label="FAQ"
-              onPress={() => {
-                navigation.navigate("Blogs")
-              }}
+              onPress={() => {}}
             />
+
             <DrawerItem
               style={{ borderColor: "white", borderWidth: 1 }}
               labelStyle={{
                 color: "white",
+                fontSize: 18,
               }}
               activeTintColor={"blue"}
               icon={({ color, size }) => (
-                <Entypo name="book" color="white" size={size} />
-              )}
-              label="Add Car Details"
-              onPress={() => {
-                navigation.navigate("AddCarDetails")
-              }}
-            />
-            <DrawerItem
-              style={{ borderColor: "white", borderWidth: 1 }}
-              labelStyle={{
-                color: "white",
-              }}
-              activeTintColor={"blue"}
-              icon={({ color, size }) => (
-                <Entypo name="book" color="white" size={size} />
+                <AntDesign name="logout" color="white" size={size} />
               )}
               label="Logout"
               onPress={() => {
-                dispatch(signOutUser())
+                dispatch(signOutUser());
               }}
             />
           </View>
         </View>
       </DrawerContentScrollView>
     </View>
-  )
-}
-export default DrawerContent
+  );
+};
+export default DrawerContent;
 const styles = StyleSheet.create({
   drawerContent: {
     flex: 1,
@@ -188,7 +200,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   userName: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
     marginBottom: 5,
     color: "white",
@@ -220,4 +232,4 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 16,
   },
-})
+});
