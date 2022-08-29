@@ -11,8 +11,11 @@ import {
 import user from "../../assets/user.jpg";
 import { Rating, AirbnbRating } from "react-native-ratings";
 import { useNavigation } from "@react-navigation/native";
+import { signOutUser } from "../store/services/Auth";
+import { useDispatch } from "react-redux";
 const DrawerContent = ({ ...props }) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const ratingCompleted = (rating) => {};
   return (
     <View style={{ flex: 1, backgroundColor: "#09A391" }}>
@@ -67,6 +70,32 @@ const DrawerContent = ({ ...props }) => {
                 color: "white",
               }}
               icon={({ color, size }) => (
+                <FontAwesome5 name="home" color="white" size={size} />
+              )}
+              label="Add Car"
+              onPress={() => {
+                navigation.navigate("addcar");
+              }}
+            />
+            <DrawerItem
+              style={{ borderColor: "white", borderWidth: 1 }}
+              labelStyle={{
+                color: "white",
+              }}
+              icon={({ color, size }) => (
+                <FontAwesome5 name="home" color="white" size={size} />
+              )}
+              label="My Income"
+              onPress={() => {
+                navigation.navigate("income");
+              }}
+            />
+            <DrawerItem
+              style={{ borderColor: "white", borderWidth: 1 }}
+              labelStyle={{
+                color: "white",
+              }}
+              icon={({ color, size }) => (
                 <AntDesign name="contacts" color="white" size={size} />
               )}
               label="My Account"
@@ -87,7 +116,7 @@ const DrawerContent = ({ ...props }) => {
               )}
               label="About"
               onPress={() => {
-                // navigation.navigate("About");
+                navigation.navigate("About");
               }}
             />
             <DrawerItem
@@ -101,7 +130,7 @@ const DrawerContent = ({ ...props }) => {
               )}
               label="FAQ"
               onPress={() => {
-                // navigation.navigate("Blogs");
+                navigation.navigate("Blogs");
               }}
             />
             <DrawerItem
@@ -115,7 +144,7 @@ const DrawerContent = ({ ...props }) => {
               )}
               label="Support"
               onPress={() => {
-                // navigation.navigate("Blogs");
+                navigation.navigate("Blogs");
               }}
             />
             <DrawerItem
@@ -129,7 +158,7 @@ const DrawerContent = ({ ...props }) => {
               )}
               label="Logout"
               onPress={() => {
-                navigation.navigate("SignIn");
+                dispatch(signOutUser());
               }}
             />
           </View>

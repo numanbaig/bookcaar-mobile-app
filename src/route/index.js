@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AddCarDetails from "../screen/addcardetails";
@@ -7,8 +8,17 @@ import SignIn from "../screen/SignIn";
 import SignUp from "../screen/SignUp";
 import Splash from "../screen/Splash";
 import DrawerRoutes from "./drawer";
+import { getCurrentUser } from "../store/services/Auth";
+import { useDispatch } from "react-redux";
+import Income from "../screen/income";
+import AddCar from "../screen/addCar";
 const Stack = createNativeStackNavigator();
 const Route = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, []);
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
@@ -28,8 +38,18 @@ const Route = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
+          name="income"
+          component={Income}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="SignUp"
           component={SignUp}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="addcar"
+          component={AddCar}
           options={{ headerShown: false }}
         />
         <Stack.Screen

@@ -22,7 +22,7 @@ const firebaseConfig = {
   measurementId: REACT_APP_MEASUREMENT_ID,
 }
 
-const firebase = initializeApp(firebaseConfig)
+export const firebase = initializeApp(firebaseConfig)
 
 export const auth = getAuth(firebase)
 export const db = getFirestore(firebase)

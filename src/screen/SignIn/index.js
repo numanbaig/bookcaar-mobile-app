@@ -1,4 +1,4 @@
-import React, { useState, createRef } from "react";
+import React, { useState, createRef } from "react"
 import {
   StyleSheet,
   TextInput,
@@ -9,20 +9,21 @@ import {
   Keyboard,
   TouchableOpacity,
   KeyboardAvoidingView,
-} from "react-native";
-import * as yup from "yup";
-import { useNavigation } from "@react-navigation/native";
-import { Formik, Form } from "formik";
+} from "react-native"
+import * as yup from "yup"
+import { useNavigation } from "@react-navigation/native"
+import { Formik, Form } from "formik"
+import { loginWithEmail } from "../../store/services/Auth"
+import { useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
+import { currentUser } from "../../store/slices/userSlice"
 const SignIn = () => {
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [errortext, setErrortext] = useState("");
-  const navigation = useNavigation();
+  const navigation = useNavigation()
+  const dispatch = useDispatch()
+  const user = useSelector(currentUser)
 
-  const passwordInputRef = createRef();
+  const passwordInputRef = createRef()
 
-  const handleSubmitPress = () => {};
   const loginValidationSchema = yup.object().shape({
     email: yup
       .string()
@@ -32,10 +33,12 @@ const SignIn = () => {
       .string()
       .min(8, ({ min }) => `Password must be at least ${min} characters`)
       .required("Password is required"),
-  });
+  })
+  if (user) {
+    navigation.navigate("Home")
+  }
   return (
     <View style={styles.mainBody}>
-      {/* <Loader loading={loading} /> */}
       <ScrollView
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{
@@ -47,7 +50,7 @@ const SignIn = () => {
         <View>
           <Formik
             initialValues={{ email: "", password: "" }}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={(values) => dispatch(loginWithEmail(values))}
             validationSchema={loginValidationSchema}
           >
             {({
@@ -137,9 +140,9 @@ const SignIn = () => {
         </View>
       </ScrollView>
     </View>
-  );
-};
-export default SignIn;
+  )
+}
+export default SignIn
 
 const styles = StyleSheet.create({
   mainBody: {
@@ -199,4 +202,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 14,
   },
-});
+})

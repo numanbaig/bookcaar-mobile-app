@@ -3,9 +3,14 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Dashboard from "../screen/dashboard";
 import Rating from "../screen/rating";
 import Insurance from "../screen/insurance";
-import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
+import {
+  MaterialCommunityIcons,
+  FontAwesome5,
+  Ionicons,
+} from "@expo/vector-icons";
 import Income from "../screen/income";
 import Ride from "../screen/ride";
+import RideRequests from "../screen/rideRequests";
 const Tab = createBottomTabNavigator();
 
 const DashboardRoutes = (props) => {
@@ -48,15 +53,19 @@ const DashboardRoutes = (props) => {
       />
       <Tab.Screen
         options={{
-          title: "Income",
+          title: "Ride Rquest",
 
           headerShown: false,
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="piano" color={color} size={20} />
+            <Ionicons
+              name="ios-git-pull-request-outline"
+              color={color}
+              size={20}
+            />
           ),
         }}
-        name="income"
-        component={Income}
+        name="riderequest"
+        component={RideRequests}
       />
       <Tab.Screen
         options={{
@@ -78,7 +87,7 @@ const DashboardRoutes = (props) => {
           headerShown: false,
           title: "Insurance",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="piano" color={color} size={20} />
+            <FontAwesome5 name="car-crash" color={color} size={20} />
           ),
         }}
         name="insurance"

@@ -1,10 +1,10 @@
-import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
-import React from "react";
-import { Card, TextInput, Paragraph, Text } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, View, Image, TouchableOpacity } from "react-native"
+import React from "react"
+import { Card, TextInput, Paragraph, Text } from "react-native-paper"
+import { useNavigation } from "@react-navigation/native"
 const Bidding = ({ route }, props) => {
-  const { userData } = route?.params;
-  const navigation = useNavigation();
+  const { userData } = route?.params
+  const navigation = useNavigation()
 
   return (
     <View style={{ flex: 1 }}>
@@ -115,7 +115,7 @@ const Bidding = ({ route }, props) => {
         />
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("Home");
+            navigation.navigate("Home")
           }}
           style={styles.btn}
         >
@@ -123,7 +123,7 @@ const Bidding = ({ route }, props) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            navigation.goBack();
+            navigation.goBack()
           }}
           style={styles.btn2}
         >
@@ -131,10 +131,10 @@ const Bidding = ({ route }, props) => {
         </TouchableOpacity>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default Bidding;
+export default Bidding
 
 const styles = StyleSheet.create({
   img: {
@@ -169,4 +169,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
-});
+})

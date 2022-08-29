@@ -1,21 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { ActivityIndicator, View, StyleSheet, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState, useEffect } from "react"
+import { ActivityIndicator, View, StyleSheet, Image } from "react-native"
+import { useNavigation } from "@react-navigation/native"
+import { useSelector } from "react-redux"
+import { currentUser } from "../../store/slices/userSlice"
 
 const Splash = () => {
-  const navigation = useNavigation();
-
-  const [animating, setAnimating] = useState(true);
+  const navigation = useNavigation()
+  const user = useSelector(currentUser)
+  const [animation, setAnimating] = useState(true)
 
   useEffect(() => {
     setTimeout(() => {
-      setAnimating(false);
-      navigation.replace("SignIn");
-      //   AsyncStorage.getItem("user_id").then((value) =>
-      //     navigation.replace(value === null ? "Auth" : "DrawerNavigationRoutes")
-      //   );
-    }, 3000);
-  }, []);
+      setAnimating(false)
+    }, 3000)
+  }, [])
+
+  if (user && !animation) {
+    navigation.navigate("Home")
+  }
+  if (!user && !animation) {
+    navigation.navigate("SignIn")
+  }
 
   return (
     <View style={styles.container}>
@@ -24,16 +29,16 @@ const Splash = () => {
         style={{ resizeMode: "contain", height: 350 }}
       />
       <ActivityIndicator
-        animating={animating}
+        animating={true}
         color="#09A391"
         size="large"
         style={styles.activityIndicator}
       />
     </View>
-  );
-};
+  )
+}
 
-export default Splash;
+export default Splash
 
 const styles = StyleSheet.create({
   container: {
@@ -45,4 +50,4 @@ const styles = StyleSheet.create({
   activityIndicator: {
     alignItems: "center",
   },
-});
+})
