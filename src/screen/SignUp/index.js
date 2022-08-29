@@ -66,7 +66,7 @@ const SignUp = () => {
   }, [])
 
   if (user) {
-    navigation.navigate("Home")
+    navigation.navigate("AddCarDetails")
   }
 
   return (
@@ -234,12 +234,17 @@ const SignUp = () => {
               </View>
             </ScrollView>
             <TouchableOpacity
-              style={styles.buttonStyle}
+              style={{
+                ...styles.buttonStyle,
+                opacity: isSignUpLoading ? 0.5 : 1,
+              }}
               activeOpacity={0.5}
               disabled={isSignUpLoading}
               onPress={handleSubmit}
             >
-              <Text style={styles.buttonTextStyle}>Sign Up</Text>
+              <Text style={styles.buttonTextStyle}>
+                {isSignUpLoading ? "Loading..." : "Sign Up"}
+              </Text>
             </TouchableOpacity>
           </View>
         )}

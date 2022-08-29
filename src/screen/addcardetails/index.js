@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 import {
   TouchableOpacity,
   StyleSheet,
@@ -6,56 +6,44 @@ import {
   View,
   TextInput,
   ScrollView,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import Checkbox from "expo-checkbox";
-import DropDownPicker from "react-native-dropdown-picker";
-import * as ImagePicker from "expo-image-picker";
-import * as yup from "yup";
-import { Picker } from "@react-native-picker/picker";
-import { Formik, Form } from "formik";
-
+} from "react-native"
+import { useNavigation } from "@react-navigation/native"
+import Checkbox from "expo-checkbox"
+import DropDownPicker from "react-native-dropdown-picker"
+import * as ImagePicker from "expo-image-picker"
+import * as yup from "yup"
+import { Picker } from "@react-native-picker/picker"
+import { Formik, Form } from "formik"
+import { addCarDetials } from "../../store/services/Bidding"
+import { useDispatch, useSelector } from "react-redux"
+import { driverCarAdded } from "../../store/slices/biddingSlice"
+import { pickImage } from "../../store/helpers/pickImage"
 const AddCarDetails = () => {
-  const navigation = useNavigation();
-  const [selectedLanguage, setSelectedLanguage] = useState();
-  const [isChecked, setChecked] = useState(false);
-  const [seatOpen, setSeatOpen] = useState("");
-  const [carType, setCarType] = useState("");
-  const [seatValue, setSeatValue] = useState("");
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    if (!result.cancelled) {
-      setBool(true);
-      setImage(result.uri);
-    }
-  };
+  const navigation = useNavigation()
+  const dispatch = useDispatch()
+  const carAdded = useSelector(driverCarAdded)
+
   const validationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .email("Please enter valid email")
-      .required("Email Address is Required"),
-    password: yup
-      .string()
-      .min(8, ({ min }) => `Password must be at least ${min} characters`)
-      .required("Password is required"),
-  });
+    numberPlate: yup.string().required(" Required"),
+    carImages: yup.string().required(" Required"),
+  })
+
+  if (carAdded) {
+    navigation.navigate("Home")
+  }
   return (
     <View style={styles.mainBody}>
       <Formik
         initialValues={{
           numberPlate: "",
-          ac: false,
-          seats: "",
-          baggage: "",
-          carType: "",
+          ac: true,
+          seats: 4,
+          baggage: 4,
+          carType: "Economy",
           carImages: "",
         }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => dispatch(addCarDetials(values))}
+        validationSchema={validationSchema}
       >
         {({
           handleChange,
@@ -68,68 +56,39 @@ const AddCarDetails = () => {
         }) => (
           <>
             <Text style={styles.paragraph}>Add Car Details</Text>
-            <View style={styles.SectionStyle}>
+            <View
+              style={{
+                ...styles.SectionStyle,
+                display: "flex",
+                flexDirection: "column",
+                height: 70,
+              }}
+            >
               <TextInput
                 style={styles.inputStyle}
                 placeholder="Vehical Registration Number(Number Plate)"
                 placeholderTextColor="#8b9cb5"
-                autoCapitalize="none"
-                keyboardType="email-address"
-                returnKeyType="next"
-                error={touched.email && Boolean(errors.email)}
-                helperText={touched.email && errors.email}
                 onChangeText={handleChange("numberPlate")}
-                value={values.email}
-                onSubmitEditing={() =>
-                  passwordInputRef.current && passwordInputRef.current.focus()
+                value={values.numberPlate}
+              />
+              {touched.numberPlate && errors.numberPlate ? (
+                <Text style={{ color: "red" }}>{errors.numberPlate}</Text>
+              ) : null}
+            </View>
+            <View style={styles.SectionStyle}>
+              <Picker
+                style={styles.defaultPicker}
+                selectedValue={values.seats}
+                onValueChange={(nextValue) =>
+                  setFieldValue("carType", nextValue)
                 }
-                underlineColorAndroid="#f000"
-                blurOnSubmit={false}
-              />
-            </View>
-
-            <View style={styles.SectionStyle}>
-              <DropDownPicker
-                placeholder="Select Seats"
-                value={values.seats}
-                items={[
-                  { label: "1", value: "1" },
-                  { label: "2", value: "2" },
-                  { label: "3", value: "3" },
-                  { label: "4", value: "4" },
-                ]}
-                defaultIndex={0}
-                containerStyle={{ height: 40 }}
-                onChange={(item) => {
-                  setFieldValue("seats", !values.seats);
-
-                  console.log(item, "item");
-                }}
-              />
-            </View>
-
-            <View style={styles.SectionStyle}>
-              <DropDownPicker
-                placeholder="Select Baggage"
-                open={seatOpen}
-                setOpen={setSeatOpen}
-                value={values.baggage}
-                items={[
-                  { label: "1", value: "1" },
-                  { label: "2", value: "2" },
-                  { label: "3", value: "3" },
-                  { label: "4", value: "4" },
-                  { label: "5", value: "5" },
-                ]}
-                defaultIndex={0}
-                containerStyle={{ height: 40 }}
-                onChange={(item) => {
-                  setFieldValue(item.value);
-                  console.log(item, "item");
-                }}
-                zIndex={1000}
-                zIndexInverse={3000}
-              />
+                placeholder="Select Number of Seats"
+              >
+                <Picker.Item label="Select Number of Seats" value="" />
+                {[1, 2, 3, 4, 5, 6].map((value) => (
+                  <Picker.Item label={`${value}`} value={value} />
+                ))}
+              </Picker>
             </View>
             <View style={styles.SectionStyle}>
               <Picker
@@ -140,36 +99,63 @@ const AddCarDetails = () => {
                 }
                 placeholder="Select Car Type"
               >
-                <Picker.Item label="Select a Car Type" value="1" />
-                <Picker.Item label="1" value="1" />
-                <Picker.Item label="2" value="3" />
-                <Picker.Item label="3" value="3" />
-                <Picker.Item label="4" value="4" />
-                <Picker.Item label="5" value="5" />
+                <Picker.Item label="Select a Car Type" value="" />
+                <Picker.Item label="Executive" value="Executive" />
+                <Picker.Item label="Economy Plus" value="EconomyPlus" />
+                <Picker.Item label="Economy" value="Economy" />
+              </Picker>
+            </View>
+            <View style={styles.SectionStyle}>
+              <Picker
+                style={styles.defaultPicker}
+                selectedValue={values.baggage}
+                onValueChange={(nextValue) =>
+                  setFieldValue("baggage", nextValue)
+                }
+                placeholder="Select Baggages"
+              >
+                <Picker.Item label="Select Baggages" value="" />
+                {[1, 2, 3, 4, 5, 6].map((value) => (
+                  <Picker.Item label={`${value}`} value={value} />
+                ))}
               </Picker>
             </View>
             <View style={styles.section}>
               <Checkbox
                 type={"checkbox"}
+                onValueChange={() => setFieldValue("ac", !values.ac)}
                 value={values.ac}
                 style={{ color: "#09A391", margin: 15 }}
               />
 
               <Text>AC available</Text>
             </View>
-            <TouchableOpacity
-              style={styles.uploadButtonStyle}
-              activeOpacity={0.5}
-              onPress={pickImage}
-            >
-              <Text style={styles.uploadButtonTextStyle}>
-                Upload Car Pictures
-              </Text>
-            </TouchableOpacity>
+            <View>
+              <TouchableOpacity
+                style={styles.uploadButtonStyle}
+                activeOpacity={0.5}
+                onPress={async () =>
+                  setFieldValue("carImages", await pickImage())
+                }
+              >
+                <Text style={styles.uploadButtonTextStyle}>
+                  Upload Car Pictures
+                </Text>
+              </TouchableOpacity>
+              {values.carImages ? (
+                <Text sx={{ textAlign: "center" }}>{"Uploaded"}</Text>
+              ) : null}
+              {touched.carImages && errors.carImages ? (
+                <Text style={{ color: "red" }}>{errors.carImages}</Text>
+              ) : null}
+            </View>
+
             <TouchableOpacity
               style={styles.buttonStyle}
               activeOpacity={0.5}
-              onPress={handleSubmit}
+              onPress={() => {
+                handleSubmit()
+              }}
 
               // navigation.navigate("Home")
             >
@@ -179,10 +165,10 @@ const AddCarDetails = () => {
         )}
       </Formik>
     </View>
-  );
-};
+  )
+}
 
-export default AddCarDetails;
+export default AddCarDetails
 
 const styles = StyleSheet.create({
   mainBody: {
@@ -324,4 +310,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
-});
+})

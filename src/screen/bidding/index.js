@@ -1,11 +1,22 @@
 import { StyleSheet, View, Image, TouchableOpacity } from "react-native"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Card, TextInput, Paragraph, Text } from "react-native-paper"
 import { useNavigation } from "@react-navigation/native"
-const Bidding = ({ route }, props) => {
-  const { userData } = route?.params
-  const navigation = useNavigation()
+import { getCarDetails, createBid } from "../../store/services/Bidding"
+import { useDispatch, useSelector } from "react-redux"
 
+const Bidding = ({ route }, props) => {
+  const { userData, id } = route?.params
+  const navigation = useNavigation()
+  const dispatch = useDispatch()
+  const [amount, setAmount] = useState(0)
+  const cars = useSelector((state) => state.bidding.cars)
+
+  useEffect(() => {
+    dispatch(getCarDetails(userData.id))
+  }, [])
+
+  console.log("ss", cars)
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -110,12 +121,13 @@ const Bidding = ({ route }, props) => {
         <TextInput
           keyboardType="numeric"
           mode="outlined"
+          onChangeText={(e) => setAmount(e)}
           label=""
           placeholder="Bidding Amount"
         />
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("Home")
+            dispatch(createBid(cars[0], amount, userData.id))
           }}
           style={styles.btn}
         >

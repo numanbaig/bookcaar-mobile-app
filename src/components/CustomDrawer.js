@@ -116,9 +116,9 @@ const DrawerContent = ({ ...props }) => {
               icon={({ color, size }) => (
                 <Entypo name="book" color="white" size={size} />
               )}
-              label="Support"
+              label="Add Car Details"
               onPress={() => {
-                navigation.navigate("Blogs")
+                navigation.navigate("AddCarDetails")
               }}
             />
             <DrawerItem

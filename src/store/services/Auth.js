@@ -15,57 +15,69 @@ import {
   getFirestore,
 } from "firebase/firestore"
 import { auth } from "../../firebase"
-import { userAdded, toogleAuthLoading } from "../slices/userSlice"
+import {
+  userAdded,
+  toogleAuthLoading,
+  toggleAppLoading,
+} from "../slices/userSlice"
 import { uploadImageAndDownloadUrl } from "../helpers/uploadImage"
 
 export const createUserWithEmail = (values) => async (dispatch) => {
-  dispatch(toogleAuthLoading())
-  const db = getFirestore()
+  try {
+    dispatch(toogleAuthLoading())
+    const db = getFirestore()
 
-  let profileImage = ""
-  let cnicUrl = ""
-  if (values.cnicImage) {
-    cnicUrl = await uploadImageAndDownloadUrl(
-      values.cnicImage,
-      values.cnic,
-      "cnic.jpeg"
+    let profileImage = ""
+    let cnicUrl = ""
+    if (values.cnicImage) {
+      cnicUrl = await uploadImageAndDownloadUrl(
+        values.cnicImage,
+        values.cnic,
+        "cnic.jpeg"
+      )
+    }
+
+    if (values.profileImage) {
+      profileImage = await uploadImageAndDownloadUrl(
+        values.profileImage,
+        values.name,
+        "profileimage.jpeg"
+      )
+    }
+
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      values.email,
+      values.password
     )
-  }
-
-  if (values.profileImage) {
-    profileImage = await uploadImageAndDownloadUrl(
-      values.profileImage,
-      values.name,
-      "profileimage.jpeg"
+    const user = await setDoc(
+      doc(db, "drivers", `${userCredential.user.uid}`),
+      {
+        uid: userCredential.user.uid,
+        name: values.name,
+        email: values.email,
+        cnicUrl: cnicUrl,
+        profileImage: profileImage || "",
+        phoneNumber: values.phoneNumber,
+        cnic: values.cnic,
+        metadata: {
+          createdAt: userCredential.user.metadata.createdAt,
+          creationTime: userCredential.user.metadata.creationTime,
+          lastLoginAt: userCredential.user.metadata.lastLoginAt,
+          lastSignInTime: userCredential.user.metadata.lastSignInTime,
+        },
+      }
     )
+  } catch (err) {
+  } finally {
+    dispatch(toogleAuthLoading())
   }
-
-  const userCredential = await createUserWithEmailAndPassword(
-    auth,
-    values.email,
-    values.password
-  )
-  const user = await setDoc(doc(db, "drivers", `${userCredential.user.uid}`), {
-    uid: userCredential.user.uid,
-    name: values.name,
-    email: values.email,
-    cnicUrl: cnicUrl,
-    profileImage: profileImage || "",
-    phoneNumber: values.phoneNumber,
-    cnic: values.cnic,
-    metadata: {
-      createdAt: userCredential.user.metadata.createdAt,
-      creationTime: userCredential.user.metadata.creationTime,
-      lastLoginAt: userCredential.user.metadata.lastLoginAt,
-      lastSignInTime: userCredential.user.metadata.lastSignInTime,
-    },
-  })
-  dispatch(toogleAuthLoading())
 }
 
 export const loginWithEmail = createAsyncThunk(
   "users/loginWithEmail",
   async ({ email, password }) => {
+    console.log("login", login)
     return await signInWithEmailAndPassword(auth, email, password).then(
       (userCredential) => {
         const user = userCredential.user
@@ -81,6 +93,7 @@ export const getCurrentUser = () => async (dispatch) => {
     if (user) {
       dispatch(userAdded(user.uid))
     }
+    dispatch(toggleAppLoading())
   })
 }
 

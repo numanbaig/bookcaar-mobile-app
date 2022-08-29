@@ -46,73 +46,80 @@ const Dashboard = (props) => {
         </TouchableOpacity>
       </View>
       <ScrollView>
-        {biddingList.map((e, index) => {
-          return (
-            <Card key={index} style={{ padding: 15 }}>
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  flex: 1,
-                }}
-              >
+        {!biddingList ? (
+          <View>No Request for Rides </View>
+        ) : (
+          biddingList.map((e, index) => {
+            return (
+              <Card key={index} style={{ padding: 15 }}>
                 <View
                   style={{
-                    width: 80,
-                    flex: 3,
+                    display: "flex",
+                    flexDirection: "row",
+                    flex: 1,
                   }}
                 >
-                  <Card.Content>
-                    {e.imageUrl ? (
-                      <Image style={styles.img} source={{ uri: e.imageUrl }} />
+                  <View
+                    style={{
+                      width: 80,
+                      flex: 3,
+                    }}
+                  >
+                    <Card.Content>
+                      {e.imageUrl ? (
+                        <Image
+                          style={styles.img}
+                          source={{ uri: e.imageUrl }}
+                        />
+                      ) : (
+                        <Image
+                          style={styles.img}
+                          source={require("../../../assets/user.jpg")}
+                        />
+                      )}
+                    </Card.Content>
+                    <Card.Content>
+                      <Paragraph style={{ fontSize: 16, fontWeight: "bold" }}>
+                        {e.name}
+                      </Paragraph>
+                      <Paragraph>{e.pickupTiming}</Paragraph>
+                    </Card.Content>
+                  </View>
+                  <View
+                    style={{
+                      flex: 5.5,
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text>Pickup Location:{e.pickupLocation}</Text>
+                    <Text>Drop Location: {e.dropLocation}</Text>
+                    <Text>Booking Type: {e.tripType}</Text>
+                    {e.tripType === "Per Day" ? (
+                      <Text>Booking Days: {e.bookingDay}</Text>
                     ) : (
-                      <Image
-                        style={styles.img}
-                        source={require("../../../assets/user.jpg")}
-                      />
+                      <Text></Text>
                     )}
-                  </Card.Content>
-                  <Card.Content>
-                    <Paragraph style={{ fontSize: 16, fontWeight: "bold" }}>
-                      {e.name}
-                    </Paragraph>
-                    <Paragraph>{e.pickupTiming}</Paragraph>
-                  </Card.Content>
-                </View>
-                <View
-                  style={{
-                    flex: 5.5,
-                    justifyContent: "center",
-                  }}
-                >
-                  <Text>Pickup Location:{e.pickupLocation}</Text>
-                  <Text>Drop Location: {e.dropLocation}</Text>
-                  <Text>Booking Type: {e.tripType}</Text>
-                  {e.tripType === "Per Day" ? (
-                    <Text>Booking Days: {e.bookingDay}</Text>
-                  ) : (
-                    <Text></Text>
-                  )}
-                  <View style={{ display: "flex", flexDirection: "row" }}>
-                    <TouchableOpacity onPress={() => {}} style={styles.btn2}>
-                      <Text style={styles.btnText2}>Cancel</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      onPress={() => {
-                        navigation.navigate("Bidding", {
-                          userData: e,
-                        })
-                      }}
-                      style={styles.btn}
-                    >
-                      <Text style={styles.btnText}>Bid</Text>
-                    </TouchableOpacity>
+                    <View style={{ display: "flex", flexDirection: "row" }}>
+                      {/* <TouchableOpacity onPress={() => {}} style={styles.btn2}>
+                        <Text style={styles.btnText2}>Cancel</Text>
+                      </TouchableOpacity> */}
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate("Bidding", {
+                            userData: e,
+                          })
+                        }}
+                        style={styles.btn}
+                      >
+                        <Text style={styles.btnText}>Bid</Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 </View>
-              </View>
-            </Card>
-          )
-        })}
+              </Card>
+            )
+          })
+        )}
       </ScrollView>
     </View>
   )

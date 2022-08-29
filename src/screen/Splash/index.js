@@ -2,23 +2,18 @@ import React, { useState, useEffect } from "react"
 import { ActivityIndicator, View, StyleSheet, Image } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { useSelector } from "react-redux"
-import { currentUser } from "../../store/slices/userSlice"
+import { currentUser, appLoading } from "../../store/slices/userSlice"
 
 const Splash = () => {
   const navigation = useNavigation()
   const user = useSelector(currentUser)
-  const [animation, setAnimating] = useState(true)
+  const loading = useSelector(appLoading)
 
-  useEffect(() => {
-    setTimeout(() => {
-      setAnimating(false)
-    }, 3000)
-  }, [])
-
-  if (user && !animation) {
+  console.log("appLoading", loading)
+  if (user && !loading) {
     navigation.navigate("Home")
   }
-  if (!user && !animation) {
+  if (!user && !loading) {
     navigation.navigate("SignIn")
   }
 

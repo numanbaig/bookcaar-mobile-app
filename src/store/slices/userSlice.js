@@ -5,6 +5,7 @@ import { createUserWithEmail, signOutUser } from "../services/Auth"
 const initialState = {
   user: null,
   isLoading: false,
+  appLoading: true,
 }
 const userSlice = createSlice({
   name: "user",
@@ -18,6 +19,9 @@ const userSlice = createSlice({
     },
     toogleAuthLoading(state, action) {
       state.isLoading = !state.isLoading
+    },
+    toggleAppLoading(state, action) {
+      state.appLoading = !state.appLoading
     },
   },
   extraReducers: (builder) => {
@@ -34,8 +38,9 @@ const userSlice = createSlice({
   },
 })
 
-export const { userAdded, userRemoved, toogleAuthLoading } = userSlice.actions
+export const { userAdded, userRemoved, toogleAuthLoading, toggleAppLoading } =
+  userSlice.actions
 export const currentUser = (state) => state.user.user
 export const signUpState = (state) => state.user.isLoading
-
+export const appLoading = (state) => state.user.appLoading
 export default userSlice.reducer
