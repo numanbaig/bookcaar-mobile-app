@@ -65,7 +65,6 @@ export const createUserWithEmail = createAsyncThunk(
         },
       }
     )
-    console.log("userrrr", user)
     return user
   }
 )

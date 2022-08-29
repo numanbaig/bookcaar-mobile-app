@@ -12,19 +12,19 @@ const Splash = () => {
   useEffect(() => {
     dispatch(getCurrentUser())
   }, [])
-
+  console.log("user", user)
   if (user) {
     navigation.replace("Home")
   }
   return (
     <View style={styles.container}>
       <Image
-        source={require("../../../assets/logo.png")}
-        style={{ resizeMode: "contain", height: 150, width: 200 }}
+        source={require("../../../assets/appLogo.png")}
+        style={{ resizeMode: "contain", height: 350 }}
       />
       <ActivityIndicator
         animating={true}
-        color="#FFFFFF"
+        color="#09A391"
         size="large"
         style={styles.activityIndicator}
       />
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#09A391",
+    backgroundColor: "#FFFFFF",
   },
   activityIndicator: {
     alignItems: "center",
