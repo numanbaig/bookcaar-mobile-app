@@ -28,6 +28,8 @@ const AddCarDetails = () => {
     carImages: yup.string().required(" Required"),
   })
 
+  console.log("carAdded", carAdded)
+
   if (carAdded) {
     navigation.navigate("Home")
   }

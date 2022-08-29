@@ -5,6 +5,7 @@ const initialState = {
   driverBids: [],
   cars: [],
   carAdded: false,
+  rideRequest: [],
 }
 const userSlice = createSlice({
   name: "bidding",
@@ -22,13 +23,21 @@ const userSlice = createSlice({
     carsAdded(state, action) {
       state.carAdded = true
     },
+    driverBidsList(state, action) {
+      state.rideRequest = action.payload
+    },
   },
 })
 
-export const { setBiddingList, currentDriverBids, driverCars, carsAdded } =
-  userSlice.actions
+export const {
+  setBiddingList,
+  currentDriverBids,
+  driverCars,
+  carsAdded,
+  driverBidsList,
+} = userSlice.actions
 export const bidding = (state) => state.bidding.bidding
 export const driverBids = (state) => state.bidding.driverBids
 export const cars = (state) => state.bidding.cars
-export const driverCarAdded = (state) => state.bidding.carsAdded
+export const driverCarAdded = (state) => state.bidding.carAdded
 export default userSlice.reducer

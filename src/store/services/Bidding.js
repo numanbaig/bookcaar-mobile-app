@@ -4,12 +4,18 @@ import {
   getDocs,
   addDoc,
   onSnapshot,
+  setDoc,
+  doc,
+  updateDoc,
+  query,
+  getDoc,
 } from "firebase/firestore"
 import {
   setBiddingList,
   currentDriverBids,
   carsAdded,
   driverCars,
+  driverBidsList,
 } from "../slices/biddingSlice"
 import { uploadImageAndDownloadUrl } from "../helpers/uploadImage"
 export const getBidding = () => async (dispatch) => {
@@ -67,7 +73,6 @@ export const getCarDetails = (id) => async (dispatch, getState) => {
   const db = getFirestore()
   const state = getState()
   try {
-    console.log("call", state.user.user)
     const ref = collection(db, "drivers", state.user.user, "cars")
     onSnapshot(ref, (querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -79,28 +84,59 @@ export const getCarDetails = (id) => async (dispatch, getState) => {
     console.log("ee", err)
   }
 }
-export const createBid = (values, amount, id) => async (dispatch, getState) => {
-  try {
-    const state = getState()
-    const db = getFirestore()
-    console.log("id", id)
-    console.log("values", values)
-    console.log("amount", amount)
+export const createBid =
+  (values, amount, id, biddedDrivers) => async (dispatch, getState) => {
+    try {
+      const state = getState()
+      const db = getFirestore()
+      const currentUser = state.user.currentUser
+      let drivers = biddedDrivers || []
+      drivers.push(state.user.user)
+      const res = await setDoc(
+        doc(db, "car-request", id, "bids", state.user.user),
+        {
+          numberPlate: values.numberPlate,
+          carImages: values.carImages,
+          numberPlate: values.numberPlate,
+          ac: values.ac,
+          seats: values.seats,
+          baggage: values.baggage,
+          carType: values.carType,
+          createdAt: new Date().toDateString(),
+          amount: amount,
+          status: false,
+          deriverName: currentUser.name,
+          deriverName: currentUser.name,
+          profileImage: currentUser.profileImage,
+          email: currentUser.email,
+          phoneNumber: currentUser.phoneNumber,
+        }
+      )
 
-    const res = await addDoc(collection(db, "car-request", id, "bids"), {
-      numberPlate: values.numberPlate,
-      carImages: values.carImages,
-      numberPlate: values.numberPlate,
-      ac: values.ac,
-      seats: values.seats,
-      baggage: values.baggage,
-      carType: values.carType,
-      createdAt: new Date().toDateString(),
-      amount: amount,
-      status: false,
-    })
-    console.log("res", res)
-  } catch (err) {
-  } finally {
+      await updateDoc(doc(db, "car-request", id), {
+        bidedDrivers: drivers,
+      })
+    } catch (err) {
+    } finally {
+    }
   }
+export const getDriverBidding = () => async (dispatch, getState) => {
+  let bidding = []
+  let request = []
+  const db = getFirestore()
+  const state = getState()
+
+  const querySnapshot = await getDocs(collection(db, "car-request"))
+  await querySnapshot.forEach((doc) => {
+    if (doc.data()?.bidedDrivers?.includes(state.user.user)) {
+      request.push(doc.id)
+    }
+  })
+
+  for (let i = 0; i < request.length; i++) {
+    let q = query(doc(db, "car-request", request[i], "bids", state.user.user))
+    const bidSnapshot = await getDoc(q)
+    bidding.push({ id: bidSnapshot.id, ...bidSnapshot.data() })
+  }
+  dispatch(driverBidsList(bidding))
 }

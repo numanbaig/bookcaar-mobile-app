@@ -34,7 +34,6 @@ const SignIn = () => {
       .min(8, ({ min }) => `Password must be at least ${min} characters`)
       .required("Password is required"),
   })
-  console.log("user", user)
   if (user) {
     navigation.navigate("Home")
   }

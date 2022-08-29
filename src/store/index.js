@@ -6,4 +6,8 @@ export const store = configureStore({
     user: userReducer,
     bidding: biddingReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 })

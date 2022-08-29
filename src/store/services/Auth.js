@@ -13,12 +13,14 @@ import {
   where,
   doc,
   getFirestore,
+  getDoc,
 } from "firebase/firestore"
 import { auth } from "../../firebase"
 import {
   userAdded,
   toogleAuthLoading,
   toggleAppLoading,
+  setCurrentUser,
 } from "../slices/userSlice"
 import { uploadImageAndDownloadUrl } from "../helpers/uploadImage"
 
@@ -88,13 +90,32 @@ export const loginWithEmail = createAsyncThunk(
 )
 
 export const getCurrentUser = () => async (dispatch) => {
-  const auth = getAuth()
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      dispatch(userAdded(user.uid))
-    }
-    dispatch(toggleAppLoading())
-  })
+  try {
+    const auth = getAuth()
+    const db = getFirestore()
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        dispatch(userAdded(user.uid))
+        const docRef = doc(db, "drivers", user.uid)
+        const docSnap = await getDoc(docRef)
+        if (docSnap.exists()) {
+          const currentUser = docSnap?.data()
+          dispatch(
+            setCurrentUser({
+              name: currentUser?.name,
+              id: currentUser.uid,
+              email: currentUser.email,
+              phoneNumber: currentUser.phoneNumber,
+              profileImage: currentUser.profileImage,
+            })
+          )
+        }
+      }
+      dispatch(toggleAppLoading())
+    })
+  } catch (e) {
+  } finally {
+  }
 }
 
 export const signOutUser = createAsyncThunk("users/signOutUser", async () => {

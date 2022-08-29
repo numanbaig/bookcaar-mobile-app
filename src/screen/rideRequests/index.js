@@ -9,17 +9,18 @@ import {
 import React, { useEffect } from "react"
 import { Entypo, Ionicons } from "@expo/vector-icons"
 import { Card, Title, Paragraph } from "react-native-paper"
-import { getDriverRideRequests } from "../../store/services/Bidding"
+import { getDriverBidding } from "../../store/services/Bidding"
 import { useDispatch, useSelector } from "react-redux"
 import { driverBids } from "../../store/slices/biddingSlice"
 const RideRequest = (props) => {
   const { navigation } = props
   const dispatch = useDispatch()
-  const biddingList = useSelector(driverBids)
+  const biddingList = useSelector((state) => state.bidding.rideRequest)
 
   useEffect(() => {
-    dispatch(getDriverRideRequests())
+    dispatch(getDriverBidding())
   }, [])
+  console.log("biddingList", biddingList)
 
   return (
     <View>

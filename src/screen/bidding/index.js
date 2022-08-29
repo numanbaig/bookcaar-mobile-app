@@ -16,7 +16,6 @@ const Bidding = ({ route }, props) => {
     dispatch(getCarDetails(userData.id))
   }, [])
 
-  console.log("ss", cars)
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -127,7 +126,10 @@ const Bidding = ({ route }, props) => {
         />
         <TouchableOpacity
           onPress={() => {
-            dispatch(createBid(cars[0], amount, userData.id))
+            dispatch(
+              createBid(cars[0], amount, userData.id, userData.bidedDrivers)
+            )
+            navigation.replace("Home")
           }}
           style={styles.btn}
         >
