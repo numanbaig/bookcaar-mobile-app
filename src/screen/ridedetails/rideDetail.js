@@ -1,21 +1,21 @@
-import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native"
-import { Entypo, Ionicons } from "@expo/vector-icons"
-import React, { useEffect } from "react"
-import { Card } from "react-native-paper"
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps"
-import Maps from "../../components/map"
-import { Linking } from "react-native"
-import { getActiveRides } from "../../store/services/Rides"
-import { useDispatch, useSelector } from "react-redux"
+import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { Entypo, Ionicons } from "@expo/vector-icons";
+import React, { useEffect } from "react";
+import { Card } from "react-native-paper";
+import Maps from "../../components/map";
+import { Linking } from "react-native";
+import { getActiveRides } from "../../store/services/Rides";
+import { useDispatch, useSelector } from "react-redux";
 const RideDetail = (props) => {
-  const { navigation } = props
-  const dispatch = useDispatch()
-  const activeRides = useSelector((state) => state.rides.rides)
-  console.log("ss", activeRides)
+  const { navigation } = props;
+  const dispatch = useDispatch();
+  const activeRides = useSelector((state) => state.rides.rides);
+  console.log("ss", activeRides);
 
   useEffect(() => {
-    dispatch(getActiveRides())
-  }, [])
+    dispatch(getActiveRides());
+  }, []);
+
   return (
     <>
       {!activeRides.length ? (
@@ -34,42 +34,12 @@ const RideDetail = (props) => {
         </View>
       ) : (
         <View style={{ flex: 1 }}>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingVertical: 20,
-              marginTop: 10,
-              paddingHorizontal: 20,
-              alignItems: "center",
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                navigation.openDrawer()
-              }}
-            >
-              <Entypo name="menu" color="#09A391" size={25} />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Ionicons
-                name="notifications-outline"
-                color="#09A391"
-                size={25}
-              />
-            </TouchableOpacity>
-          </View>
+          {activeRides && <Maps activeRides={activeRides} />}
           <Card
             style={{
-              margin: 15,
+              marginHorizontal: 15,
             }}
           >
-            <MapView
-              provider={PROVIDER_GOOGLE}
-              style={{ height: 300, width: "100%" }}
-              showsUserLocation
-            />
             <Card.Content style={{ padding: 25 }}>
               <View style={{ flexDirection: "row", paddingTop: 10 }}>
                 <Text style={{ width: 150, fontSize: 16, fontWeight: "bold" }}>
@@ -122,8 +92,10 @@ const RideDetail = (props) => {
           >
             <Text
               onPress={() => {
-                dispatch(getActiveRides())
-                // Linking.openURL(`tel:${phoneNumber}`);
+                dispatch(getActiveRides());
+                Linking.openURL(
+                  `tel:${activeRides?.requestedUser?.phoneNumber}`
+                );
               }}
               style={{
                 color: "#FFFFFF",
@@ -137,9 +109,9 @@ const RideDetail = (props) => {
         </View>
       )}
     </>
-  )
-}
+  );
+};
 
-export default RideDetail
+export default RideDetail;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
