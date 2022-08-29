@@ -9,10 +9,11 @@ import {
 } from "react-native"
 import React, { useEffect } from "react"
 import { Entypo, Ionicons } from "@expo/vector-icons"
-import { Card, Title, Paragraph } from "react-native-paper"
+import { Card, Paragraph } from "react-native-paper"
 import { getBidding } from "../../store/services/Bidding"
 import { useDispatch, useSelector } from "react-redux"
 import { bidding } from "../../store/slices/biddingSlice"
+
 const Dashboard = (props) => {
   const { navigation } = props
   const dispatch = useDispatch()
@@ -21,6 +22,7 @@ const Dashboard = (props) => {
   useEffect(() => {
     dispatch(getBidding())
   }, [])
+
   return (
     <View>
       <View
@@ -41,6 +43,11 @@ const Dashboard = (props) => {
         >
           <Entypo name="menu" color="#09A391" size={25} />
         </TouchableOpacity>
+        <Paragraph
+          style={{ fontSize: 20, fontWeight: "bold", color: "#09A391" }}
+        >
+          Requests
+        </Paragraph>
         <TouchableOpacity>
           <Ionicons name="notifications-outline" color="#09A391" size={25} />
         </TouchableOpacity>
@@ -51,7 +58,7 @@ const Dashboard = (props) => {
         ) : (
           biddingList.map((e, index) => {
             return (
-              <Card key={index} style={{ padding: 15 }}>
+              <Card key={index} style={{ padding: 15, marginTop: 15 }}>
                 <View
                   style={{
                     display: "flex",
@@ -69,7 +76,7 @@ const Dashboard = (props) => {
                       {e.imageUrl ? (
                         <Image
                           style={styles.img}
-                          source={{ uri: e.imageUrl }}
+                          source={{ uri: e?.imageUrl }}
                         />
                       ) : (
                         <Image
@@ -79,10 +86,28 @@ const Dashboard = (props) => {
                       )}
                     </Card.Content>
                     <Card.Content>
-                      <Paragraph style={{ fontSize: 16, fontWeight: "bold" }}>
-                        {e.name}
+                      <Paragraph
+                        style={{
+                          fontSize: 18,
+                          fontWeight: "bold",
+                          marginTop: 10,
+                        }}
+                      >
+                        {e?.requestedUser?.display}
                       </Paragraph>
-                      <Paragraph>{e.pickupTiming}</Paragraph>
+                      <Paragraph
+                        style={{
+                          fontSize: 16,
+                          fontWeight: "bold",
+                          marginTop: 10,
+                        }}
+                      >
+                        {e?.startDate?.toLocaleTimeString?.() || "Not Addded"}
+                      </Paragraph>
+                      <Paragraph>
+                        {e?.pickupTiming?.toLocaleTimeString?.() ||
+                          "Not Addded"}
+                      </Paragraph>
                     </Card.Content>
                   </View>
                   <View
@@ -91,15 +116,43 @@ const Dashboard = (props) => {
                       justifyContent: "center",
                     }}
                   >
-                    <Text>Pickup Location:{e.pickupLocation}</Text>
-                    <Text>Drop Location: {e.dropLocation}</Text>
-                    <Text>Booking Type: {e.tripType}</Text>
-                    {e.tripType === "Per Day" ? (
-                      <Text>Booking Days: {e.bookingDay}</Text>
+                    <Text>
+                      Pickup Location:
+                      <Text style={{ color: "#09A391" }}>
+                        {e?.pickUpLocation?.label}
+                      </Text>
+                    </Text>
+                    <Text style={{ marginTop: 10 }}>
+                      Drop Location:
+                      <Text style={{ color: "#09A391" }}>
+                        {e?.dropOfLocation?.label}
+                      </Text>
+                    </Text>
+                    <Text style={{ marginTop: 10 }}>
+                      Booking Type:
+                      <Text style={{ color: "#09A391" }}>{e?.bookingType}</Text>
+                    </Text>
+                    <Text style={{ marginTop: 10 }}>
+                      Vehical Type:
+                      <Text style={{ color: "#09A391" }}>{e?.vehicalType}</Text>
+                    </Text>
+                    {e?.bookingType === "Per Day" ? (
+                      <Text style={{ marginTop: 10 }}>
+                        Number of Days:
+                        <Text style={{ color: "#09A391" }}>
+                          {e?.numberOfDays}
+                        </Text>
+                      </Text>
                     ) : (
                       <Text></Text>
                     )}
-                    <View style={{ display: "flex", flexDirection: "row" }}>
+                    <View
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        marginTop: 10,
+                      }}
+                    >
                       {/* <TouchableOpacity onPress={() => {}} style={styles.btn2}>
                         <Text style={styles.btnText2}>Cancel</Text>
                       </TouchableOpacity> */}

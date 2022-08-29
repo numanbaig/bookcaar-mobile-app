@@ -41,6 +41,7 @@ const userSlice = createSlice({
     // })
     builder.addCase(signOutUser.fulfilled, (state, action) => {
       state.user = null
+      state.currentUser = null
     })
   },
 })

@@ -1,12 +1,12 @@
-import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { Entypo, Ionicons } from "@expo/vector-icons";
-import React from "react";
-import { Card } from "react-native-paper";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
-import Maps from "../../components/map";
+import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native"
+import { Entypo, Ionicons } from "@expo/vector-icons"
+import React from "react"
+import { Card } from "react-native-paper"
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps"
+import Maps from "../../components/map"
 
 const RideDetail = (props) => {
-  const { navigation } = props;
+  const { navigation } = props
 
   return (
     <View style={{ flex: 1, padding: 15 }}>
@@ -23,7 +23,7 @@ const RideDetail = (props) => {
       >
         <TouchableOpacity
           onPress={() => {
-            navigation.openDrawer();
+            navigation.openDrawer()
           }}
         >
           <Entypo name="menu" color="#09A391" size={25} />
@@ -40,20 +40,32 @@ const RideDetail = (props) => {
         />
         <Card.Content style={{ padding: 25 }}>
           <View style={{ flexDirection: "row", paddingTop: 10 }}>
-            <Text style={{ width: 150, fontSize: 18 }}>Date</Text>
-            <Text style={{ fontSize: 20, color: "green" }}>10am July 2020</Text>
+            <Text style={{ width: 150, fontSize: 18, fontWeight: "bold" }}>
+              Date
+            </Text>
+            <Text style={{ fontSize: 18, color: "#09A391" }}>
+              10am July 2020
+            </Text>
           </View>
           <View style={{ flexDirection: "row", paddingTop: 10 }}>
-            <Text style={{ width: 150, fontSize: 18 }}>From:</Text>
-            <Text style={{ fontSize: 20, color: "green" }}>Jutyal,Gilgit</Text>
+            <Text style={{ width: 150, fontSize: 18, fontWeight: "bold" }}>
+              From:
+            </Text>
+            <Text style={{ fontSize: 18, color: "#09A391" }}>
+              Jutyal,Gilgit
+            </Text>
           </View>
           <View style={{ flexDirection: "row", paddingTop: 10 }}>
-            <Text style={{ width: 150, fontSize: 18 }}>Destination:</Text>
-            <Text style={{ fontSize: 20, color: "green" }}>Hunza,Gilgit</Text>
+            <Text style={{ width: 150, fontSize: 18, fontWeight: "bold" }}>
+              Destination:
+            </Text>
+            <Text style={{ fontSize: 18, color: "#09A391" }}>Hunza,Gilgit</Text>
           </View>
           <View style={{ flexDirection: "row", paddingTop: 10 }}>
-            <Text style={{ width: 150, fontSize: 18 }}>Fare:</Text>
-            <Text style={{ fontSize: 20, color: "green" }}>Rs3000</Text>
+            <Text style={{ width: 150, fontSize: 18, fontWeight: "bold" }}>
+              Fare:
+            </Text>
+            <Text style={{ fontSize: 18, color: "#09A391" }}>Rs3000</Text>
           </View>
         </Card.Content>
       </Card>
@@ -85,9 +97,9 @@ const RideDetail = (props) => {
         </Text>
       </TouchableOpacity>
     </View>
-  );
-};
+  )
+}
 
-export default RideDetail;
+export default RideDetail
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({})

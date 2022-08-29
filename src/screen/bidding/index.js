@@ -15,7 +15,6 @@ const Bidding = ({ route }, props) => {
   useEffect(() => {
     dispatch(getCarDetails(userData.id))
   }, [])
-
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -26,17 +25,17 @@ const Bidding = ({ route }, props) => {
           backgroundColor: "#09A391",
         }}
       >
-        <Image style={styles.img} source={userData.userImageUrl} />
+        <Image style={styles.img} source={userData?.userImageUrl} />
         <Text
-          style={{ paddingTop: 10, fontWeight: "bold", height: 200, flex: 1 }}
+          style={{ paddingTop: 10, fontWeight: "bold", height: 100, flex: 1 }}
           variant="headlineMedium"
         >
-          {userData.userName}
+          {userData?.userName}
         </Text>
       </View>
       <View
         style={{
-          flex: 5,
+          flex: 9,
           padding: 20,
         }}
       >
@@ -45,10 +44,15 @@ const Bidding = ({ route }, props) => {
             Pickup Location:
           </Text>
           <Text
-            style={{ paddingBottom: 15, fontWeight: "bold", color: "#09A391" }}
+            style={{
+              paddingBottom: 15,
+              fontWeight: "bold",
+              color: "#09A391",
+              width: 260,
+            }}
             variant="titleMedium"
           >
-            {userData.pickupLocation}
+            {userData?.pickUpLocation?.label}
           </Text>
         </View>
         <View style={{ flexDirection: "row" }}>
@@ -56,10 +60,15 @@ const Bidding = ({ route }, props) => {
             Drop Location:
           </Text>
           <Text
-            style={{ paddingBottom: 15, fontWeight: "bold", color: "#09A391" }}
+            style={{
+              paddingBottom: 15,
+              fontWeight: "bold",
+              color: "#09A391",
+              width: 260,
+            }}
             variant="titleMedium"
           >
-            {userData.dropLocation}
+            {userData?.dropOfLocation.label}
           </Text>
         </View>
         <View style={{ flexDirection: "row" }}>
@@ -67,10 +76,15 @@ const Bidding = ({ route }, props) => {
             Date and Time:
           </Text>
           <Text
-            style={{ paddingBottom: 15, fontWeight: "bold", color: "#09A391" }}
+            style={{
+              paddingBottom: 15,
+              fontWeight: "bold",
+              color: "#09A391",
+              width: 260,
+            }}
             variant="titleMedium"
           >
-            {userData.pickupTiming}
+            {userData?.startDate}
           </Text>
         </View>
         <View style={{ flexDirection: "row" }}>
@@ -81,10 +95,10 @@ const Bidding = ({ route }, props) => {
             style={{ paddingBottom: 15, fontWeight: "bold", color: "#09A391" }}
             variant="titleMedium"
           >
-            {userData.tripType}
+            {userData?.bookingType}
           </Text>
         </View>
-        {userData.tripType === "Per Day" ? (
+        {userData?.bookingType === "Per Day" ? (
           <View style={{ flexDirection: "row" }}>
             <Text
               style={{ paddingBottom: 15, width: 120 }}
@@ -100,13 +114,13 @@ const Bidding = ({ route }, props) => {
               }}
               variant="titleMedium"
             >
-              {userData.bookingDay}
+              {userData?.numberOfDays}
             </Text>
           </View>
         ) : (
           ""
         )}
-        <View style={{ flexDirection: "row" }}>
+        {/* <View style={{ flexDirection: "row" }}>
           <Text style={{ paddingBottom: 15, width: 120 }} variant="titleMedium">
             Asking Amount:
           </Text>
@@ -116,7 +130,7 @@ const Bidding = ({ route }, props) => {
           >
             100 Pkr
           </Text>
-        </View>
+        </View> */}
         <TextInput
           keyboardType="numeric"
           mode="outlined"

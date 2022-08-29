@@ -16,7 +16,7 @@ const Ride = (props) => {
   const { navigation } = props;
 
   return (
-    <View style={{ flex: 1, padding: 15 }}>
+    <View style={{}}>
       <View
         style={{
           display: "flex",
@@ -35,6 +35,11 @@ const Ride = (props) => {
         >
           <Entypo name="menu" color="#09A391" size={25} />
         </TouchableOpacity>
+        <Paragraph
+          style={{ fontSize: 20, fontWeight: "bold", color: "#09A391" }}
+        >
+          Active Booking
+        </Paragraph>
         <TouchableOpacity>
           <Ionicons name="notifications-outline" color="#09A391" size={25} />
         </TouchableOpacity>
@@ -44,8 +49,9 @@ const Ride = (props) => {
           onPress={() => {
             navigation.navigate("RideDetail");
           }}
+          style={{ marginHorizontal: 5 }}
         >
-          <Card style={{ padding: 15, flex: 1 }}>
+          <Card style={{ padding: 10, flex: 1 }}>
             <View
               style={{
                 display: "flex",
@@ -56,7 +62,7 @@ const Ride = (props) => {
               <View
                 style={{
                   width: 80,
-                  flex: 3,
+                  flex: 2.5,
                 }}
               >
                 <Card.Content>
@@ -77,29 +83,29 @@ const Ride = (props) => {
                   justifyContent: "center",
                 }}
               >
-                <Text>
+                <Text style={{}}>
                   Pickup Location:
-                  <Text>Jutyal Gilgit</Text>
+                  <Text style={{ color: "#09A391" }}>Jutyal Gilgit</Text>
                 </Text>
                 <Text>
                   Pickup Timing:
-                  <Text>10:00 Am</Text>
+                  <Text style={{ color: "#09A391" }}>10:00 Am</Text>
                 </Text>
                 <Text>
                   Drop Location:
-                  <Text>Hunza</Text>
+                  <Text style={{ color: "#09A391" }}>Hunza</Text>
                 </Text>
                 <Text>
                   Booking Type:
-                  <Text>Rental</Text>
+                  <Text style={{ color: "#09A391" }}>Rental</Text>
                 </Text>
                 <Text>
-                  Status:
-                  <Text>Status: </Text>
+                  Booking Status:
+                  <Text style={{ color: "#09A391" }}>Status: </Text>
                 </Text>
                 <Text>
                   Booking Days:
-                  <Text>10:</Text>
+                  <Text style={{ color: "#09A391" }}>10</Text>
                 </Text>
               </View>
             </View>

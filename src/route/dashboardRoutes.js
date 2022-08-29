@@ -1,17 +1,12 @@
-import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Dashboard from "../screen/dashboard";
-import Rating from "../screen/rating";
-import Insurance from "../screen/insurance";
-import {
-  MaterialCommunityIcons,
-  FontAwesome5,
-  Ionicons,
-} from "@expo/vector-icons";
-import Income from "../screen/income";
-import Ride from "../screen/ride";
-import RideRequests from "../screen/rideRequests";
-const Tab = createBottomTabNavigator();
+import React from "react"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import Dashboard from "../screen/dashboard"
+import Rating from "../screen/rating"
+import Insurance from "../screen/insurance"
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons"
+import Income from "../screen/income"
+import RideRequests from "../screen/RideRequests"
+const Tab = createBottomTabNavigator()
 
 const DashboardRoutes = (props) => {
   return (
@@ -41,30 +36,14 @@ const DashboardRoutes = (props) => {
       />
       <Tab.Screen
         options={{
-          title: "Ride",
+          title: "Income",
 
           headerShown: false,
           tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="car" color={color} size={20} />
+            <MaterialCommunityIcons name="piano" color={color} size={20} />
           ),
         }}
-        name="ride"
-        component={Ride}
-      />
-      <Tab.Screen
-        options={{
-          title: "Ride Rquest",
-
-          headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <Ionicons
-              name="ios-git-pull-request-outline"
-              color={color}
-              size={20}
-            />
-          ),
-        }}
-        name="riderequest"
+        name="income"
         component={RideRequests}
       />
       <Tab.Screen
@@ -87,14 +66,14 @@ const DashboardRoutes = (props) => {
           headerShown: false,
           title: "Insurance",
           tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="car-crash" color={color} size={20} />
+            <MaterialCommunityIcons name="piano" color={color} size={20} />
           ),
         }}
         name="insurance"
         component={Insurance}
       />
     </Tab.Navigator>
-  );
-};
+  )
+}
 
-export default DashboardRoutes;
+export default DashboardRoutes
