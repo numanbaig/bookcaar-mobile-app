@@ -5,6 +5,7 @@ import { getActiveRides } from "../services/Rides"
 const initialState = {
   rides: [],
   activeRidesLoading: true,
+  ridesHistory: [],
 }
 const ridesSlice = createSlice({
   name: "rides",
@@ -12,6 +13,9 @@ const ridesSlice = createSlice({
   reducers: {
     setActiveRides(state, action) {
       state.rides = action.payload
+    },
+    setRidesHistory(state, action) {
+      state.ridesHistory = action.payload
     },
   },
   extraReducers: (builder) => {
@@ -24,6 +28,6 @@ const ridesSlice = createSlice({
   },
 })
 
-export const { setActiveRides } = ridesSlice.actions
+export const { setActiveRides, setRidesHistory } = ridesSlice.actions
 
 export default ridesSlice.reducer

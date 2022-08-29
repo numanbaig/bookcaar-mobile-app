@@ -12,7 +12,7 @@ import {
   where,
 } from "firebase/firestore"
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { setActiveRides } from "../slices/ridesSlice"
+import { setActiveRides, setRidesHistory } from "../slices/ridesSlice"
 export const getActiveRides = () => async (dispatch, getState) => {
   let bidding = []
   try {
@@ -20,7 +20,6 @@ export const getActiveRides = () => async (dispatch, getState) => {
     const db = getFirestore()
     const state = getState()
 
-    console.log("user", state.user.user)
     const q = query(
       collection(db, "car-request"),
       where("completed", "==", false),
@@ -29,10 +28,34 @@ export const getActiveRides = () => async (dispatch, getState) => {
 
     onSnapshot(q, (querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        console.log("ss", doc.id)
         bidding.push({ id: doc.id, ...doc.data() })
       })
       dispatch(setActiveRides(bidding))
+    })
+  } catch (err) {
+    console.log("ee", e)
+  }
+}
+
+export const getRidesHistory = () => async (dispatch, getState) => {
+  try {
+    let history = []
+    const db = getFirestore()
+    const state = getState()
+    console.log("here")
+    const q = query(
+      collection(db, "car-request"),
+      where("completed", "==", true),
+      where("hiredRiderId", "==", state.user.user)
+    )
+
+    onSnapshot(q, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        console.log("doc", doc.id)
+        history.push({ id: doc.id, ...doc.data() })
+      })
+      console.log("hh", history)
+      dispatch(setRidesHistory(history))
     })
   } catch (err) {
     console.log("ee", e)

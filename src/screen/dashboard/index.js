@@ -6,22 +6,22 @@ import {
   Text,
   Button,
   TouchableOpacity,
-} from "react-native";
-import React, { useEffect } from "react";
-import { Entypo, Ionicons } from "@expo/vector-icons";
-import { Card, Paragraph } from "react-native-paper";
-import { getBidding } from "../../store/services/Bidding";
-import { useDispatch, useSelector } from "react-redux";
-import { bidding } from "../../store/slices/biddingSlice";
+} from "react-native"
+import React, { useEffect } from "react"
+import { Entypo, Ionicons } from "@expo/vector-icons"
+import { Card, Paragraph } from "react-native-paper"
+import { getBidding } from "../../store/services/Bidding"
+import { useDispatch, useSelector } from "react-redux"
+import { bidding } from "../../store/slices/biddingSlice"
 
 const Dashboard = (props) => {
-  const { navigation } = props;
-  const dispatch = useDispatch();
-  const biddingList = useSelector(bidding);
+  const { navigation } = props
+  const dispatch = useDispatch()
+  const biddingList = useSelector(bidding)
 
   useEffect(() => {
-    dispatch(getBidding());
-  }, []);
+    dispatch(getBidding())
+  }, [])
 
   return (
     <View>
@@ -38,7 +38,7 @@ const Dashboard = (props) => {
       >
         <TouchableOpacity
           onPress={() => {
-            navigation.openDrawer();
+            navigation.openDrawer()
           }}
         >
           <Entypo name="menu" color="#09A391" size={25} />
@@ -54,7 +54,17 @@ const Dashboard = (props) => {
       </View>
       <ScrollView>
         {!biddingList ? (
-          <View>No Request for Rides </View>
+          <View
+            style={{
+              height: 500,
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Text>No Request for Rides</Text>{" "}
+          </View>
         ) : (
           biddingList.map((e, index) => {
             return (
@@ -158,7 +168,7 @@ const Dashboard = (props) => {
                         onPress={() => {
                           navigation.navigate("Bidding", {
                             userData: e,
-                          });
+                          })
                         }}
                         style={styles.btn}
                       >
@@ -168,15 +178,15 @@ const Dashboard = (props) => {
                   </View>
                 </View>
               </Card>
-            );
+            )
           })
         )}
       </ScrollView>
     </View>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard
 
 const styles = StyleSheet.create({
   img: {
@@ -218,7 +228,7 @@ const styles = StyleSheet.create({
     borderColor: "blue",
     borderWidth: 0.5,
   },
-});
+})
 const TravelRequest = [
   {
     userName: "DT",
@@ -292,4 +302,4 @@ const TravelRequest = [
     bookingDay: "10",
     tripType: "Short Rental",
   },
-];
+]

@@ -9,6 +9,7 @@ import {
   updateDoc,
   query,
   getDoc,
+  where,
 } from "firebase/firestore"
 import {
   setBiddingList,
@@ -21,11 +22,18 @@ import { uploadImageAndDownloadUrl } from "../helpers/uploadImage"
 export const getBidding = () => async (dispatch) => {
   let bidding = []
   const db = getFirestore()
-  const querySnapshot = await getDocs(collection(db, "car-request"))
-  querySnapshot.forEach((doc) => {
-    bidding.push({ id: doc.id, ...doc.data() })
+  const q = query(
+    collection(db, "car-request"),
+    where("completed", "==", false),
+    where("hiredRiderId", "==", "")
+  )
+
+  onSnapshot(q, (querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      bidding.push({ id: doc.id, ...doc.data() })
+    })
+    dispatch(setBiddingList(bidding))
   })
-  dispatch(setBiddingList(bidding))
 }
 
 export const getDriverRideRequests = () => async (dispatch, getState) => {
