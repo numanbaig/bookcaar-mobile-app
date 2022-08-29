@@ -1,17 +1,17 @@
-import React from "react"
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import Dashboard from "../screen/dashboard"
-import Rating from "../screen/rating"
-import Insurance from "../screen/insurance"
+import React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Dashboard from "../screen/dashboard";
+import Rating from "../screen/rating";
+import Insurance from "../screen/insurance";
 import {
   MaterialCommunityIcons,
   FontAwesome5,
   Ionicons,
-} from "@expo/vector-icons"
-import Income from "../screen/income"
-import Ride from "../screen/ride"
-import RideRequests from "../screen/RideRequests"
-const Tab = createBottomTabNavigator()
+} from "@expo/vector-icons";
+import Income from "../screen/income";
+import Ride from "../screen/ride";
+import RideRequests from "../screen/RideRequests";
+const Tab = createBottomTabNavigator();
 
 const DashboardRoutes = (props) => {
   return (
@@ -41,7 +41,7 @@ const DashboardRoutes = (props) => {
       />
       <Tab.Screen
         options={{
-          title: "Ride",
+          title: "Active Ride",
 
           headerShown: false,
           tabBarIcon: ({ color }) => (
@@ -94,7 +94,7 @@ const DashboardRoutes = (props) => {
         component={Insurance}
       />
     </Tab.Navigator>
-  )
-}
+  );
+};
 
-export default DashboardRoutes
+export default DashboardRoutes;

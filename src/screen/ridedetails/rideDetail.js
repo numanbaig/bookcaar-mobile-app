@@ -1,15 +1,15 @@
-import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native"
-import { Entypo, Ionicons } from "@expo/vector-icons"
-import React from "react"
-import { Card } from "react-native-paper"
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps"
-import Maps from "../../components/map"
-
+import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { Entypo, Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { Card } from "react-native-paper";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import Maps from "../../components/map";
+import { Linking } from "react-native";
 const RideDetail = (props) => {
-  const { navigation } = props
+  const { navigation } = props;
 
   return (
-    <View style={{ flex: 1, padding: 15 }}>
+    <View style={{ flex: 1 }}>
       <View
         style={{
           display: "flex",
@@ -23,7 +23,7 @@ const RideDetail = (props) => {
       >
         <TouchableOpacity
           onPress={() => {
-            navigation.openDrawer()
+            navigation.openDrawer();
           }}
         >
           <Entypo name="menu" color="#09A391" size={25} />
@@ -32,40 +32,44 @@ const RideDetail = (props) => {
           <Ionicons name="notifications-outline" color="#09A391" size={25} />
         </TouchableOpacity>
       </View>
-      <Card>
+      <Card
+        style={{
+          margin: 15,
+        }}
+      >
         <MapView
           provider={PROVIDER_GOOGLE}
-          style={{ height: 400, width: "100%" }}
+          style={{ height: 300, width: "100%" }}
           showsUserLocation
         />
         <Card.Content style={{ padding: 25 }}>
           <View style={{ flexDirection: "row", paddingTop: 10 }}>
-            <Text style={{ width: 150, fontSize: 18, fontWeight: "bold" }}>
+            <Text style={{ width: 150, fontSize: 16, fontWeight: "bold" }}>
               Date
             </Text>
-            <Text style={{ fontSize: 18, color: "#09A391" }}>
+            <Text style={{ fontSize: 16, color: "#09A391" }}>
               10am July 2020
             </Text>
           </View>
           <View style={{ flexDirection: "row", paddingTop: 10 }}>
-            <Text style={{ width: 150, fontSize: 18, fontWeight: "bold" }}>
+            <Text style={{ width: 150, fontSize: 16, fontWeight: "bold" }}>
               From:
             </Text>
-            <Text style={{ fontSize: 18, color: "#09A391" }}>
+            <Text style={{ fontSize: 16, color: "#09A391" }}>
               Jutyal,Gilgit
             </Text>
           </View>
           <View style={{ flexDirection: "row", paddingTop: 10 }}>
-            <Text style={{ width: 150, fontSize: 18, fontWeight: "bold" }}>
+            <Text style={{ width: 150, fontSize: 16, fontWeight: "bold" }}>
               Destination:
             </Text>
-            <Text style={{ fontSize: 18, color: "#09A391" }}>Hunza,Gilgit</Text>
+            <Text style={{ fontSize: 16, color: "#09A391" }}>Hunza,Gilgit</Text>
           </View>
           <View style={{ flexDirection: "row", paddingTop: 10 }}>
-            <Text style={{ width: 150, fontSize: 18, fontWeight: "bold" }}>
+            <Text style={{ width: 150, fontSize: 16, fontWeight: "bold" }}>
               Fare:
             </Text>
-            <Text style={{ fontSize: 18, color: "#09A391" }}>Rs3000</Text>
+            <Text style={{ fontSize: 16, color: "#09A391" }}>Rs3000</Text>
           </View>
         </Card.Content>
       </Card>
@@ -87,6 +91,9 @@ const RideDetail = (props) => {
         activeOpacity={0.5}
       >
         <Text
+          onPress={() => {
+            // Linking.openURL(`tel:${phoneNumber}`);
+          }}
           style={{
             color: "#FFFFFF",
             paddingVertical: 10,
@@ -97,9 +104,9 @@ const RideDetail = (props) => {
         </Text>
       </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
-export default RideDetail
+export default RideDetail;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
