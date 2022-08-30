@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 import {
   TouchableOpacity,
   StyleSheet,
@@ -6,32 +6,30 @@ import {
   View,
   TextInput,
   ScrollView,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import Checkbox from "expo-checkbox";
-import DropDownPicker from "react-native-dropdown-picker";
-import * as ImagePicker from "expo-image-picker";
-import * as yup from "yup";
-import { Picker } from "@react-native-picker/picker";
-import { Formik, Form } from "formik";
-import { addCarDetials } from "../../store/services/Bidding";
-import { useDispatch, useSelector } from "react-redux";
-import { driverCarAdded } from "../../store/slices/biddingSlice";
-import { pickImage } from "../../store/helpers/pickImage";
+} from "react-native"
+import { useNavigation } from "@react-navigation/native"
+import Checkbox from "expo-checkbox"
+import DropDownPicker from "react-native-dropdown-picker"
+import * as ImagePicker from "expo-image-picker"
+import * as yup from "yup"
+import { Picker } from "@react-native-picker/picker"
+import { Formik, Form } from "formik"
+import { addCarDetials } from "../../store/services/Bidding"
+import { useDispatch, useSelector } from "react-redux"
+import { driverCarAdded } from "../../store/slices/biddingSlice"
+import { pickImage } from "../../store/helpers/pickImage"
 const AddCarDetails = () => {
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
-  const carAdded = useSelector(driverCarAdded);
+  const navigation = useNavigation()
+  const dispatch = useDispatch()
+  const carAdded = useSelector(driverCarAdded)
 
   const validationSchema = yup.object().shape({
     numberPlate: yup.string().required(" Required"),
     carImages: yup.string().required(" Required"),
-  });
-
-  console.log("carAdded", carAdded);
+  })
 
   if (carAdded) {
-    navigation.navigate("Home");
+    navigation.navigate("Home")
   }
   return (
     <View style={styles.mainBody}>
@@ -43,7 +41,7 @@ const AddCarDetails = () => {
           baggage: 4,
           carType: "Economy",
           carImages: "",
-          vehicalModal: "",
+          vehicalName: "",
         }}
         onSubmit={(values) => dispatch(addCarDetials(values))}
         validationSchema={validationSchema}
@@ -90,11 +88,11 @@ const AddCarDetails = () => {
                 style={styles.inputStyle}
                 placeholder="Vehical Registration Number(Number Plate)"
                 placeholderTextColor="#8b9cb5"
-                onChangeText={handleChange("vehicalModal")}
-                value={values.vehicalModal}
+                onChangeText={handleChange("vehicalName")}
+                value={values.vehicalName}
               />
-              {touched.vehicalModal && errors.vehicalModal ? (
-                <Text style={{ color: "red" }}>{errors.vehicalModal}</Text>
+              {touched.vehicalName && errors.vehicalName ? (
+                <Text style={{ color: "red" }}>{errors.vehicalName}</Text>
               ) : null}
             </View>
             <View style={styles.SectionStyle}>
@@ -176,7 +174,7 @@ const AddCarDetails = () => {
               style={styles.buttonStyle}
               activeOpacity={0.5}
               onPress={() => {
-                handleSubmit();
+                handleSubmit()
               }}
 
               // navigation.navigate("Home")
@@ -187,10 +185,10 @@ const AddCarDetails = () => {
         )}
       </Formik>
     </View>
-  );
-};
+  )
+}
 
-export default AddCarDetails;
+export default AddCarDetails
 
 const styles = StyleSheet.create({
   mainBody: {
@@ -332,4 +330,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
-});
+})

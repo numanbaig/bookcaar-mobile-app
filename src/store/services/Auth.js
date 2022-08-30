@@ -14,6 +14,7 @@ import {
   doc,
   getFirestore,
   getDoc,
+  getDocs,
 } from "firebase/firestore"
 import { auth } from "../../firebase"
 import {
@@ -96,10 +97,19 @@ export const getCurrentUser = () => async (dispatch) => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         dispatch(userAdded(user.uid))
+        let cars = []
         const docRef = doc(db, "drivers", user.uid)
         const docSnap = await getDoc(docRef)
-        if (docSnap.exists()) {
+        const carRef = collection(db, "drivers", user.uid, "cars")
+        const carSnap = await getDocs(carRef)
+
+        if (docSnap.exists() || carSnap.exists()) {
           const currentUser = docSnap?.data()
+          const currentCar = carSnap[0]?.data()
+
+          carSnap.forEach((doc) => {
+            cars.push({ id: doc.id, ...doc.data() })
+          })
           dispatch(
             setCurrentUser({
               name: currentUser?.name,
@@ -107,6 +117,13 @@ export const getCurrentUser = () => async (dispatch) => {
               email: currentUser.email,
               phoneNumber: currentUser.phoneNumber,
               profileImage: currentUser.profileImage,
+              vehicalName: cars[0]?.vehicalName || "",
+              noOfSeats: cars[0]?.noOfSeats || "",
+              numberPlate: cars[0]?.numberPlate || "",
+              ac: cars[0]?.ac || "",
+              carImages: cars[0]?.carImages || "",
+              carType: cars[0]?.carType || "",
+              baggage: cars[0]?.baggage || "",
             })
           )
         }

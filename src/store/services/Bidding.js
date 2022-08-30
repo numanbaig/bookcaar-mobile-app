@@ -60,6 +60,7 @@ export const addCarDetials = (values) => async (dispatch, getState) => {
         "numberplate.jpeg"
       )
     }
+    console.log("values", values)
 
     await addDoc(collection(db, "drivers", state.user.user, "cars"), {
       numberPlate: values.numberPlate,
@@ -69,11 +70,12 @@ export const addCarDetials = (values) => async (dispatch, getState) => {
       seats: values.seats,
       baggage: values.baggage,
       carType: values.carType,
-      vehicalModal: values.vehicalModal,
+      vehicalName: values.vehicalName,
     })
 
     dispatch(carsAdded())
   } catch (err) {
+    console.log("ee", err)
   } finally {
   }
 }
@@ -101,7 +103,6 @@ export const createBid =
       const currentUser = state.user.currentUser
       let drivers = biddedDrivers || []
       drivers.push(state.user.user)
-      console.log("ssss")
       const res = await setDoc(
         doc(db, "car-request", id, "bids", state.user.user),
         {
@@ -111,6 +112,7 @@ export const createBid =
           seats: values.seats,
           baggage: values.baggage,
           carType: values.carType,
+          vehicalName: values.vehicalName || "",
           createdAt: new Date().toDateString(),
           amount: amount,
           status: false,
@@ -118,7 +120,6 @@ export const createBid =
           profileImage: currentUser.profileImage,
           email: currentUser.email,
           phoneNumber: currentUser.phoneNumber,
-          vehicalName: currentUser.vehicalModal,
         }
       )
 
@@ -126,6 +127,7 @@ export const createBid =
         bidedDrivers: drivers,
       })
     } catch (err) {
+      console.log("ee", err)
     } finally {
     }
   }
