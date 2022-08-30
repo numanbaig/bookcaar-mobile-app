@@ -4,24 +4,23 @@ import {
   View,
   Image,
   Text,
-  Button,
   TouchableOpacity,
-} from "react-native"
-import React, { useEffect } from "react"
-import { Entypo, Ionicons } from "@expo/vector-icons"
-import { Card, Paragraph } from "react-native-paper"
-import { getBidding } from "../../store/services/Bidding"
-import { useDispatch, useSelector } from "react-redux"
-import { bidding } from "../../store/slices/biddingSlice"
+} from "react-native";
+import React, { useEffect } from "react";
+import { Entypo, Ionicons } from "@expo/vector-icons";
+import { Card, Paragraph } from "react-native-paper";
+import { getBidding } from "../../store/services/Bidding";
+import { useDispatch, useSelector } from "react-redux";
+import { bidding } from "../../store/slices/biddingSlice";
 
 const Dashboard = (props) => {
-  const { navigation } = props
-  const dispatch = useDispatch()
-  const biddingList = useSelector(bidding)
+  const { navigation } = props;
+  const dispatch = useDispatch();
+  const biddingList = useSelector(bidding);
 
   useEffect(() => {
-    dispatch(getBidding())
-  }, [])
+    dispatch(getBidding());
+  }, []);
 
   return (
     <View>
@@ -38,7 +37,7 @@ const Dashboard = (props) => {
       >
         <TouchableOpacity
           onPress={() => {
-            navigation.openDrawer()
+            navigation.openDrawer();
           }}
         >
           <Entypo name="menu" color="#09A391" size={25} />
@@ -63,7 +62,7 @@ const Dashboard = (props) => {
               justifyContent: "center",
             }}
           >
-            <Text>No Request for Rides</Text>{" "}
+            <Text>No Request for Rides</Text>
           </View>
         ) : (
           biddingList.map((e, index) => {
@@ -78,7 +77,6 @@ const Dashboard = (props) => {
                 >
                   <View
                     style={{
-                      width: 80,
                       flex: 3,
                     }}
                   >
@@ -95,7 +93,11 @@ const Dashboard = (props) => {
                         />
                       )}
                     </Card.Content>
-                    <Card.Content>
+                    <Card.Content
+                      style={{
+                        alignItems: "center",
+                      }}
+                    >
                       <Paragraph
                         style={{
                           fontSize: 18,
@@ -112,7 +114,7 @@ const Dashboard = (props) => {
                           marginTop: 10,
                         }}
                       >
-                        {e?.startDate}
+                        {e?.startDate?.toLocaleTimeString?.()}
                       </Paragraph>
                       <Paragraph>
                         {e?.pickupTiming?.toLocaleTimeString?.() ||
@@ -156,36 +158,29 @@ const Dashboard = (props) => {
                     ) : (
                       <Text></Text>
                     )}
-                    <View
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        marginTop: 10,
+
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate("Bidding", {
+                          userData: e,
+                        });
                       }}
+                      style={styles.btn}
                     >
-                      <TouchableOpacity
-                        onPress={() => {
-                          navigation.navigate("Bidding", {
-                            userData: e,
-                          })
-                        }}
-                        style={styles.btn}
-                      >
-                        <Text style={styles.btnText}>Bid</Text>
-                      </TouchableOpacity>
-                    </View>
+                      <Text style={styles.btnText}>Bid</Text>
+                    </TouchableOpacity>
                   </View>
                 </View>
               </Card>
-            )
+            );
           })
         )}
       </ScrollView>
     </View>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
 
 const styles = StyleSheet.create({
   img: {
@@ -207,12 +202,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#09A391",
     flex: 1,
     justifyContent: "center",
+    marginTop: 10,
     alignItems: "center",
-    elevation: 2,
-
     padding: 8,
-    borderRadius: 10,
-    margin: 5,
+    borderRadius: 30,
   },
   btn2: {
     backgroundColor: "white",
@@ -227,7 +220,7 @@ const styles = StyleSheet.create({
     borderColor: "blue",
     borderWidth: 0.5,
   },
-})
+});
 const TravelRequest = [
   {
     userName: "DT",
@@ -301,4 +294,4 @@ const TravelRequest = [
     bookingDay: "10",
     tripType: "Short Rental",
   },
-]
+];

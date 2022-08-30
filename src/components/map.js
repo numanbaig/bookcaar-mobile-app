@@ -4,24 +4,6 @@ import MapView, { Marker } from "react-native-maps";
 import { StyleSheet, View, Dimensions } from "react-native";
 
 const Maps = ({ activeRides }) => {
-  // const [coordinates] = useState([
-  // {
-  //   latitude: activeRides[0]?.pickUpCoordinates?.lat,
-  //   longitude: activeRides[0]?.pickUpCoordinates?.lng,
-  // },
-  //   {
-  // latitude: activeRides[0]?.dropOfCoordinates?.lat,
-  // longitude: activeRides[0]?.dropOfCoordinates?.lng,
-  //   },
-  // ]);
-  console.log(
-    activeRides[0]?.pickUpCoordinates,
-    "activeRides[0]?.pickUpCoordinates?"
-  );
-  console.log(
-    activeRides[0]?.dropOfCoordinates,
-    "activeRides[0]?.dropOfCoordinates"
-  );
   let originData = {
     latitude: activeRides[0]?.pickUpCoordinates?.lat,
     longitude: activeRides[0]?.pickUpCoordinates?.lng,

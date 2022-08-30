@@ -8,7 +8,7 @@ const Income = () => {
     <View style={styles.surface}>
       {data.map((e, index) => {
         return (
-          <Card key={index} style={{ marginTop: 10, flex: 1 }}>
+          <Card key={index} style={{ paddingTop: 10, flex: 1 }}>
             <Card.Content>
               <View style={{ flexDirection: "row", justifyContent: "center" }}>
                 <Text style={styles.date}>Income</Text>

@@ -28,7 +28,7 @@ const AddCarDetails = () => {
     carImages: yup.string().required(" Required"),
   });
 
-  console.log("carAdded", carAdded)
+  console.log("carAdded", carAdded);
 
   if (carAdded) {
     navigation.navigate("Home");
@@ -43,6 +43,7 @@ const AddCarDetails = () => {
           baggage: 4,
           carType: "Economy",
           carImages: "",
+          vehicalModal: "",
         }}
         onSubmit={(values) => dispatch(addCarDetials(values))}
         validationSchema={validationSchema}
@@ -75,6 +76,25 @@ const AddCarDetails = () => {
               />
               {touched.numberPlate && errors.numberPlate ? (
                 <Text style={{ color: "red" }}>{errors.numberPlate}</Text>
+              ) : null}
+            </View>
+            <View
+              style={{
+                ...styles.SectionStyle,
+                display: "flex",
+                flexDirection: "column",
+                height: 70,
+              }}
+            >
+              <TextInput
+                style={styles.inputStyle}
+                placeholder="Vehical Registration Number(Number Plate)"
+                placeholderTextColor="#8b9cb5"
+                onChangeText={handleChange("vehicalModal")}
+                value={values.vehicalModal}
+              />
+              {touched.vehicalModal && errors.vehicalModal ? (
+                <Text style={{ color: "red" }}>{errors.vehicalModal}</Text>
               ) : null}
             </View>
             <View style={styles.SectionStyle}>

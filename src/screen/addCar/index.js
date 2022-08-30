@@ -35,14 +35,11 @@ const AddCar = () => {
     }
   };
   const validationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .email("Please enter valid email")
-      .required("Email Address is Required"),
+    email: yup.string().email("Please enter valid email").required("Required"),
     password: yup
       .string()
       .min(8, ({ min }) => `Password must be at least ${min} characters`)
-      .required("Password is required"),
+      .required("Required"),
   });
   return (
     <View style={styles.mainBody}>
@@ -54,8 +51,11 @@ const AddCar = () => {
           baggage: "",
           carType: "",
           carImages: "",
+          carModal: "",
         }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => {
+          console.log(values, "juuuu");
+        }}
       >
         {({
           handleChange,
@@ -76,10 +76,9 @@ const AddCar = () => {
                 autoCapitalize="none"
                 keyboardType="email-address"
                 returnKeyType="next"
-                error={touched.email && Boolean(errors.email)}
-                helperText={touched.email && errors.email}
+                required={true}
                 onChangeText={handleChange("numberPlate")}
-                value={values.email}
+                value={values.numberPlate}
                 onSubmitEditing={() =>
                   passwordInputRef.current && passwordInputRef.current.focus()
                 }
@@ -87,11 +86,29 @@ const AddCar = () => {
                 blurOnSubmit={false}
               />
             </View>
-
             <View style={styles.SectionStyle}>
-              <DropDownPicker
+              <TextInput
+                style={styles.inputStyle}
+                placeholder="Car Model"
+                placeholderTextColor="#8b9cb5"
+                autoCapitalize="none"
+                keyboardType="email-address"
+                returnKeyType="next"
+                required={true}
+                onChangeText={handleChange("numberPlate")}
+                value={values.carModal}
+                onSubmitEditing={() =>
+                  passwordInputRef.current && passwordInputRef.current.focus()
+                }
+                underlineColorAndroid="#f000"
+                blurOnSubmit={false}
+              />
+            </View>
+            <View style={styles.SectionStyle}>
+              {/* <DropDownPicker
                 placeholder="Select Seats"
                 value={values.seats}
+                selectedValue={values.seats}
                 items={[
                   { label: "1", value: "1" },
                   { label: "2", value: "2" },
@@ -101,18 +118,31 @@ const AddCar = () => {
                 defaultIndex={0}
                 containerStyle={{ height: 40 }}
                 onChange={(item) => {
-                  setFieldValue("seats", !values.seats);
-
-                  console.log(item, "item");
+                  setFieldValue("carType", nextValue);
                 }}
               />
+            </View> */}
+              <View style={styles.SectionStyle}>
+                <Picker
+                  style={styles.defaultPicker}
+                  selectedValue={values.seats}
+                  onValueChange={(nextValue) =>
+                    setFieldValue("seats", nextValue)
+                  }
+                  placeholder="Select Car Type"
+                >
+                  <Picker.Item label="Select a Car Type" value="1" />
+                  <Picker.Item label="1" value="1" />
+                  <Picker.Item label="2" value="3" />
+                  <Picker.Item label="3" value="3" />
+                  <Picker.Item label="4" value="4" />
+                  <Picker.Item label="5" value="5" />
+                </Picker>
+              </View>
             </View>
-
             <View style={styles.SectionStyle}>
               <DropDownPicker
                 placeholder="Select Baggage"
-                open={seatOpen}
-                setOpen={setSeatOpen}
                 value={values.baggage}
                 items={[
                   { label: "1", value: "1" },
@@ -123,10 +153,10 @@ const AddCar = () => {
                 ]}
                 defaultIndex={0}
                 containerStyle={{ height: 40 }}
-                onChange={(item) => {
-                  setFieldValue(item.value);
-                  console.log(item, "item");
-                }}
+                selectedValue={values.baggage}
+                onValueChange={(nextValue) =>
+                  setFieldValue("carType", nextValue)
+                }
                 zIndex={1000}
                 zIndexInverse={3000}
               />

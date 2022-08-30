@@ -15,29 +15,26 @@ const RideDetail = (props) => {
   useEffect(() => {
     dispatch(getActiveRides());
   }, []);
-
   return (
     <>
       {!activeRides.length ? (
         <View
           style={{
-            display: "flex",
+            flex: 1,
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "row",
-            height: 600,
           }}
         >
-          <Text style={{ width: 150, fontSize: 16, fontWeight: "bold" }}>
-            No Active Rides
-          </Text>
+          <Text style={{ fontSize: 16 }}>No Active Rides</Text>
         </View>
       ) : (
         <View style={{ flex: 1 }}>
-          {activeRides && <Maps activeRides={activeRides} />}
+          <Maps activeRides={activeRides} />
           <Card
             style={{
               marginHorizontal: 15,
+              borderRadius: 15,
             }}
           >
             <Card.Content style={{ padding: 25 }}>
@@ -85,8 +82,7 @@ const RideDetail = (props) => {
               borderRadius: 10,
               marginLeft: 15,
               marginRight: 15,
-              marginTop: 25,
-              marginBottom: 25,
+              marginVertical: 18,
             }}
             activeOpacity={0.5}
           >

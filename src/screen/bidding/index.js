@@ -4,6 +4,7 @@ import { Card, TextInput, Paragraph, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { getCarDetails, createBid } from "../../store/services/Bidding";
 import { useDispatch, useSelector } from "react-redux";
+import { Entypo, Ionicons } from "@expo/vector-icons";
 
 const Bidding = ({ route }, props) => {
   const { userData, id } = route?.params;
@@ -19,23 +20,35 @@ const Bidding = ({ route }, props) => {
     <View style={{ flex: 1 }}>
       <View
         style={{
-          flex: 1,
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          paddingVertical: 20,
+          paddingHorizontal: 20,
           alignItems: "center",
-          padding: 20,
           backgroundColor: "#09A391",
         }}
       >
-        <Image style={styles.img} source={userData?.userImageUrl} />
-        <Text
-          style={{ paddingTop: 10, fontWeight: "bold", height: 100, flex: 1 }}
-          variant="headlineMedium"
+        <TouchableOpacity
+          onPress={() => {
+            navigation.openDrawer();
+          }}
+          style={{ alignItems: "center" }}
         >
-          {userData?.userName}
-        </Text>
+          <Ionicons name="md-chevron-back-sharp" color="white" size={35} />
+        </TouchableOpacity>
+        <Paragraph
+          style={{ fontSize: 20, fontWeight: "bold", color: "#09A391" }}
+        >
+          Requests
+        </Paragraph>
+        <TouchableOpacity>
+          <Ionicons name="notifications-outline" color="#09A391" size={25} />
+        </TouchableOpacity>
       </View>
       <View
         style={{
-          flex: 9,
+          flex: 17,
           padding: 20,
         }}
       >
@@ -137,6 +150,9 @@ const Bidding = ({ route }, props) => {
           onChangeText={(e) => setAmount(e)}
           label=""
           placeholder="Bidding Amount"
+          activeOutlineColor="#C6C6C6"
+          outlineColor="#C6C6C6"
+          style={{ borderWidth: 0.1 }}
         />
         <TouchableOpacity
           onPress={() => {

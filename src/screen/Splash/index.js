@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react"
-import { ActivityIndicator, View, StyleSheet, Image } from "react-native"
-import { useNavigation } from "@react-navigation/native"
-import { useSelector } from "react-redux"
-import { currentUser, appLoading } from "../../store/slices/userSlice"
+import React, { useState, useEffect } from "react";
+import { ActivityIndicator, View, StyleSheet, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+import { currentUser, appLoading } from "../../store/slices/userSlice";
 
 const Splash = () => {
-  const navigation = useNavigation()
-  const user = useSelector(currentUser)
-  const loading = useSelector(appLoading)
+  const navigation = useNavigation();
+  const user = useSelector(currentUser);
+  const loading = useSelector(appLoading);
 
-  console.log("appLoading", loading)
+  console.log("appLoading", loading);
   if (user && !loading) {
-    navigation.navigate("Home")
+    navigation.navigate("Home");
   }
   if (!user && !loading) {
-    navigation.navigate("SignIn")
+    navigation.navigate("SignIn");
   }
 
   return (
@@ -30,10 +30,10 @@ const Splash = () => {
         style={styles.activityIndicator}
       />
     </View>
-  )
-}
+  );
+};
 
-export default Splash
+export default Splash;
 
 const styles = StyleSheet.create({
   container: {
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
   activityIndicator: {
     alignItems: "center",
   },
-})
+});

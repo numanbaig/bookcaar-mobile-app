@@ -29,8 +29,21 @@ const DrawerContent = ({ ...props }) => {
                 marginBottom: 10,
               }}
             >
-              <View style={{ flexDirection: "column" }}>
+              <View
+                style={{
+                  flexDirection: "column",
+                }}
+              >
                 <Image style={styles.img} source={user} />
+              </View>
+
+              <View
+                style={{
+                  flexDirection: "column",
+                }}
+              >
+                <Text style={styles.userName}>Nouman baig</Text>
+                <Text style={styles.caption}>Daimond Star</Text>
                 <Rating
                   type="star"
                   ratingCount={5}
@@ -43,22 +56,12 @@ const DrawerContent = ({ ...props }) => {
                   onFinishRating={ratingCompleted}
                 />
               </View>
-
-              <View
-                style={{
-                  flexDirection: "column",
-                  marginTop: 20,
-                }}
-              >
-                <Text style={styles.userName}>Nouman baig</Text>
-                <Text style={styles.caption}>Daimond Star</Text>
-              </View>
             </View>
           </View>
 
           <View style={styles.drawerSection}>
             <DrawerItem
-              style={{ borderColor: "white", borderWidth: 1 }}
+              style={{ borderColor: "white" }}
               labelStyle={{
                 fontSize: 18,
                 color: "white",
@@ -72,7 +75,7 @@ const DrawerContent = ({ ...props }) => {
               }}
             />
             <DrawerItem
-              style={{ borderColor: "white", borderWidth: 1 }}
+              style={{ borderColor: "white" }}
               labelStyle={{
                 fontSize: 18,
                 color: "white",
@@ -86,13 +89,21 @@ const DrawerContent = ({ ...props }) => {
               }}
             />
             <DrawerItem
-              style={{ borderColor: "white", borderWidth: 1 }}
+              style={{ borderColor: "white" }}
               labelStyle={{
                 fontSize: 18,
+                paddingLeft: 5,
                 color: "white",
               }}
               icon={({ color, size }) => (
-                <FontAwesome5 name="dollar-sign" color="white" size={size} />
+                <FontAwesome5
+                  style={{
+                    paddingLeft: 5,
+                  }}
+                  name="dollar-sign"
+                  color="white"
+                  size={size}
+                />
               )}
               label="My Income"
               onPress={() => {
@@ -100,7 +111,7 @@ const DrawerContent = ({ ...props }) => {
               }}
             />
             <DrawerItem
-              style={{ borderColor: "white", borderWidth: 1 }}
+              style={{ borderColor: "white" }}
               labelStyle={{
                 fontSize: 18,
                 color: "white",
@@ -112,7 +123,7 @@ const DrawerContent = ({ ...props }) => {
               onPress={() => {}}
             />
             <DrawerItem
-              style={{ borderColor: "white", borderWidth: 1 }}
+              style={{ borderColor: "white" }}
               labelStyle={{
                 fontSize: 18,
                 color: "white",
@@ -124,7 +135,7 @@ const DrawerContent = ({ ...props }) => {
               onPress={() => {}}
             />
             <DrawerItem
-              style={{ borderColor: "white", borderWidth: 1 }}
+              style={{ borderColor: "white" }}
               labelStyle={{
                 fontSize: 18,
                 color: "white",
@@ -141,7 +152,7 @@ const DrawerContent = ({ ...props }) => {
               onPress={() => {}}
             />
             <DrawerItem
-              style={{ borderColor: "white", borderWidth: 1 }}
+              style={{ borderColor: "white" }}
               labelStyle={{
                 fontSize: 18,
                 color: "white",
@@ -159,7 +170,7 @@ const DrawerContent = ({ ...props }) => {
             />
 
             <DrawerItem
-              style={{ borderColor: "white", borderWidth: 1 }}
+              style={{ borderColor: "white" }}
               labelStyle={{
                 color: "white",
                 fontSize: 18,
@@ -186,6 +197,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   userInfoSection: {
+    marginTop: 15,
     paddingLeft: 20,
   },
   img: {
@@ -224,6 +236,7 @@ const styles = StyleSheet.create({
     marginRight: 3,
   },
   drawerSection: {
+    paddingLeft: 10,
     marginTop: 15,
   },
   preference: {

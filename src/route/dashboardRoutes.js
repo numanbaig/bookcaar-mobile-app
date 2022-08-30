@@ -8,8 +8,6 @@ import {
   FontAwesome5,
   Ionicons,
 } from "@expo/vector-icons";
-import Income from "../screen/income";
-import Ride from "../screen/ride";
 import RideRequests from "../screen/RideRequests";
 import RideDetail from "../screen/ridedetails/rideDetail";
 import RideHistory from "../screen/ridehistory";
@@ -31,7 +29,7 @@ const DashboardRoutes = (props) => {
     >
       <Tab.Screen
         options={{
-          title: "Dashboard",
+          title: "Requests",
 
           headerShown: false,
           tabBarIcon: ({ color }) => (
@@ -83,9 +81,6 @@ const DashboardRoutes = (props) => {
       />
       <Tab.Screen
         options={{
-          //   tabBarLabel: () => {
-          //     return null;
-          //   },
           headerShown: false,
           title: "Insurance",
           tabBarIcon: ({ color }) => (
