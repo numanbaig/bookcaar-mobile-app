@@ -31,7 +31,7 @@ const Bidding = ({ route }, props) => {
       >
         <TouchableOpacity
           onPress={() => {
-            navigation.openDrawer();
+            navigation.goBack();
           }}
           style={{ alignItems: "center" }}
         >
