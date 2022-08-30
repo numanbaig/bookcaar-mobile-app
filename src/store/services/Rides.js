@@ -74,3 +74,16 @@ export const getRidesHistory = () => async (dispatch, getState) => {
     console.log("ee", e)
   }
 }
+
+export const endRide = () => async (dispatch, getState) => {
+  try {
+    const db = getFirestore()
+    const state = getState()
+
+    await updateDoc(doc(db, "car-request", state.user.user), {
+      completed: true,
+    })
+  } catch (err) {
+    console.log("ee", e)
+  }
+}
