@@ -1,21 +1,21 @@
-import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { Entypo, Ionicons } from "@expo/vector-icons";
-import React, { useEffect } from "react";
-import { Card } from "react-native-paper";
-import Maps from "../../components/map";
-import { useNavigation } from "@react-navigation/native";
-import { Linking } from "react-native";
-import { getActiveRides } from "../../store/services/Rides";
-import { useDispatch, useSelector } from "react-redux";
+import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native"
+import { Entypo, Ionicons } from "@expo/vector-icons"
+import React, { useEffect } from "react"
+import { Card } from "react-native-paper"
+import Maps from "../../components/map"
+import { useNavigation } from "@react-navigation/native"
+import { Linking } from "react-native"
+import { getActiveRides } from "../../store/services/Rides"
+import { useDispatch, useSelector } from "react-redux"
 const RideDetail = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation()
 
-  const dispatch = useDispatch();
-  const activeRides = useSelector((state) => state?.rides?.rides);
-
+  const dispatch = useDispatch()
+  const activeRides = useSelector((state) => state?.rides?.rides)
+  console.log("ss", activeRides)
   useEffect(() => {
-    dispatch(getActiveRides());
-  }, []);
+    dispatch(getActiveRides())
+  }, [])
   return (
     <>
       {!activeRides.length ? (
@@ -94,7 +94,7 @@ const RideDetail = () => {
                 onPress={() => {
                   Linking.openURL(
                     `tel:${activeRides[0]?.requestedUser?.phoneNumber}`
-                  );
+                  )
                 }}
                 style={{
                   color: "#FFFFFF",
@@ -136,9 +136,9 @@ const RideDetail = () => {
         </View>
       )}
     </>
-  );
-};
+  )
+}
 
-export default RideDetail;
+export default RideDetail
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({})

@@ -15,7 +15,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import { setActiveRides, setRidesHistory } from "../slices/ridesSlice"
 export const getActiveRides = () => async (dispatch, getState) => {
   try {
-    console.log("ssss")
     const db = getFirestore()
     const state = getState()
 
