@@ -106,7 +106,6 @@ export const createBid =
         {
           numberPlate: values.numberPlate,
           carImages: values.carImages,
-          numberPlate: values.numberPlate,
           ac: values.ac,
           seats: values.seats,
           baggage: values.baggage,
@@ -115,10 +114,10 @@ export const createBid =
           amount: amount,
           status: false,
           deriverName: currentUser.name,
-          deriverName: currentUser.name,
           profileImage: currentUser.profileImage,
           email: currentUser.email,
           phoneNumber: currentUser.phoneNumber,
+          vehicalName: currentUser.vehicalModal,
         }
       )
 
