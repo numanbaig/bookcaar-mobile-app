@@ -15,6 +15,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import { setActiveRides, setRidesHistory } from "../slices/ridesSlice"
 export const getActiveRides = () => async (dispatch, getState) => {
   try {
+    console.log("ssss")
     const db = getFirestore()
     const state = getState()
 
@@ -29,6 +30,7 @@ export const getActiveRides = () => async (dispatch, getState) => {
       querySnapshot.forEach((doc) => {
         bidding.push({ id: doc.id, ...doc.data() })
       })
+      console.log("ss")
       dispatch(setActiveRides(bidding))
     })
   } catch (err) {

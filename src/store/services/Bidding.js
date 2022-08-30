@@ -101,6 +101,7 @@ export const createBid =
       const currentUser = state.user.currentUser
       let drivers = biddedDrivers || []
       drivers.push(state.user.user)
+      console.log("ssss")
       const res = await setDoc(
         doc(db, "car-request", id, "bids", state.user.user),
         {
