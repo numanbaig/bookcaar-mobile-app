@@ -12,11 +12,14 @@ import user from "../../assets/user.jpg";
 import { Rating, AirbnbRating } from "react-native-ratings";
 import { useNavigation } from "@react-navigation/native";
 import { signOutUser } from "../store/services/Auth";
-import { useDispatch } from "react-redux";
+import { currentUser } from "../store/slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 const DrawerContent = ({ ...props }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const user = useSelector(currentUser);
   const ratingCompleted = (rating) => {};
+  console.log(user, "user here");
   return (
     <View style={{ flex: 1, backgroundColor: "#09A391" }}>
       <DrawerContentScrollView {...props}>
@@ -34,7 +37,10 @@ const DrawerContent = ({ ...props }) => {
                   flexDirection: "column",
                 }}
               >
-                <Image style={styles.img} source={user} />
+                <Image
+                  style={styles.img}
+                  source={{ uri: user?.profileImage }}
+                />
               </View>
 
               <View
@@ -42,7 +48,7 @@ const DrawerContent = ({ ...props }) => {
                   flexDirection: "column",
                 }}
               >
-                <Text style={styles.userName}>Nouman baig</Text>
+                <Text style={styles.userName}>{user.name}</Text>
                 <Text style={styles.caption}>Daimond Star</Text>
                 <Rating
                   type="star"

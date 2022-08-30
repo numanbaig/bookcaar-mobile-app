@@ -4,6 +4,7 @@ import {
   View,
   Image,
   Text,
+  Button,
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect } from "react";
@@ -23,7 +24,11 @@ const Dashboard = (props) => {
   }, []);
 
   return (
-    <View>
+    <View
+      style={{
+        paddingBottom: 70,
+      }}
+    >
       <View
         style={{
           display: "flex",
@@ -51,7 +56,7 @@ const Dashboard = (props) => {
           <Ionicons name="notifications-outline" color="#09A391" size={25} />
         </TouchableOpacity>
       </View>
-      <ScrollView>
+      <ScrollView style={{}}>
         {!biddingList ? (
           <View
             style={{
@@ -67,7 +72,13 @@ const Dashboard = (props) => {
         ) : (
           biddingList.map((e, index) => {
             return (
-              <Card key={index} style={{ padding: 15, marginTop: 15 }}>
+              <Card
+                key={index}
+                style={{
+                  padding: 15,
+                  marginTop: 15,
+                }}
+              >
                 <View
                   style={{
                     display: "flex",

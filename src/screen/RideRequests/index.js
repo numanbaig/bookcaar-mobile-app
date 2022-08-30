@@ -5,6 +5,7 @@ import {
   Image,
   Text,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import React, { useEffect } from "react";
 import { Entypo, Ionicons } from "@expo/vector-icons";
@@ -51,7 +52,18 @@ const RideRequest = (props) => {
         </TouchableOpacity>
       </View>
       <ScrollView>
-        {biddingList &&
+        {!biddingList.length ? (
+          <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <ActivityIndicator
+              animating={true}
+              color="#09A391"
+              size="large"
+              style={styles.activityIndicator}
+            />
+          </View>
+        ) : (
           biddingList?.map((e, index) => {
             return (
               <Card key={index} style={{ padding: 15 }}>
@@ -122,7 +134,8 @@ const RideRequest = (props) => {
                 </View>
               </Card>
             );
-          })}
+          })
+        )}
       </ScrollView>
     </View>
   );
