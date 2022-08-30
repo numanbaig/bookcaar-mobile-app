@@ -5,7 +5,7 @@ import { Card } from "react-native-paper"
 import Maps from "../../components/map"
 import { useNavigation } from "@react-navigation/native"
 import { Linking } from "react-native"
-import { getActiveRides } from "../../store/services/Rides"
+import { getActiveRides, endRide } from "../../store/services/Rides"
 import { useDispatch, useSelector } from "react-redux"
 const RideDetail = () => {
   const navigation = useNavigation()
@@ -51,7 +51,7 @@ const RideDetail = () => {
                 <Text style={{ width: 150, fontSize: 16, fontWeight: "bold" }}>
                   From:
                 </Text>
-                <Text style={{ fontSize: 16, color: "#09A391" }}>
+                <Text style={{ fontSize: 16, color: "#09A391", width: 200 }}>
                   {activeRides[0]?.pickUpLocation?.label}
                 </Text>
               </View>
@@ -59,16 +59,8 @@ const RideDetail = () => {
                 <Text style={{ width: 150, fontSize: 16, fontWeight: "bold" }}>
                   Destination:
                 </Text>
-                <Text style={{ fontSize: 16, color: "#09A391" }}>
+                <Text style={{ fontSize: 16, color: "#09A391", width: 200 }}>
                   {activeRides[0]?.dropOfLocation?.label}
-                </Text>
-              </View>
-              <View style={{ flexDirection: "row", paddingTop: 10 }}>
-                <Text style={{ width: 150, fontSize: 16, fontWeight: "bold" }}>
-                  Fare:
-                </Text>
-                <Text style={{ fontSize: 16, color: "#09A391" }}>
-                  Rs {activeRides[0]?.dropOfLocation?.amount || 0}
                 </Text>
               </View>
             </Card.Content>
@@ -119,6 +111,10 @@ const RideDetail = () => {
               marginLeft: 15,
               marginRight: 15,
               marginVertical: 5,
+            }}
+            onPress={() => {
+              dispatch(endRide(activeRides[0].id))
+              navigation.navigate("Home")
             }}
             activeOpacity={0.5}
           >

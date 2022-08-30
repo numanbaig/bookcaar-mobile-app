@@ -1,21 +1,21 @@
-import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
-import { Card, TextInput, Paragraph, Text } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
-import { getCarDetails, createBid } from "../../store/services/Bidding";
-import { useDispatch, useSelector } from "react-redux";
-import { Entypo, Ionicons } from "@expo/vector-icons";
+import { StyleSheet, View, Image, TouchableOpacity } from "react-native"
+import React, { useEffect, useState } from "react"
+import { Card, TextInput, Paragraph, Text } from "react-native-paper"
+import { useNavigation } from "@react-navigation/native"
+import { getCarDetails, createBid } from "../../store/services/Bidding"
+import { useDispatch, useSelector } from "react-redux"
+import { Entypo, Ionicons } from "@expo/vector-icons"
 
 const Bidding = ({ route }, props) => {
-  const { userData, id } = route?.params;
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
-  const [amount, setAmount] = useState(0);
-  const cars = useSelector((state) => state.bidding.cars);
+  const { userData, id } = route?.params
+  const navigation = useNavigation()
+  const dispatch = useDispatch()
+  const [amount, setAmount] = useState(0)
+  const cars = useSelector((state) => state.bidding.cars)
 
   useEffect(() => {
-    dispatch(getCarDetails(userData.id));
-  }, []);
+    dispatch(getCarDetails(userData.id))
+  }, [])
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -31,7 +31,7 @@ const Bidding = ({ route }, props) => {
       >
         <TouchableOpacity
           onPress={() => {
-            navigation.goBack();
+            navigation.goBack()
           }}
           style={{ alignItems: "center" }}
         >
@@ -133,17 +133,6 @@ const Bidding = ({ route }, props) => {
         ) : (
           ""
         )}
-        {/* <View style={{ flexDirection: "row" }}>
-          <Text style={{ paddingBottom: 15, width: 120 }} variant="titleMedium">
-            Asking Amount:
-          </Text>
-          <Text
-            style={{ paddingBottom: 15, fontWeight: "bold", color: "#09A391" }}
-            variant="titleMedium"
-          >
-            100 Pkr
-          </Text>
-        </View> */}
         <TextInput
           keyboardType="numeric"
           mode="outlined"
@@ -156,18 +145,20 @@ const Bidding = ({ route }, props) => {
         />
         <TouchableOpacity
           onPress={() => {
-            dispatch(
-              createBid(cars[0], amount, userData.id, userData.bidedDrivers)
-            );
-            navigation.navigate("riderequest");
+            if (amount) {
+              dispatch(
+                createBid(cars[0], amount, userData.id, userData.bidedDrivers)
+              )
+              navigation.navigate("Home")
+            }
           }}
-          style={styles.btn}
+          style={{ ...styles.btn, opacity: amount ? 1 : 0.5 }}
         >
           <Text style={styles.btnText}>Bid</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            navigation.goBack();
+            navigation.goBack()
           }}
           style={styles.btn2}
         >
@@ -175,10 +166,10 @@ const Bidding = ({ route }, props) => {
         </TouchableOpacity>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default Bidding;
+export default Bidding
 
 const styles = StyleSheet.create({
   img: {
@@ -213,4 +204,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
-});
+})

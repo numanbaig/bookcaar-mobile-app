@@ -6,22 +6,22 @@ import {
   Text,
   TouchableOpacity,
   ActivityIndicator,
-} from "react-native";
-import React, { useEffect } from "react";
-import { Entypo, Ionicons } from "@expo/vector-icons";
-import { Card, Title, Paragraph } from "react-native-paper";
-import { getDriverBidding } from "../../store/services/Bidding";
-import { useDispatch, useSelector } from "react-redux";
-import { driverBids } from "../../store/slices/biddingSlice";
+} from "react-native"
+import React, { useEffect } from "react"
+import { Entypo, Ionicons } from "@expo/vector-icons"
+import { Card, Title, Paragraph } from "react-native-paper"
+import { getDriverBidding } from "../../store/services/Bidding"
+import { useDispatch, useSelector } from "react-redux"
+import { driverBids } from "../../store/slices/biddingSlice"
 const RideRequest = (props) => {
-  const { navigation } = props;
-  const dispatch = useDispatch();
-  const biddingList = useSelector((state) => state.bidding.rideRequest);
+  const { navigation } = props
+  const dispatch = useDispatch()
+  const biddingList = useSelector((state) => state.bidding.rideRequest)
 
   useEffect(() => {
-    dispatch(getDriverBidding());
-  }, []);
-  console.log(biddingList, "bidding list");
+    dispatch(getDriverBidding())
+  }, [])
+  console.log(biddingList, "bidding list")
   return (
     <View>
       <View
@@ -37,7 +37,7 @@ const RideRequest = (props) => {
       >
         <TouchableOpacity
           onPress={() => {
-            navigation.openDrawer();
+            navigation.openDrawer()
           }}
         >
           <Entypo name="menu" color="#09A391" size={25} />
@@ -56,12 +56,7 @@ const RideRequest = (props) => {
           <View
             style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
           >
-            <ActivityIndicator
-              animating={true}
-              color="#09A391"
-              size="large"
-              style={styles.activityIndicator}
-            />
+            <Text>No Rides</Text>
           </View>
         ) : (
           biddingList?.map((e, index) => {
@@ -145,15 +140,15 @@ const RideRequest = (props) => {
                   </View>
                 </View>
               </Card>
-            );
+            )
           })
         )}
       </ScrollView>
     </View>
-  );
-};
+  )
+}
 
-export default RideRequest;
+export default RideRequest
 
 const styles = StyleSheet.create({
   img: {
@@ -195,4 +190,4 @@ const styles = StyleSheet.create({
     borderColor: "blue",
     borderWidth: 0.5,
   },
-});
+})

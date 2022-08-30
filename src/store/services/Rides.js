@@ -23,15 +23,15 @@ export const getActiveRides = () => async (dispatch, getState) => {
       where("completed", "==", false),
       where("hiredRiderId", "==", state.user.user)
     )
-    const bidsQ = query(
-      doc(db, "car-request"),
-      where("completed", "==", false),
-      where("hiredRiderId", "==", state.user.user),
-      "bids",
-      state.user.user
-    )
+    // const bidsQ = query(
+    //   doc(db, "car-request"),
+    //   where("completed", "==", false),
+    //   where("hiredRiderId", "==", state.user.user),
+    //   "bids",
+    //   state.user.user
+    // )
 
-    const bidSnapshot = await getDoc(bidsQ)
+    // const bidSnapshot = await getDoc(bidsQ)
 
     onSnapshot(q, (querySnapshot) => {
       let bidding = []
@@ -39,7 +39,7 @@ export const getActiveRides = () => async (dispatch, getState) => {
         bidding.push({
           id: doc.id,
           ...doc.data(),
-          amount: bidSnapshot().amount,
+          // amount: bidSnapshot().amount,
         })
       })
 
@@ -74,12 +74,12 @@ export const getRidesHistory = () => async (dispatch, getState) => {
   }
 }
 
-export const endRide = () => async (dispatch, getState) => {
+export const endRide = (id) => async (dispatch, getState) => {
   try {
     const db = getFirestore()
     const state = getState()
 
-    await updateDoc(doc(db, "car-request", state.user.user), {
+    await updateDoc(query(doc(db, "car-request", id)), {
       completed: true,
     })
   } catch (err) {

@@ -54,10 +54,7 @@ const SignUp = () => {
 
     setGalleryPermission(imagePermission.status === "granted")
 
-    if (
-      imagePermission.status !== "granted" &&
-      cameraPermission.status !== "granted"
-    ) {
+    if (imagePermission.status !== "granted") {
       alert("Permission for media access needed.")
     }
   }
@@ -66,9 +63,9 @@ const SignUp = () => {
   }, [])
 
   if (user) {
-    navigation.navigate("AddCarDetails")
+    navigation.replace("AddCarDetails")
+    console.log(user, "userheress")
   }
-
   return (
     <>
       <Formik

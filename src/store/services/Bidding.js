@@ -136,8 +136,11 @@ export const getDriverBidding = () => async (dispatch, getState) => {
   let request = []
   const db = getFirestore()
   const state = getState()
-
-  const querySnapshot = await getDocs(collection(db, "car-request"))
+  const q = query(
+    collection(db, "car-request"),
+    where("completed", "==", false)
+  )
+  const querySnapshot = await getDocs(q)
   await querySnapshot.forEach((doc) => {
     if (doc.data()?.bidedDrivers?.includes(state.user.user)) {
       request.push({ rideId: doc.id, ...doc.data() })

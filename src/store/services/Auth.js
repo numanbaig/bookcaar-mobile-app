@@ -59,10 +59,10 @@ export const createUserWithEmail = (values) => async (dispatch) => {
         uid: userCredential.user.uid,
         name: values.name,
         email: values.email,
-        cnicUrl: cnicUrl,
+        cnicUrl: cnicUrl || "",
         profileImage: profileImage || "",
-        phoneNumber: values.phoneNumber,
-        cnic: values.cnic,
+        phoneNumber: values.phoneNumber || 0,
+        cnic: values.cnic || "",
         metadata: {
           createdAt: userCredential.user.metadata.createdAt,
           creationTime: userCredential.user.metadata.creationTime,
@@ -72,23 +72,19 @@ export const createUserWithEmail = (values) => async (dispatch) => {
       }
     )
   } catch (err) {
+    console.log("ee", e)
   } finally {
     dispatch(toogleAuthLoading())
   }
 }
 
-export const loginWithEmail = createAsyncThunk(
-  "users/loginWithEmail",
+export const loginWithEmail =
+  (dispatch, getState) =>
   async ({ email, password }) => {
-    console.log("login", login)
-    return await signInWithEmailAndPassword(auth, email, password).then(
-      (userCredential) => {
-        const user = userCredential.user
-        return user
-      }
-    )
+    const auth = getAuth()
+    const user = await signInWithEmailAndPassword(auth, email, password)
+    dispatch(userAdded(user?.user?.uid))
   }
-)
 
 export const getCurrentUser = () => async (dispatch) => {
   try {
