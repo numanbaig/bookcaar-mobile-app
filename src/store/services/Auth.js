@@ -105,7 +105,6 @@ export const getCurrentUser = () => async (dispatch) => {
 
         if (docSnap.exists() || carSnap.exists()) {
           const currentUser = docSnap?.data()
-          const currentCar = carSnap[0]?.data()
 
           carSnap.forEach((doc) => {
             cars.push({ id: doc.id, ...doc.data() })

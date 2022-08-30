@@ -241,7 +241,9 @@ const SignUp = () => {
               onPress={handleSubmit}
             >
               <Text style={styles.buttonTextStyle}>
-                {isSignUpLoading ? "Loading..." : "Sign Up"}
+                {isSignUpLoading
+                  ? "Please Wait It will take a while"
+                  : "Sign Up"}
               </Text>
             </TouchableOpacity>
           </View>

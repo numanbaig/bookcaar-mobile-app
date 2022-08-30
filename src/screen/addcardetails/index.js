@@ -28,9 +28,6 @@ const AddCarDetails = () => {
     carImages: yup.string().required(" Required"),
   })
 
-  if (carAdded) {
-    navigation.navigate("Home")
-  }
   return (
     <View style={styles.mainBody}>
       <Formik
@@ -86,7 +83,7 @@ const AddCarDetails = () => {
             >
               <TextInput
                 style={styles.inputStyle}
-                placeholder="Vehical Registration Number(Number Plate)"
+                placeholder="Vehical Model"
                 placeholderTextColor="#8b9cb5"
                 onChangeText={handleChange("vehicalName")}
                 value={values.vehicalName}
@@ -175,6 +172,7 @@ const AddCarDetails = () => {
               activeOpacity={0.5}
               onPress={() => {
                 handleSubmit()
+                navigation.navigate("Home")
               }}
 
               // navigation.navigate("Home")
