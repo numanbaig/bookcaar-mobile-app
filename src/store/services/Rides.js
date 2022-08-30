@@ -24,12 +24,26 @@ export const getActiveRides = () => async (dispatch, getState) => {
       where("completed", "==", false),
       where("hiredRiderId", "==", state.user.user)
     )
+    const bidsQ = query(
+      doc(db, "car-request"),
+      where("completed", "==", false),
+      where("hiredRiderId", "==", state.user.user),
+      "bids",
+      state.user.user
+    )
+
+    const bidSnapshot = await getDoc(bidsQ)
 
     onSnapshot(q, (querySnapshot) => {
       let bidding = []
       querySnapshot.forEach((doc) => {
-        bidding.push({ id: doc.id, ...doc.data() })
+        bidding.push({
+          id: doc.id,
+          ...doc.data(),
+          amount: bidSnapshot().amount,
+        })
       })
+
       console.log("ss")
       dispatch(setActiveRides(bidding))
     })
