@@ -12,7 +12,8 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setBiddingList(state, action) {
-      state.bidding = action.payload
+      const bidding = action.payload
+      state.bidding = bidding
     },
     currentDriverBids(state, action) {
       state.driverBids = action.payload
