@@ -1,20 +1,21 @@
-import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native"
-import { Entypo, Ionicons } from "@expo/vector-icons"
-import React, { useEffect } from "react"
-import { Card } from "react-native-paper"
-import Maps from "../../components/map"
-import { Linking } from "react-native"
-import { getActiveRides } from "../../store/services/Rides"
-import { useDispatch, useSelector } from "react-redux"
-const RideDetail = (props) => {
-  const { navigation } = props
-  const dispatch = useDispatch()
-  const activeRides = useSelector((state) => state.rides.rides)
-  console.log("ss", activeRides)
+import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { Entypo, Ionicons } from "@expo/vector-icons";
+import React, { useEffect } from "react";
+import { Card } from "react-native-paper";
+import Maps from "../../components/map";
+import { useNavigation } from "@react-navigation/native";
+import { Linking } from "react-native";
+import { getActiveRides } from "../../store/services/Rides";
+import { useDispatch, useSelector } from "react-redux";
+const RideDetail = () => {
+  const navigation = useNavigation();
+
+  const dispatch = useDispatch();
+  const activeRides = useSelector((state) => state?.rides?.rides);
 
   useEffect(() => {
-    dispatch(getActiveRides())
-  }, [])
+    dispatch(getActiveRides());
+  }, []);
   return (
     <>
       {!activeRides.length ? (
@@ -40,10 +41,10 @@ const RideDetail = (props) => {
             <Card.Content style={{ padding: 25 }}>
               <View style={{ flexDirection: "row", paddingTop: 10 }}>
                 <Text style={{ width: 150, fontSize: 16, fontWeight: "bold" }}>
-                  Date
+                  Client
                 </Text>
                 <Text style={{ fontSize: 16, color: "#09A391" }}>
-                  10am July 2020
+                  {activeRides[0]?.requestedUser?.displayName}
                 </Text>
               </View>
               <View style={{ flexDirection: "row", paddingTop: 10 }}>
@@ -51,7 +52,7 @@ const RideDetail = (props) => {
                   From:
                 </Text>
                 <Text style={{ fontSize: 16, color: "#09A391" }}>
-                  Jutyal,Gilgit
+                  {activeRides[0]?.pickUpLocation?.label}
                 </Text>
               </View>
               <View style={{ flexDirection: "row", paddingTop: 10 }}>
@@ -59,17 +60,52 @@ const RideDetail = (props) => {
                   Destination:
                 </Text>
                 <Text style={{ fontSize: 16, color: "#09A391" }}>
-                  Hunza,Gilgit
+                  {activeRides[0]?.dropOfLocation?.label}
                 </Text>
               </View>
               <View style={{ flexDirection: "row", paddingTop: 10 }}>
                 <Text style={{ width: 150, fontSize: 16, fontWeight: "bold" }}>
                   Fare:
                 </Text>
-                <Text style={{ fontSize: 16, color: "#09A391" }}>Rs3000</Text>
+                <Text style={{ fontSize: 16, color: "#09A391" }}>
+                  Rs {activeRides[0]?.dropOfLocation?.amount || 0}
+                </Text>
               </View>
             </Card.Content>
           </Card>
+          {activeRides[0]?.requestedUser && (
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#09A391",
+                borderWidth: 0,
+                color: "#FFFFFF",
+                borderColor: "#7DE24E",
+                height: 50,
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 10,
+                marginLeft: 15,
+                marginRight: 15,
+                marginVertical: 10,
+              }}
+              activeOpacity={0.5}
+            >
+              <Text
+                onPress={() => {
+                  Linking.openURL(
+                    `tel:${activeRides[0]?.requestedUser?.phoneNumber}`
+                  );
+                }}
+                style={{
+                  color: "#FFFFFF",
+                  paddingVertical: 10,
+                  fontSize: 18,
+                }}
+              >
+                CALL
+              </Text>
+            </TouchableOpacity>
+          )}
           <TouchableOpacity
             style={{
               backgroundColor: "#09A391",
@@ -82,31 +118,27 @@ const RideDetail = (props) => {
               borderRadius: 10,
               marginLeft: 15,
               marginRight: 15,
-              marginVertical: 18,
+              marginVertical: 5,
             }}
             activeOpacity={0.5}
           >
             <Text
-              onPress={() => {
-                Linking.openURL(
-                  `tel:${activeRides?.requestedUser?.phoneNumber}`
-                )
-              }}
+              onPress={() => {}}
               style={{
                 color: "#FFFFFF",
                 paddingVertical: 10,
                 fontSize: 18,
               }}
             >
-              CALL
+              End Ride
             </Text>
           </TouchableOpacity>
         </View>
       )}
     </>
-  )
-}
+  );
+};
 
-export default RideDetail
+export default RideDetail;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

@@ -105,23 +105,6 @@ const AddCar = () => {
               />
             </View>
             <View style={styles.SectionStyle}>
-              {/* <DropDownPicker
-                placeholder="Select Seats"
-                value={values.seats}
-                selectedValue={values.seats}
-                items={[
-                  { label: "1", value: "1" },
-                  { label: "2", value: "2" },
-                  { label: "3", value: "3" },
-                  { label: "4", value: "4" },
-                ]}
-                defaultIndex={0}
-                containerStyle={{ height: 40 }}
-                onChange={(item) => {
-                  setFieldValue("carType", nextValue);
-                }}
-              />
-            </View> */}
               <View style={styles.SectionStyle}>
                 <Picker
                   style={styles.defaultPicker}
@@ -200,8 +183,6 @@ const AddCar = () => {
               style={styles.buttonStyle}
               activeOpacity={0.5}
               onPress={handleSubmit}
-
-              // navigation.navigate("Home")
             >
               <Text style={styles.buttonTextStyle}>Submit</Text>
             </TouchableOpacity>

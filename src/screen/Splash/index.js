@@ -8,19 +8,16 @@ const Splash = () => {
   const navigation = useNavigation();
   const user = useSelector(currentUser);
   const loading = useSelector(appLoading);
-
-  console.log("appLoading", loading);
   if (user && !loading) {
-    navigation.navigate("Home");
+    navigation.replace("Home");
   }
   if (!user && !loading) {
-    navigation.navigate("SignIn");
+    navigation.replace("SignIn");
   }
-
   return (
     <View style={styles.container}>
       <Image
-        source={require("../../../assets/appLogo.png")}
+        source={require("../../../assets/appLogo2.png")}
         style={{ resizeMode: "contain", height: 350 }}
       />
       <ActivityIndicator
