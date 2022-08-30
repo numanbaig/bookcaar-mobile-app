@@ -5,20 +5,20 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
-} from "react-native"
-import React, { useEffect } from "react"
-import { Entypo, Ionicons } from "@expo/vector-icons"
-import { Paragraph, Card } from "react-native-paper"
-import { useDispatch, useSelector } from "react-redux"
-import { getRidesHistory } from "../../store/services/Rides"
+} from "react-native";
+import React, { useEffect } from "react";
+import { Entypo, Ionicons } from "@expo/vector-icons";
+import { Paragraph, Card } from "react-native-paper";
+import { useDispatch, useSelector } from "react-redux";
+import { getRidesHistory } from "../../store/services/Rides";
 const RideHistory = (props) => {
-  const { navigation } = props
-  const dispatch = useDispatch()
-  const ridesHistory = useSelector((state) => state.rides.ridesHistory)
+  const { navigation } = props;
+  const dispatch = useDispatch();
+  const ridesHistory = useSelector((state) => state.rides.ridesHistory);
   useEffect(() => {
-    dispatch(getRidesHistory())
-  }, [])
-
+    dispatch(getRidesHistory());
+  }, []);
+  console.log(ridesHistory, "ridesHistory");
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -34,7 +34,7 @@ const RideHistory = (props) => {
       >
         <TouchableOpacity
           onPress={() => {
-            navigation.openDrawer()
+            navigation.openDrawer();
           }}
         >
           <Entypo name="menu" color="#09A391" size={25} />
@@ -105,10 +105,10 @@ const RideHistory = (props) => {
         ))}
       </ScrollView>
     </View>
-  )
-}
+  );
+};
 
-export default RideHistory
+export default RideHistory;
 const styles = StyleSheet.create({
   img: {
     height: 80,
@@ -149,4 +149,4 @@ const styles = StyleSheet.create({
     borderColor: "blue",
     borderWidth: 0.5,
   },
-})
+});

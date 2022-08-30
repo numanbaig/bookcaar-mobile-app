@@ -1,25 +1,25 @@
-import React from "react"
-import { View, StyleSheet, Text, Image } from "react-native"
-import { DrawerItem, DrawerContentScrollView } from "@react-navigation/drawer"
+import React from "react";
+import { View, StyleSheet, Text, Image } from "react-native";
+import { DrawerItem, DrawerContentScrollView } from "@react-navigation/drawer";
 import {
   MaterialCommunityIcons,
   Fontisto,
   FontAwesome5,
   AntDesign,
   Entypo,
-} from "@expo/vector-icons"
-import user from "../../assets/user.jpg"
-import { Rating, AirbnbRating } from "react-native-ratings"
-import { useNavigation } from "@react-navigation/native"
-import { signOutUser } from "../store/services/Auth"
-import { currentUser } from "../store/slices/userSlice"
-import { useDispatch, useSelector } from "react-redux"
+} from "@expo/vector-icons";
+import user from "../../assets/user.jpg";
+import { Rating, AirbnbRating } from "react-native-ratings";
+import { useNavigation } from "@react-navigation/native";
+import { signOutUser } from "../store/services/Auth";
+import { currentUser } from "../store/slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 const DrawerContent = ({ ...props }) => {
-  const navigation = useNavigation()
-  const dispatch = useDispatch()
-  const user = useSelector(currentUser)
-  const ratingCompleted = (rating) => {}
-  console.log(user, "user here")
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const user = useSelector(currentUser);
+  const ratingCompleted = (rating) => {};
+  console.log(user, "user here");
   return (
     <View style={{ flex: 1, backgroundColor: "#09A391" }}>
       <DrawerContentScrollView {...props}>
@@ -77,7 +77,7 @@ const DrawerContent = ({ ...props }) => {
               )}
               label="Home"
               onPress={() => {
-                navigation.navigate("Dashboard")
+                navigation.navigate("Dashboard");
               }}
             />
             <DrawerItem
@@ -91,7 +91,7 @@ const DrawerContent = ({ ...props }) => {
               )}
               label="Add Car"
               onPress={() => {
-                navigation.navigate("AddCarDetails")
+                navigation.navigate("AddCarDetails");
               }}
             />
             <DrawerItem
@@ -113,20 +113,8 @@ const DrawerContent = ({ ...props }) => {
               )}
               label="My Income"
               onPress={() => {
-                navigation.navigate("income")
+                navigation.navigate("income");
               }}
-            />
-            <DrawerItem
-              style={{ borderColor: "white" }}
-              labelStyle={{
-                fontSize: 18,
-                color: "white",
-              }}
-              icon={({ color, size }) => (
-                <Entypo name="bar-graph" color="white" size={size} />
-              )}
-              label="Rating"
-              onPress={() => {}}
             />
             <DrawerItem
               style={{ borderColor: "white" }}
@@ -138,8 +126,23 @@ const DrawerContent = ({ ...props }) => {
                 <AntDesign name="contacts" color="white" size={size} />
               )}
               label="My Account"
+              onPress={() => {
+                navigation.navigate("account");
+              }}
+            />
+            <DrawerItem
+              style={{ borderColor: "white" }}
+              labelStyle={{
+                fontSize: 18,
+                color: "white",
+              }}
+              icon={({ color, size }) => (
+                <Entypo name="bar-graph" color="white" size={size} />
+              )}
+              label="My Rating"
               onPress={() => {}}
             />
+
             <DrawerItem
               style={{ borderColor: "white" }}
               labelStyle={{
@@ -187,16 +190,16 @@ const DrawerContent = ({ ...props }) => {
               )}
               label="Logout"
               onPress={() => {
-                dispatch(signOutUser())
+                dispatch(signOutUser());
               }}
             />
           </View>
         </View>
       </DrawerContentScrollView>
     </View>
-  )
-}
-export default DrawerContent
+  );
+};
+export default DrawerContent;
 const styles = StyleSheet.create({
   drawerContent: {
     flex: 1,
@@ -251,4 +254,4 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 16,
   },
-})
+});

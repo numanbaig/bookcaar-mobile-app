@@ -200,8 +200,6 @@ const AddCar = () => {
               style={styles.buttonStyle}
               activeOpacity={0.5}
               onPress={handleSubmit}
-
-              // navigation.navigate("Home")
             >
               <Text style={styles.buttonTextStyle}>Submit</Text>
             </TouchableOpacity>

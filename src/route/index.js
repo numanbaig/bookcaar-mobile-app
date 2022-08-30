@@ -15,6 +15,7 @@ import AddCar from "../screen/addCar";
 import RideDetail from "../screen/ridedetails/rideDetail";
 import { appLoading, toggleAppLoading } from "../store/slices/userSlice";
 import { Modal, Portal, Provider } from "react-native-paper";
+import Account from "../screen/account";
 const Stack = createNativeStackNavigator();
 const Route = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,11 @@ const Route = () => {
         <Stack.Screen
           name="SignIn"
           component={SignIn}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="account"
+          component={Account}
           options={{ headerShown: false }}
         />
         <Stack.Screen

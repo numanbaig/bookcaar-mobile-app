@@ -159,7 +159,7 @@ const Bidding = ({ route }, props) => {
             dispatch(
               createBid(cars[0], amount, userData.id, userData.bidedDrivers)
             );
-            navigation.replace("Home");
+            navigation.navigate("riderequest");
           }}
           style={styles.btn}
         >

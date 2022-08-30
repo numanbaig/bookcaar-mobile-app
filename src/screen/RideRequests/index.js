@@ -93,11 +93,13 @@ const RideRequest = (props) => {
                         />
                       )}
                     </Card.Content>
-                    <Card.Content>
+                    <Card.Content style={{ flex: 1, alignItems: "center" }}>
                       <Paragraph style={{ fontSize: 16, fontWeight: "bold" }}>
                         {e?.name}
                       </Paragraph>
-                      <Paragraph>{e?.pickupTiming}</Paragraph>
+                      {/* <Paragraph style={{ fontSize: 16, fontWeight: "bold" }}>
+                        {e?.time}
+                      </Paragraph> */}
                     </Card.Content>
                   </View>
                   <View
@@ -106,15 +108,25 @@ const RideRequest = (props) => {
                       justifyContent: "center",
                     }}
                   >
-                    <Text>Pickup Location:{e?.pickupLocation}</Text>
-                    <Text>Drop Location: {e?.dropLocation}</Text>
+                    <Text>Pickup Location:{e?.pickUpLocation?.label}</Text>
+                    <Text>Drop Location: {e?.dropOfLocation?.label}</Text>
                     <Text>Booking Type: {e?.bookingType}</Text>
-                    <Text>Status: {e?.status ? "Active" : "Pending"}</Text>
                     {e?.bookingType === "Per Day" ? (
-                      <Text>Booking Days: {e?.bookingDay}</Text>
+                      <Text>Booking Days: {e?.numberofdays}</Text>
                     ) : (
                       <Text></Text>
                     )}
+                    <Text>
+                      Status:
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {e?.status ? "Active" || "active" : "Pending"}
+                      </Text>
+                    </Text>
                     <View style={{ display: "flex", flexDirection: "row" }}>
                       {/* <TouchableOpacity onPress={() => {}} style={styles.btn2}>
                         <Text style={styles.btnText2}>Remove</Text>

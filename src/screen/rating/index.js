@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import { Paragraph } from "react-native-paper";
-const Rating = (props) => {
-  const { navigation } = props;
-
+const Rating = () => {
+  const navigation = useNavigation();
   return (
     <View style={{ flex: 1 }}>
       <View
