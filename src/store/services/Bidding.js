@@ -140,14 +140,21 @@ export const getDriverBidding = () => async (dispatch, getState) => {
   const querySnapshot = await getDocs(collection(db, "car-request"))
   await querySnapshot.forEach((doc) => {
     if (doc.data()?.bidedDrivers?.includes(state.user.user)) {
-      request.push(doc.id)
+      request.push({ rideId: doc.id, ...doc.data() })
     }
   })
 
   for (let i = 0; i < request.length; i++) {
-    let q = query(doc(db, "car-request", request[i], "bids", state.user.user))
+    let q = query(
+      doc(db, "car-request", request[i].rideId, "bids", state.user.user)
+    )
     const bidSnapshot = await getDoc(q)
-    bidding.push({ id: bidSnapshot.id, ...bidSnapshot.data() })
+    bidding.push({
+      id: bidSnapshot.id,
+      ...bidSnapshot.data(),
+      rideId: request[i].rideId,
+      ...request[i],
+    })
   }
   dispatch(driverBidsList(bidding))
 }
